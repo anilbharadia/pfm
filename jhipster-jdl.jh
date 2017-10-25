@@ -9,9 +9,18 @@ entity Person {
 }
 
 entity BankAccount {
-	name String required,
     acNumber String required,
-	balance BigDecimal
+    ifsc String,
+    micr String
+}
+
+entity Account {
+	name String required,
+    balance BigDecimal,
+}
+
+relationship OneToOne {
+	Account{bankAccount} to BankAccount{account}
 }
 
 relationship ManyToOne {
@@ -19,26 +28,26 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	BankAccount{person} to Person
+	Account{owner} to Person
 }
 
 entity Transaction {
 	amount BigDecimal required,
     desc String required,
     date Instant required,
-    ignoreExpense Boolean required
+    isTransfer Boolean required
 }
 
 relationship ManyToOne {
-	Transaction{paidBy} to Person
+	Transaction{account} to Account
+}
+
+entity TransactionCategory {
+	name String required
 }
 
 relationship ManyToOne {
-	Transaction{debitAc} to BankAccount
-}
-
-relationship ManyToOne {
-	Transaction{creditAc} to BankAccount
+	Transaction{category} to TransactionCategory
 }
 
 paginate * with pagination
