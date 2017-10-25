@@ -1,0 +1,48 @@
+
+
+entity Bank {
+	name String required
+}
+
+entity Person {
+	name String required
+}
+
+entity BankAccount {
+	name String required,
+    acNumber String required,
+	balance BigDecimal
+}
+
+relationship ManyToOne {
+	BankAccount{bank} to Bank
+}
+
+relationship ManyToOne {
+	BankAccount{person} to Person
+}
+
+entity Transaction {
+	amount BigDecimal required,
+    desc String required,
+    date Instant required,
+    ignoreExpense Boolean required
+}
+
+relationship ManyToOne {
+	Transaction{paidBy} to Person
+}
+
+relationship ManyToOne {
+	Transaction{debitAc} to BankAccount
+}
+
+relationship ManyToOne {
+	Transaction{creditAc} to BankAccount
+}
+
+paginate * with pagination
+
+dto * with mapstruct
+
+service all with serviceImpl
