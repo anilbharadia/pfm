@@ -1,0 +1,41 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "bank",
+            "otherEntityName": "bank",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "account",
+            "otherEntityName": "myAccount",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "bankAccount"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "acNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ifsc",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "micr",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171107054811",
+    "entityTableName": "bank_account",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

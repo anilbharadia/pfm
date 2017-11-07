@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "transactionCategory" : {
+            "home": {
+                "title": "Transaction Categories",
+                "createLabel": "Create a new Transaction Category",
+                "createOrEditLabel": "Create or edit a Transaction Category"
+            },
+            "created": "A new Transaction Category is created with identifier {{ param }}",
+            "updated": "A Transaction Category is updated with identifier {{ param }}",
+            "deleted": "A Transaction Category is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Transaction Category {{ id }}?"
+            },
+            "detail": {
+                "title": "Transaction Category"
+            },
+            "name": "Name"
+        }
+    }
+}

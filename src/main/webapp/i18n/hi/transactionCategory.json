@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "transactionCategory" : {
+            "home": {
+                "title": "TransactionCategories",
+                "createLabel": "नया Transaction Category बनाएँ",
+                "createOrEditLabel": "Transaction Category बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Transaction Category [identifier: {{ param }}] तैयार है",
+            "updated": "एक Transaction Category [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Transaction Category [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Transaction Category [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Transaction Category"
+            },
+            "name": "Name"
+        }
+    }
+}

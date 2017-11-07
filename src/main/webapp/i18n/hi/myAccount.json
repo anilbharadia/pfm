@@ -1,0 +1,24 @@
+{
+    "pfmApp": {
+        "myAccount" : {
+            "home": {
+                "title": "MyAccounts",
+                "createLabel": "नया My Account बनाएँ",
+                "createOrEditLabel": "My Account बनाएँ या संपादित करें"
+            },
+            "created": "एक नया My Account [identifier: {{ param }}] तैयार है",
+            "updated": "एक My Account [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "My Account [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "My Account [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "My Account"
+            },
+            "name": "Name",
+            "balance": "Balance",
+            "bankAccount": "Bank Account",
+            "owner": "Owner"
+        }
+    }
+}

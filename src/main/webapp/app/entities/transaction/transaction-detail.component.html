@@ -1,0 +1,49 @@
+
+<div *ngIf="transaction">
+    <h2><span jhiTranslate="pfmApp.transaction.detail.title">Transaction</span> {{transaction.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.transaction.amount">Amount</span></dt>
+        <dd>
+            <span>{{transaction.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.desc">Desc</span></dt>
+        <dd>
+            <span>{{transaction.desc}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.date">Date</span></dt>
+        <dd>
+            <span>{{transaction.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.isTransfer">Is Transfer</span></dt>
+        <dd>
+            <span>{{transaction.isTransfer}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.account">Account</span></dt>
+        <dd>
+            <div *ngIf="transaction.accountId">
+                <a [routerLink]="['/my-account', transaction.accountId]">{{transaction.accountId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.category">Category</span></dt>
+        <dd>
+            <div *ngIf="transaction.categoryId">
+                <a [routerLink]="['/transaction-category', transaction.categoryId]">{{transaction.categoryId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

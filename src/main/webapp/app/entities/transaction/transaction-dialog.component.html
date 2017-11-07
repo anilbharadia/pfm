@@ -1,0 +1,93 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTransactionLabel" jhiTranslate="pfmApp.transaction.home.createOrEditLabel">Create or edit a Transaction</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!transaction.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="transaction.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="transaction.amount" required />
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.desc" for="field_desc">Desc</label>
+            <input type="text" class="form-control" name="desc" id="field_desc"
+                [(ngModel)]="transaction.desc" required />
+            <div [hidden]="!(editForm.controls.desc?.dirty && editForm.controls.desc?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.desc?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.date" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="transaction.date"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.isTransfer" for="field_isTransfer">Is Transfer</label>
+            <input type="checkbox" class="form-control" name="isTransfer" id="field_isTransfer"
+                [(ngModel)]="transaction.isTransfer"  />
+            <div [hidden]="!(editForm.controls.isTransfer?.dirty && editForm.controls.isTransfer?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.isTransfer?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.account" for="field_account">Account</label>
+            <select class="form-control" id="field_account" name="account" [(ngModel)]="transaction.accountId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="myAccountOption.id" *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">{{myAccountOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.category" for="field_category">Category</label>
+            <select class="form-control" id="field_category" name="category" [(ngModel)]="transaction.categoryId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="transactionCategoryOption.id" *ngFor="let transactionCategoryOption of transactioncategories; trackBy: trackTransactionCategoryById">{{transactionCategoryOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

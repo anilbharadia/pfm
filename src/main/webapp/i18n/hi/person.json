@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "person" : {
+            "home": {
+                "title": "People",
+                "createLabel": "नया Person बनाएँ",
+                "createOrEditLabel": "Person बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Person [identifier: {{ param }}] तैयार है",
+            "updated": "एक Person [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Person [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Person [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Person"
+            },
+            "name": "Name"
+        }
+    }
+}

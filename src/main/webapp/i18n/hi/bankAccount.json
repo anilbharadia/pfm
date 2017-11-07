@@ -1,0 +1,25 @@
+{
+    "pfmApp": {
+        "bankAccount" : {
+            "home": {
+                "title": "BankAccounts",
+                "createLabel": "नया Bank Account बनाएँ",
+                "createOrEditLabel": "Bank Account बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Bank Account [identifier: {{ param }}] तैयार है",
+            "updated": "एक Bank Account [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Bank Account [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Bank Account [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Bank Account"
+            },
+            "acNumber": "Ac Number",
+            "ifsc": "Ifsc",
+            "micr": "Micr",
+            "bank": "Bank",
+            "account": "Account"
+        }
+    }
+}

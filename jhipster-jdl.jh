@@ -14,13 +14,13 @@ entity BankAccount {
     micr String
 }
 
-entity Account {
+entity MyAccount {
 	name String required,
     balance BigDecimal,
 }
 
 relationship OneToOne {
-	Account{bankAccount} to BankAccount{account}
+	MyAccount{bankAccount} to BankAccount{account}
 }
 
 relationship ManyToOne {
@@ -28,7 +28,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	Account{owner} to Person
+	MyAccount{owner} to Person
 }
 
 entity Transaction {
@@ -39,7 +39,7 @@ entity Transaction {
 }
 
 relationship ManyToOne {
-	Transaction{account} to Account
+	Transaction{account} to MyAccount
 }
 
 entity TransactionCategory {
