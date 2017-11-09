@@ -1,3 +1,4 @@
+import { PersonService } from './../person/person.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
@@ -19,6 +20,7 @@ export class MyAccountDetailComponent implements OnInit, OnDestroy {
     constructor(
         private eventManager: JhiEventManager,
         private myAccountService: MyAccountService,
+        private personService: PersonService,
         private route: ActivatedRoute
     ) {
     }
@@ -33,8 +35,17 @@ export class MyAccountDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.myAccountService.find(id).subscribe((myAccount) => {
             this.myAccount = myAccount;
+            console.log('loaded account object ', this.myAccount);
+            this.loadOwner();
         });
     }
+
+    loadOwner() {
+        this.personService.find(this.myAccount.ownerId).subscribe((owner) => {
+            this.myAccount.owner = owner;
+        });
+    }
+
     previousState() {
         window.history.back();
     }

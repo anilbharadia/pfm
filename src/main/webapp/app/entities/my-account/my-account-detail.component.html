@@ -21,7 +21,7 @@
         <dt><span jhiTranslate="pfmApp.myAccount.owner">Owner</span></dt>
         <dd>
             <div *ngIf="myAccount.ownerId">
-                <a [routerLink]="['/person', myAccount.ownerId]">{{myAccount.ownerId}}</a>
+                <a [routerLink]="['/person', myAccount.ownerId]">{{myAccount.owner?.name}}</a>
             </div>
         </dd>
     </dl>

@@ -1,0 +1,13 @@
+<p>
+  account-widget works!
+</p>
+<div class="card" style="width: 20rem;">
+  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+  <div class="card-body">
+    <h4 class="card-title">{{account?.name}}</h4>
+    <h3 class="card-text">
+      {{account?.balance | currency:'INR':'symbol'}}
+    </h3>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
