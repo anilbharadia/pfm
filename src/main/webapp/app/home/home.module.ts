@@ -1,3 +1,4 @@
+import { AccountsWidgetComponent } from './../accounts-widget/accounts-widget.component';
 import { AccountWidgetComponent } from './../account-widget/account-widget.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -13,7 +14,8 @@ import { HOME_ROUTE, HomeComponent } from './';
     ],
     declarations: [
         HomeComponent,
-        AccountWidgetComponent
+        AccountWidgetComponent,
+        AccountsWidgetComponent
     ],
     entryComponents: [
     ],
