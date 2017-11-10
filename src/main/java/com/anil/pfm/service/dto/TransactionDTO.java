@@ -30,7 +30,11 @@ public class TransactionDTO implements Serializable {
 
     private Long accountId;
 
-    private Long categoryId;
+    private Long txTypeId;
+
+    private Long expenseCategoryId;
+
+    private Long incomeCategoryId;
 
     public Long getId() {
         return id;
@@ -80,12 +84,28 @@ public class TransactionDTO implements Serializable {
         this.accountId = myAccountId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Long getTxTypeId() {
+        return txTypeId;
     }
 
-    public void setCategoryId(Long transactionCategoryId) {
-        this.categoryId = transactionCategoryId;
+    public void setTxTypeId(Long transactionTypeId) {
+        this.txTypeId = transactionTypeId;
+    }
+
+    public Long getExpenseCategoryId() {
+        return expenseCategoryId;
+    }
+
+    public void setExpenseCategoryId(Long expenseCategoryId) {
+        this.expenseCategoryId = expenseCategoryId;
+    }
+
+    public Long getIncomeCategoryId() {
+        return incomeCategoryId;
+    }
+
+    public void setIncomeCategoryId(Long incomeCategoryId) {
+        this.incomeCategoryId = incomeCategoryId;
     }
 
     @Override

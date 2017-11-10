@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "incomeCategory" : {
+            "home": {
+                "title": "IncomeCategories",
+                "createLabel": "नया Income Category बनाएँ",
+                "createOrEditLabel": "Income Category बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Income Category [identifier: {{ param }}] तैयार है",
+            "updated": "एक Income Category [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Income Category [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Income Category [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Income Category"
+            },
+            "name": "Name",
+            "parent": "Parent",
+            "subCategories": "Sub Categories"
+        }
+    }
+}

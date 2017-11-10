@@ -47,6 +47,11 @@ public class CacheConfiguration {
             cm.createCache(com.anil.pfm.domain.MyAccount.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.Transaction.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.TransactionCategory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.TransactionType.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.ExpenseCategory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.ExpenseCategory.class.getName() + ".subCategories", jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.IncomeCategory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.IncomeCategory.class.getName() + ".subCategories", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

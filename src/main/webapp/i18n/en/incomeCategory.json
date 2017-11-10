@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "incomeCategory" : {
+            "home": {
+                "title": "Income Categories",
+                "createLabel": "Create a new Income Category",
+                "createOrEditLabel": "Create or edit a Income Category"
+            },
+            "created": "A new Income Category is created with identifier {{ param }}",
+            "updated": "A Income Category is updated with identifier {{ param }}",
+            "deleted": "A Income Category is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Income Category {{ id }}?"
+            },
+            "detail": {
+                "title": "Income Category"
+            },
+            "name": "Name",
+            "parent": "Parent",
+            "subCategories": "Sub Categories"
+        }
+    }
+}

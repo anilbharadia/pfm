@@ -13,6 +13,9 @@
                 "myAccount": "My Account",
                 "transaction": "Transaction",
                 "transactionCategory": "Transaction Category",
+                "transactionType": "Transaction Type",
+                "expenseCategory": "Expense Category",
+                "incomeCategory": "Income Category",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -26,10 +26,22 @@
                 <a [routerLink]="['/my-account', transaction.accountId]">{{transaction.accountId}}</a>
             </div>
         </dd>
-        <dt><span jhiTranslate="pfmApp.transaction.category">Category</span></dt>
+        <dt><span jhiTranslate="pfmApp.transaction.txType">Tx Type</span></dt>
         <dd>
-            <div *ngIf="transaction.categoryId">
-                <a [routerLink]="['/transaction-category', transaction.categoryId]">{{transaction.categoryId}}</a>
+            <div *ngIf="transaction.txTypeId">
+                <a [routerLink]="['/transaction-type', transaction.txTypeId]">{{transaction.txTypeId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.expenseCategory">Expense Category</span></dt>
+        <dd>
+            <div *ngIf="transaction.expenseCategoryId">
+                <a [routerLink]="['/expense-category', transaction.expenseCategoryId]">{{transaction.expenseCategoryId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.transaction.incomeCategory">Income Category</span></dt>
+        <dd>
+            <div *ngIf="transaction.incomeCategoryId">
+                <a [routerLink]="['/income-category', transaction.incomeCategoryId]">{{transaction.incomeCategoryId}}</a>
             </div>
         </dd>
     </dl>

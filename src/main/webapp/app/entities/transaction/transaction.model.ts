@@ -8,7 +8,9 @@ export class Transaction implements BaseEntity {
         public date?: any,
         public isTransfer?: boolean,
         public accountId?: number,
-        public categoryId?: number,
+        public txTypeId?: number,
+        public expenseCategoryId?: number,
+        public incomeCategoryId?: number,
     ) {
         this.isTransfer = false;
     }

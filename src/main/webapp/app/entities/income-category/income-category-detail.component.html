@@ -1,0 +1,31 @@
+
+<div *ngIf="incomeCategory">
+    <h2><span jhiTranslate="pfmApp.incomeCategory.detail.title">Income Category</span> {{incomeCategory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.incomeCategory.name">Name</span></dt>
+        <dd>
+            <span>{{incomeCategory.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.incomeCategory.parent">Parent</span></dt>
+        <dd>
+            <div *ngIf="incomeCategory.parentId">
+                <a [routerLink]="['/income-category', incomeCategory.parentId]">{{incomeCategory.parentId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'income-category/'+ incomeCategory.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -42,12 +42,31 @@ relationship ManyToOne {
 	Transaction{account} to MyAccount
 }
 
-entity TransactionCategory {
+entity TransactionType {
 	name String required
 }
-
 relationship ManyToOne {
-	Transaction{category} to TransactionCategory
+	Transaction{txType} to TransactionType
+}
+
+entity ExpenseCategory {
+	name String required,
+}
+relationship ManyToOne {
+	ExpenseCategory{parent} to ExpenseCategory{subCategories}
+}
+relationship ManyToOne {
+	Transaction{expenseCategory} to ExpenseCategory
+}
+
+entity IncomeCategory {
+	name String required,
+}
+relationship ManyToOne {
+	IncomeCategory{parent} to IncomeCategory{subCategories}
+}
+relationship ManyToOne {
+	Transaction{incomeCategory} to IncomeCategory
 }
 
 paginate * with pagination

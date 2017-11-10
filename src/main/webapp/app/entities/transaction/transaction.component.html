@@ -22,7 +22,9 @@
             <th jhiSortBy="date"><span jhiTranslate="pfmApp.transaction.date">Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="isTransfer"><span jhiTranslate="pfmApp.transaction.isTransfer">Is Transfer</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="accountId"><span jhiTranslate="pfmApp.transaction.account">Account</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="categoryId"><span jhiTranslate="pfmApp.transaction.category">Category</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="txTypeId"><span jhiTranslate="pfmApp.transaction.txType">Tx Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="expenseCategoryId"><span jhiTranslate="pfmApp.transaction.expenseCategory">Expense Category</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="incomeCategoryId"><span jhiTranslate="pfmApp.transaction.incomeCategory">Income Category</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -39,8 +41,18 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="transaction.categoryId">
-                        <a [routerLink]="['../transaction-category', transaction.categoryId  ]" >{{transaction.categoryId}}</a>
+                    <div *ngIf="transaction.txTypeId">
+                        <a [routerLink]="['../transaction-type', transaction.txTypeId  ]" >{{transaction.txTypeId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.expenseCategoryId">
+                        <a [routerLink]="['../expense-category', transaction.expenseCategoryId  ]" >{{transaction.expenseCategoryId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.incomeCategoryId">
+                        <a [routerLink]="['../income-category', transaction.incomeCategoryId  ]" >{{transaction.incomeCategoryId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -75,10 +75,24 @@
             </select>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="pfmApp.transaction.category" for="field_category">Category</label>
-            <select class="form-control" id="field_category" name="category" [(ngModel)]="transaction.categoryId" >
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.txType" for="field_txType">Tx Type</label>
+            <select class="form-control" id="field_txType" name="txType" [(ngModel)]="transaction.txTypeId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="transactionCategoryOption.id" *ngFor="let transactionCategoryOption of transactioncategories; trackBy: trackTransactionCategoryById">{{transactionCategoryOption.name}}</option>
+                <option [ngValue]="transactionTypeOption.id" *ngFor="let transactionTypeOption of transactiontypes; trackBy: trackTransactionTypeById">{{transactionTypeOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.expenseCategory" for="field_expenseCategory">Expense Category</label>
+            <select class="form-control" id="field_expenseCategory" name="expenseCategory" [(ngModel)]="transaction.expenseCategoryId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="expenseCategoryOption.id" *ngFor="let expenseCategoryOption of expensecategories; trackBy: trackExpenseCategoryById">{{expenseCategoryOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.incomeCategory" for="field_incomeCategory">Income Category</label>
+            <select class="form-control" id="field_incomeCategory" name="incomeCategory" [(ngModel)]="transaction.incomeCategoryId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="incomeCategoryOption.id" *ngFor="let incomeCategoryOption of incomecategories; trackBy: trackIncomeCategoryById">{{incomeCategoryOption.id}}</option>
             </select>
         </div>
     </div>

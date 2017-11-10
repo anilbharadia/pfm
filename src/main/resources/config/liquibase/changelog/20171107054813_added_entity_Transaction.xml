@@ -41,7 +41,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="category_id" type="bigint">
+            <column name="tx_type_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="expense_category_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="income_category_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "transactionType" : {
+            "home": {
+                "title": "TransactionTypes",
+                "createLabel": "नया Transaction Type बनाएँ",
+                "createOrEditLabel": "Transaction Type बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Transaction Type [identifier: {{ param }}] तैयार है",
+            "updated": "एक Transaction Type [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Transaction Type [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Transaction Type [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Transaction Type"
+            },
+            "name": "Name"
+        }
+    }
+}

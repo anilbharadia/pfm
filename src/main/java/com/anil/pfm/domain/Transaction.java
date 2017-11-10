@@ -45,7 +45,13 @@ public class Transaction implements Serializable {
     private MyAccount account;
 
     @ManyToOne
-    private TransactionCategory category;
+    private TransactionType txType;
+
+    @ManyToOne
+    private ExpenseCategory expenseCategory;
+
+    @ManyToOne
+    private IncomeCategory incomeCategory;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -121,17 +127,43 @@ public class Transaction implements Serializable {
         this.account = myAccount;
     }
 
-    public TransactionCategory getCategory() {
-        return category;
+    public TransactionType getTxType() {
+        return txType;
     }
 
-    public Transaction category(TransactionCategory transactionCategory) {
-        this.category = transactionCategory;
+    public Transaction txType(TransactionType transactionType) {
+        this.txType = transactionType;
         return this;
     }
 
-    public void setCategory(TransactionCategory transactionCategory) {
-        this.category = transactionCategory;
+    public void setTxType(TransactionType transactionType) {
+        this.txType = transactionType;
+    }
+
+    public ExpenseCategory getExpenseCategory() {
+        return expenseCategory;
+    }
+
+    public Transaction expenseCategory(ExpenseCategory expenseCategory) {
+        this.expenseCategory = expenseCategory;
+        return this;
+    }
+
+    public void setExpenseCategory(ExpenseCategory expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
+
+    public IncomeCategory getIncomeCategory() {
+        return incomeCategory;
+    }
+
+    public Transaction incomeCategory(IncomeCategory incomeCategory) {
+        this.incomeCategory = incomeCategory;
+        return this;
+    }
+
+    public void setIncomeCategory(IncomeCategory incomeCategory) {
+        this.incomeCategory = incomeCategory;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -6,6 +6,9 @@ import { PfmBankAccountModule } from './bank-account/bank-account.module';
 import { PfmMyAccountModule } from './my-account/my-account.module';
 import { PfmTransactionModule } from './transaction/transaction.module';
 import { PfmTransactionCategoryModule } from './transaction-category/transaction-category.module';
+import { PfmTransactionTypeModule } from './transaction-type/transaction-type.module';
+import { PfmExpenseCategoryModule } from './expense-category/expense-category.module';
+import { PfmIncomeCategoryModule } from './income-category/income-category.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -16,6 +19,9 @@ import { PfmTransactionCategoryModule } from './transaction-category/transaction
         PfmMyAccountModule,
         PfmTransactionModule,
         PfmTransactionCategoryModule,
+        PfmTransactionTypeModule,
+        PfmExpenseCategoryModule,
+        PfmIncomeCategoryModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

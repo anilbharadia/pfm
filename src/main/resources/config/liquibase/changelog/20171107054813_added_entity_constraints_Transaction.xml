@@ -14,11 +14,23 @@
                                  referencedColumnNames="id"
                                  referencedTableName="my_account"/>
 
-        <addForeignKeyConstraint baseColumnNames="category_id"
+        <addForeignKeyConstraint baseColumnNames="tx_type_id"
                                  baseTableName="transaction"
-                                 constraintName="fk_transaction_category_id"
+                                 constraintName="fk_transaction_tx_type_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="transaction_category"/>
+                                 referencedTableName="transaction_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="expense_category_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_expense_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="expense_category"/>
+
+        <addForeignKeyConstraint baseColumnNames="income_category_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_income_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="income_category"/>
 
     </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "expenseCategory" : {
+            "home": {
+                "title": "ExpenseCategories",
+                "createLabel": "नया Expense Category बनाएँ",
+                "createOrEditLabel": "Expense Category बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Expense Category [identifier: {{ param }}] तैयार है",
+            "updated": "एक Expense Category [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Expense Category [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Expense Category [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Expense Category"
+            },
+            "name": "Name",
+            "parent": "Parent",
+            "subCategories": "Sub Categories"
+        }
+    }
+}

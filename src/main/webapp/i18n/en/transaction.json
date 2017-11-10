@@ -20,7 +20,9 @@
             "date": "Date",
             "isTransfer": "Is Transfer",
             "account": "Account",
-            "category": "Category"
+            "txType": "Tx Type",
+            "expenseCategory": "Expense Category",
+            "incomeCategory": "Income Category"
         }
     }
 }

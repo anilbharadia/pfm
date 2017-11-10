@@ -10,7 +10,9 @@ import { Transaction } from './transaction.model';
 import { TransactionPopupService } from './transaction-popup.service';
 import { TransactionService } from './transaction.service';
 import { MyAccount, MyAccountService } from '../my-account';
-import { TransactionCategory, TransactionCategoryService } from '../transaction-category';
+import { TransactionType, TransactionTypeService } from '../transaction-type';
+import { ExpenseCategory, ExpenseCategoryService } from '../expense-category';
+import { IncomeCategory, IncomeCategoryService } from '../income-category';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -24,14 +26,20 @@ export class TransactionDialogComponent implements OnInit {
 
     myaccounts: MyAccount[];
 
-    transactioncategories: TransactionCategory[];
+    transactiontypes: TransactionType[];
+
+    expensecategories: ExpenseCategory[];
+
+    incomecategories: IncomeCategory[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private transactionService: TransactionService,
         private myAccountService: MyAccountService,
-        private transactionCategoryService: TransactionCategoryService,
+        private transactionTypeService: TransactionTypeService,
+        private expenseCategoryService: ExpenseCategoryService,
+        private incomeCategoryService: IncomeCategoryService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -40,8 +48,12 @@ export class TransactionDialogComponent implements OnInit {
         this.isSaving = false;
         this.myAccountService.query()
             .subscribe((res: ResponseWrapper) => { this.myaccounts = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
-        this.transactionCategoryService.query()
-            .subscribe((res: ResponseWrapper) => { this.transactioncategories = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.transactionTypeService.query()
+            .subscribe((res: ResponseWrapper) => { this.transactiontypes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.expenseCategoryService.query()
+            .subscribe((res: ResponseWrapper) => { this.expensecategories = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.incomeCategoryService.query()
+            .subscribe((res: ResponseWrapper) => { this.incomecategories = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -82,7 +94,15 @@ export class TransactionDialogComponent implements OnInit {
         return item.id;
     }
 
-    trackTransactionCategoryById(index: number, item: TransactionCategory) {
+    trackTransactionTypeById(index: number, item: TransactionType) {
+        return item.id;
+    }
+
+    trackExpenseCategoryById(index: number, item: ExpenseCategory) {
+        return item.id;
+    }
+
+    trackIncomeCategoryById(index: number, item: IncomeCategory) {
         return item.id;
     }
 }

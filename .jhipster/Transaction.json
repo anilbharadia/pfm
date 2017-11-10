@@ -9,8 +9,20 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "category",
-            "otherEntityName": "transactionCategory",
+            "relationshipName": "txType",
+            "otherEntityName": "transactionType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "expenseCategory",
+            "otherEntityName": "expenseCategory",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "incomeCategory",
+            "otherEntityName": "incomeCategory",
             "otherEntityField": "id"
         }
     ],
