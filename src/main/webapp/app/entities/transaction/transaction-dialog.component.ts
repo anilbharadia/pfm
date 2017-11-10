@@ -15,6 +15,7 @@ import { TransactionType, TransactionTypeService } from '../transaction-type';
 import { ExpenseCategory, ExpenseCategoryService } from '../expense-category';
 import { IncomeCategory, IncomeCategoryService } from '../income-category';
 import { ResponseWrapper } from '../../shared';
+import { TxTypes } from '../transaction-type/tx-type.enum';
 
 @Component({
     selector: 'jhi-transaction-dialog',
@@ -107,6 +108,10 @@ export class TransactionDialogComponent implements OnInit {
 
     trackIncomeCategoryById(index: number, item: IncomeCategory) {
         return item.id;
+    }
+
+    get TxTypes() {
+        return TxTypes;
     }
 }
 

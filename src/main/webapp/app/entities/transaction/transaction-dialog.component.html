@@ -60,7 +60,7 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.transaction.isTransfer" for="field_isTransfer">Is Transfer</label>
             <input type="checkbox" class="form-control" name="isTransfer" id="field_isTransfer"
                 [(ngModel)]="transaction.isTransfer"  />
@@ -70,7 +70,7 @@
                    This field is required.
                 </small>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.transaction.account" for="field_account">Account</label>
@@ -85,6 +85,7 @@
                 class="form-control" 
                 id="field_txType" 
                 name="txType" 
+                required
                 [(ngModel)]="transaction.txTypeId" >
                 <option [ngValue]="null"></option>
                 <option 
@@ -93,9 +94,15 @@
                     {{transactionTypeOption.name}}
                 </option>
             </select>
+            <div [hidden]="!(editForm.controls.txType?.dirty && editForm.controls.txType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.txType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
             {{ transaction.txTypeId }}
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="transaction.txTypeId === TxTypes.Expense">
             <label class="form-control-label" jhiTranslate="pfmApp.transaction.expenseCategory" for="field_expenseCategory">Expense Category</label>
             <select class="form-control" id="field_expenseCategory" name="expenseCategory" [(ngModel)]="transaction.expenseCategoryId" >
                 <option [ngValue]="null"></option>
@@ -106,7 +113,7 @@
                 </option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="transaction.txTypeId === TxTypes.Income">
             <label class="form-control-label" jhiTranslate="pfmApp.transaction.incomeCategory" for="field_incomeCategory">Income Category</label>
             <select class="form-control" id="field_incomeCategory" name="incomeCategory" [(ngModel)]="transaction.incomeCategoryId" >
                 <option [ngValue]="null"></option>

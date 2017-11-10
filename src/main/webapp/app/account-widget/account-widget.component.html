@@ -9,10 +9,14 @@
       <button 
         expenseButton 
         class="fa fa-inr btn btn-warning red"
-        [routerLink]="['/', { outlets: { popup: ['transaction-new', 1] } }]"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Expense] } }]"
         title="Expense">
       </button>
-      <button incomeButton class="fa fa-plus btn btn-success red" title="Income">
+      <button 
+        incomeButton 
+        class="fa fa-plus btn btn-success red"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Income] } }]"
+        title="Income">
       </button>
     </span>
   </div>
