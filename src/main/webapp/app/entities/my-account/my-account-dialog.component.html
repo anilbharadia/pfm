@@ -33,7 +33,11 @@
             <label class="form-control-label" jhiTranslate="pfmApp.myAccount.bankAccount" for="field_bankAccount">Bank Account</label>
             <select class="form-control" id="field_bankAccount" name="bankAccount" [(ngModel)]="myAccount.bankAccountId">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="bankAccountOption.id" *ngFor="let bankAccountOption of bankaccounts; trackBy: trackBankAccountById">{{bankAccountOption.id}}</option>
+                <option 
+                    [ngValue]="bankAccountOption.id" 
+                    *ngFor="let bankAccountOption of bankaccounts; trackBy: trackBankAccountById">
+                    {{bankAccountOption.ifsc}} {{ bankAccountOption.acNumber }}
+                </option>
             </select>
         </div>
         <div class="form-group">

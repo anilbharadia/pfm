@@ -18,5 +18,45 @@
             <column name="name" type="string"/>
         </loadData>
     </changeSet>
+
+    <changeSet id="load-persons" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/persons.csv"
+                  separator=";"
+                  tableName="person">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
     
+    <changeSet id="load-tx-types" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/tx-types.csv"
+                  separator=";"
+                  tableName="transaction_type">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="load-income-categories" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/income-categories.csv"
+                  separator=";"
+                  tableName="income_category">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="load-expense-categories" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/expense-categories.csv"
+                  separator=";"
+                  tableName="expense_category">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>
