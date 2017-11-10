@@ -60,6 +60,16 @@ export const transactionPopupRoute: Routes = [
         outlet: 'popup'
     },
     {
+        path: 'transaction-new/:txTypeId',
+        component: TransactionPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'pfmApp.transaction.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
         path: 'transaction/:id/edit',
         component: TransactionPopupComponent,
         data: {

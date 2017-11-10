@@ -11,15 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountsWidgetComponent implements OnInit {
 
-  private accounts: MyAccount[];
+  accounts: MyAccount[];
 
   constructor(
     private accountService: MyAccountService,
     private jhiAlertService: JhiAlertService) {
-    this.load();
   }
 
   ngOnInit() {
+    this.load();
   }
 
   load() {

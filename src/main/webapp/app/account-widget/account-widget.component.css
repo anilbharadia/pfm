@@ -1,0 +1,13 @@
+button[expenseButton], button[incomeButton] {
+    float: right;
+    cursor: pointer;
+}
+
+.card-title {
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-text {
+    text-align: right;
+}

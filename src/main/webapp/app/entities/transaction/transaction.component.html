@@ -1,7 +1,9 @@
 <div>
     <h2>
         <span jhiTranslate="pfmApp.transaction.home.title">Transactions</span>
-        <button class="btn btn-primary float-right jh-create-entity create-transaction" [routerLink]="['/', { outlets: { popup: ['transaction-new'] } }]">
+        <button 
+            class="btn btn-primary float-right jh-create-entity create-transaction" 
+            [routerLink]="['/', { outlets: { popup: ['transaction-new'] } }]">
             <span class="fa fa-plus"></span>
             <span  jhiTranslate="pfmApp.transaction.home.createLabel">
             Create new Transaction

@@ -1,10 +1,19 @@
-<div class="card " style="width: 20rem; margin: 20px">
+<div class="card " style="width: 15rem; margin: 20px">
   <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
   <div class="card-body">
     <h4 class="card-title">{{account?.name}}</h4>
     <h3 class="card-text">
       {{account?.balance | currency:'INR':'symbol'}}
     </h3>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <span>
+      <button 
+        expenseButton 
+        class="fa fa-inr btn btn-warning red"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', 1] } }]"
+        title="Expense">
+      </button>
+      <button incomeButton class="fa fa-plus btn btn-success red" title="Income">
+      </button>
+    </span>
   </div>
 </div>

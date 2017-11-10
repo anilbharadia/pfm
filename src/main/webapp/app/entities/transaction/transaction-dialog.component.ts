@@ -1,9 +1,10 @@
+import { activateRoute } from './../../account/activate/activate.route';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subscription } from 'rxjs/Rx';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Transaction } from './transaction.model';
@@ -40,11 +41,13 @@ export class TransactionDialogComponent implements OnInit {
         private transactionTypeService: TransactionTypeService,
         private expenseCategoryService: ExpenseCategoryService,
         private incomeCategoryService: IncomeCategoryService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
+
         this.isSaving = false;
         this.myAccountService.query()
             .subscribe((res: ResponseWrapper) => { this.myaccounts = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
@@ -121,13 +124,30 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+
+        // this.route.params.subscribe((params) => {
+        //     let txTypeId = params['txTypeId'];
+        //     console.log('params ', params);
+        //     console.log('txTypeId from param is ', txTypeId)
+        //     this.transaction.txTypeId = txTypeId;
+        // });
+
         this.routeSub = this.route.params.subscribe((params) => {
+
+            let modal: Promise<NgbModalRef>;
+
             if ( params['id'] ) {
-                this.transactionPopupService
+                modal = this.transactionPopupService
                     .open(TransactionDialogComponent as Component, params['id']);
             } else {
-                this.transactionPopupService
+                modal = this.transactionPopupService
                     .open(TransactionDialogComponent as Component);
+            }
+
+            if (params['txTypeId']) {
+                modal.then((m) => {
+                    m.componentInstance.transaction.txTypeId = +params['txTypeId'];
+                });
             }
         });
     }

@@ -5,12 +5,13 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'jhi-account-widget',
   templateUrl: './account-widget.component.html',
-  styles: []
+  styleUrls: ['./account-widget.component.css']
+  // styles: []
 })
 export class AccountWidgetComponent implements OnInit {
 
   @Input('accountId') accountId;
-  private account: MyAccount;
+  account: MyAccount;
 
   constructor(private accService: MyAccountService) {
   }
@@ -26,4 +27,5 @@ export class AccountWidgetComponent implements OnInit {
         console.log('loaded account object ', this.account);
     });
   }
+
 }
