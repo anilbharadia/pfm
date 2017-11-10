@@ -5,6 +5,7 @@ import com.anil.pfm.service.TransactionService;
 import com.anil.pfm.web.rest.errors.BadRequestAlertException;
 import com.anil.pfm.web.rest.util.HeaderUtil;
 import com.anil.pfm.web.rest.util.PaginationUtil;
+import com.anil.pfm.service.dto.CreateTransactionVM;
 import com.anil.pfm.service.dto.TransactionDTO;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -44,18 +45,16 @@ public class TransactionResource {
     /**
      * POST  /transactions : Create a new transaction.
      *
-     * @param transactionDTO the transactionDTO to create
+     * @param vm the transactionDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new transactionDTO, or with status 400 (Bad Request) if the transaction has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/transactions")
     @Timed
-    public ResponseEntity<TransactionDTO> createTransaction(@Valid @RequestBody TransactionDTO transactionDTO) throws URISyntaxException {
-        log.debug("REST request to save Transaction : {}", transactionDTO);
-        if (transactionDTO.getId() != null) {
-            throw new BadRequestAlertException("A new transaction cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        TransactionDTO result = transactionService.save(transactionDTO);
+    public ResponseEntity<TransactionDTO> createTransaction(@Valid @RequestBody CreateTransactionVM vm) throws URISyntaxException {
+        log.debug("REST request to save Transaction : {}", vm);
+
+        TransactionDTO result = transactionService.save(vm);
         return ResponseEntity.created(new URI("/api/transactions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -74,10 +73,8 @@ public class TransactionResource {
     @Timed
     public ResponseEntity<TransactionDTO> updateTransaction(@Valid @RequestBody TransactionDTO transactionDTO) throws URISyntaxException {
         log.debug("REST request to update Transaction : {}", transactionDTO);
-        if (transactionDTO.getId() == null) {
-            return createTransaction(transactionDTO);
-        }
-        TransactionDTO result = transactionService.save(transactionDTO);
+
+        TransactionDTO result = transactionService.update(transactionDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, transactionDTO.getId().toString()))
             .body(result);

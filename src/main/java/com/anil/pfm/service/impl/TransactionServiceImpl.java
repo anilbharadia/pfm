@@ -1,10 +1,16 @@
 package com.anil.pfm.service.impl;
 
 import com.anil.pfm.service.TransactionService;
+import com.anil.pfm.domain.MyAccount;
 import com.anil.pfm.domain.Transaction;
+import com.anil.pfm.domain.TransactionType;
 import com.anil.pfm.repository.TransactionRepository;
+import com.anil.pfm.service.dto.CreateTransactionVM;
 import com.anil.pfm.service.dto.TransactionDTO;
 import com.anil.pfm.service.mapper.TransactionMapper;
+
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -34,16 +40,38 @@ public class TransactionServiceImpl implements TransactionService{
     /**
      * Save a transaction.
      *
-     * @param transactionDTO the entity to save
+     * @param vm the entity to save
      * @return the persisted entity
      */
     @Override
-    public TransactionDTO save(TransactionDTO transactionDTO) {
-        log.debug("Request to save Transaction : {}", transactionDTO);
-        Transaction transaction = transactionMapper.toEntity(transactionDTO);
+    public TransactionDTO save(CreateTransactionVM vm) {
+        log.debug("Request to save Transaction : {}", vm);
+        Transaction transaction = transactionMapper.toEntity(vm);
+        
+        updateBalance(transaction);
+        
         transaction = transactionRepository.save(transaction);
         return transactionMapper.toDto(transaction);
     }
+
+	private void updateBalance(Transaction transaction) {
+		
+		MyAccount account = transaction.getAccount();
+        BigDecimal balance = account.getBalance();
+        
+        transaction.setOpeningBalance(balance);
+        
+        TransactionType type = transaction.getTxType();
+		BigDecimal amount = transaction.getAmount();
+		
+		if (type.isExpense()) {
+        	balance = balance.subtract(amount);
+        } else if (type.isIncome()) {
+        	balance = balance.add(amount);
+        }
+        account.setBalance(balance);
+        transaction.setClosingBalance(balance);
+	}
 
     /**
      *  Get all the transactions.
@@ -83,4 +111,10 @@ public class TransactionServiceImpl implements TransactionService{
         log.debug("Request to delete Transaction : {}", id);
         transactionRepository.delete(id);
     }
+
+	@Override
+	public TransactionDTO update(TransactionDTO vm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

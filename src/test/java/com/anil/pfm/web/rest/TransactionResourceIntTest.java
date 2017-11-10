@@ -52,8 +52,6 @@ public class TransactionResourceIntTest {
     private static final Instant DEFAULT_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Boolean DEFAULT_IS_TRANSFER = false;
-    private static final Boolean UPDATED_IS_TRANSFER = true;
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -100,8 +98,7 @@ public class TransactionResourceIntTest {
         Transaction transaction = new Transaction()
             .amount(DEFAULT_AMOUNT)
             .desc(DEFAULT_DESC)
-            .date(DEFAULT_DATE)
-            .isTransfer(DEFAULT_IS_TRANSFER);
+            .date(DEFAULT_DATE);
         return transaction;
     }
 
@@ -129,7 +126,6 @@ public class TransactionResourceIntTest {
         assertThat(testTransaction.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testTransaction.getDesc()).isEqualTo(DEFAULT_DESC);
         assertThat(testTransaction.getDate()).isEqualTo(DEFAULT_DATE);
-        assertThat(testTransaction.isIsTransfer()).isEqualTo(DEFAULT_IS_TRANSFER);
     }
 
     @Test
@@ -209,24 +205,6 @@ public class TransactionResourceIntTest {
         assertThat(transactionList).hasSize(databaseSizeBeforeTest);
     }
 
-    @Test
-    @Transactional
-    public void checkIsTransferIsRequired() throws Exception {
-        int databaseSizeBeforeTest = transactionRepository.findAll().size();
-        // set the field null
-        transaction.setIsTransfer(null);
-
-        // Create the Transaction, which fails.
-        TransactionDTO transactionDTO = transactionMapper.toDto(transaction);
-
-        restTransactionMockMvc.perform(post("/api/transactions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(transactionDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Transaction> transactionList = transactionRepository.findAll();
-        assertThat(transactionList).hasSize(databaseSizeBeforeTest);
-    }
 
     @Test
     @Transactional
@@ -241,8 +219,7 @@ public class TransactionResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(transaction.getId().intValue())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
             .andExpect(jsonPath("$.[*].desc").value(hasItem(DEFAULT_DESC.toString())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].isTransfer").value(hasItem(DEFAULT_IS_TRANSFER.booleanValue())));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
 
     @Test
@@ -258,8 +235,7 @@ public class TransactionResourceIntTest {
             .andExpect(jsonPath("$.id").value(transaction.getId().intValue()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
             .andExpect(jsonPath("$.desc").value(DEFAULT_DESC.toString()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.isTransfer").value(DEFAULT_IS_TRANSFER.booleanValue()));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
     @Test
@@ -282,8 +258,7 @@ public class TransactionResourceIntTest {
         updatedTransaction
             .amount(UPDATED_AMOUNT)
             .desc(UPDATED_DESC)
-            .date(UPDATED_DATE)
-            .isTransfer(UPDATED_IS_TRANSFER);
+            .date(UPDATED_DATE);
         TransactionDTO transactionDTO = transactionMapper.toDto(updatedTransaction);
 
         restTransactionMockMvc.perform(put("/api/transactions")
@@ -298,7 +273,6 @@ public class TransactionResourceIntTest {
         assertThat(testTransaction.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testTransaction.getDesc()).isEqualTo(UPDATED_DESC);
         assertThat(testTransaction.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testTransaction.isIsTransfer()).isEqualTo(UPDATED_IS_TRANSFER);
     }
 
     @Test

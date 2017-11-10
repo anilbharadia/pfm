@@ -1,30 +1,36 @@
 package com.anil.pfm.service.mapper;
 
 import com.anil.pfm.domain.*;
+import com.anil.pfm.repository.MyAccountRepository;
 import com.anil.pfm.service.dto.MyAccountDTO;
 
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Mapper for the entity MyAccount and its DTO MyAccountDTO.
  */
-@Mapper(componentModel = "spring", uses = {BankAccountMapper.class, PersonMapper.class})
-public interface MyAccountMapper extends EntityMapper<MyAccountDTO, MyAccount> {
+@Mapper(componentModel = "spring", uses = {
+	BankAccountMapper.class, 
+	PersonMapper.class,
+})
+public abstract class MyAccountMapper implements EntityMapper<MyAccountDTO, MyAccount> {
 
+	@Autowired
+	protected MyAccountRepository myAccountRepository;
+	
     @Mapping(source = "bankAccount.id", target = "bankAccountId")
     @Mapping(source = "owner.id", target = "ownerId")
-    MyAccountDTO toDto(MyAccount myAccount); 
+	public abstract MyAccountDTO toDto(MyAccount myAccount); 
 
     @Mapping(source = "bankAccountId", target = "bankAccount")
     @Mapping(source = "ownerId", target = "owner")
-    MyAccount toEntity(MyAccountDTO myAccountDTO);
+    public abstract MyAccount toEntity(MyAccountDTO myAccountDTO);
 
-    default MyAccount fromId(Long id) {
+    public MyAccount fromId(Long id) {
         if (id == null) {
             return null;
         }
-        MyAccount myAccount = new MyAccount();
-        myAccount.setId(id);
-        return myAccount;
+        return myAccountRepository.findOne(id);
     }
 }

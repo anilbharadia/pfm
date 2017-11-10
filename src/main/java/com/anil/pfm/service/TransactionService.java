@@ -1,5 +1,6 @@
 package com.anil.pfm.service;
 
+import com.anil.pfm.service.dto.CreateTransactionVM;
 import com.anil.pfm.service.dto.TransactionDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,9 @@ public interface TransactionService {
      * @param transactionDTO the entity to save
      * @return the persisted entity
      */
-    TransactionDTO save(TransactionDTO transactionDTO);
+    TransactionDTO save(CreateTransactionVM vm);
+    
+    TransactionDTO update(TransactionDTO vm);
 
     /**
      *  Get all the transactions.

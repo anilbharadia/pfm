@@ -59,4 +59,16 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="load-my-accounts" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/my-accounts.csv"
+                  separator=";"
+                  tableName="my_account">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="balance" type="numeric"/>
+            <column name="owner_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>

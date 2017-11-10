@@ -30,16 +30,20 @@ public class Transaction implements Serializable {
     private BigDecimal amount;
 
     @NotNull
+    @Column(name = "opening_balance", precision=10, scale=2, nullable = false)
+    private BigDecimal openingBalance;
+
+    @NotNull
+    @Column(name = "closing_balance", precision=10, scale=2, nullable = false)
+    private BigDecimal closingBalance;
+
+    @NotNull
     @Column(name = "jhi_desc", nullable = false)
     private String desc;
 
     @NotNull
     @Column(name = "jhi_date", nullable = false)
     private Instant date;
-
-    @NotNull
-    @Column(name = "is_transfer", nullable = false)
-    private Boolean isTransfer;
 
     @ManyToOne
     private MyAccount account;
@@ -101,19 +105,6 @@ public class Transaction implements Serializable {
         this.date = date;
     }
 
-    public Boolean isIsTransfer() {
-        return isTransfer;
-    }
-
-    public Transaction isTransfer(Boolean isTransfer) {
-        this.isTransfer = isTransfer;
-        return this;
-    }
-
-    public void setIsTransfer(Boolean isTransfer) {
-        this.isTransfer = isTransfer;
-    }
-
     public MyAccount getAccount() {
         return account;
     }
@@ -167,6 +158,8 @@ public class Transaction implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+    
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -182,7 +175,23 @@ public class Transaction implements Serializable {
         return Objects.equals(getId(), transaction.getId());
     }
 
-    @Override
+    public BigDecimal getOpeningBalance() {
+		return openingBalance;
+	}
+
+	public void setOpeningBalance(BigDecimal openingBalance) {
+		this.openingBalance = openingBalance;
+	}
+
+	public BigDecimal getClosingBalance() {
+		return closingBalance;
+	}
+
+	public void setClosingBalance(BigDecimal closingBalance) {
+		this.closingBalance = closingBalance;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hashCode(getId());
     }
@@ -194,7 +203,6 @@ public class Transaction implements Serializable {
             ", amount='" + getAmount() + "'" +
             ", desc='" + getDesc() + "'" +
             ", date='" + getDate() + "'" +
-            ", isTransfer='" + isIsTransfer() + "'" +
             "}";
     }
 }

@@ -525,7 +525,7 @@
                     <url>jdbc:postgresql://localhost:5432/pfm</url>
                     <defaultSchemaName></defaultSchemaName>
                     <username>pfm</username>
-                    <password></password>
+                    <password>pfm</password>
                     <referenceUrl>hibernate:spring:com.anil.pfm.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>

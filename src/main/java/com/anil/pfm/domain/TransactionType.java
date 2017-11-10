@@ -16,6 +16,10 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class TransactionType implements Serializable {
 
+	public static final Long INCOME = 1L;
+	public static final Long EXPENSE = 2L;
+	public static final Long TRANSFER = 3L;
+	
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,6 +31,18 @@ public class TransactionType implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public boolean isExpense() {
+    	return this.id == EXPENSE;
+    }
+    
+    public boolean isIncome() {
+    	return this.id == INCOME;
+    }
+    
+    public boolean isTransfer() {
+    	return this.id == TRANSFER;
+    } 
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
