@@ -21,4 +21,6 @@
     <include file="config/liquibase/changelog/20171110061944_added_entity_constraints_ExpenseCategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110061945_added_entity_constraints_IncomeCategory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+
+    <include file="config/liquibase/changelog/20171110123045_load-data.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
