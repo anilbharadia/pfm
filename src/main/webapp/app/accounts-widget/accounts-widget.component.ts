@@ -3,6 +3,7 @@ import { ResponseWrapper } from './../shared/model/response-wrapper.model';
 import { MyAccountService } from './../entities/my-account/my-account.service';
 import { MyAccount } from './../entities/my-account/my-account.model';
 import { Component, OnInit } from '@angular/core';
+import { TxTypes } from '../entities/transaction-type/tx-type.enum';
 
 @Component({
   selector: 'jhi-accounts-widget',

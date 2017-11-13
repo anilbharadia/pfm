@@ -1,6 +1,7 @@
 import { MyAccount } from './../entities/my-account/my-account.model';
 import { MyAccountService } from './../entities/my-account/my-account.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { TxTypes } from '../entities/transaction-type/tx-type.enum';
 
 @Component({
   selector: 'jhi-account-widget',
@@ -26,6 +27,14 @@ export class AccountWidgetComponent implements OnInit {
         this.account = account;
         console.log('loaded account object ', this.account);
     });
+  }
+
+  get TxTypesExpense() {
+    return TxTypes.Expense;
+  }
+
+  get TxTypes() {
+    return TxTypes;
   }
 
 }
