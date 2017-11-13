@@ -1,3 +1,4 @@
+import { TxWidgetComponent } from './../tx-widget/tx-widget.component';
 import { AccountsWidgetComponent } from './../accounts-widget/accounts-widget.component';
 import { AccountWidgetComponent } from './../account-widget/account-widget.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -15,7 +16,8 @@ import { HOME_ROUTE, HomeComponent } from './';
     declarations: [
         HomeComponent,
         AccountWidgetComponent,
-        AccountsWidgetComponent
+        AccountsWidgetComponent,
+        TxWidgetComponent
     ],
     entryComponents: [
     ],
