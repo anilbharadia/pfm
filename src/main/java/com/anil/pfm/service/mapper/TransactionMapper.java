@@ -1,8 +1,8 @@
 package com.anil.pfm.service.mapper;
 
 import com.anil.pfm.domain.*;
-import com.anil.pfm.service.dto.CreateTransactionVM;
-import com.anil.pfm.service.dto.TransactionDTO;
+import com.anil.pfm.tx.service.dto.CreateTransactionVM;
+import com.anil.pfm.tx.service.dto.TransactionDTO;
 
 import org.mapstruct.*;
 

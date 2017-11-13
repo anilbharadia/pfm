@@ -22,22 +22,22 @@
         <td>{{transaction.desc}}</td>
         <td>
           <div *ngIf="transaction.accountId">
-            <a [routerLink]="['../my-account', transaction.accountId  ]" >{{transaction.accountId}}</a>
+            <a [routerLink]="['../my-account', transaction.accountId  ]" >{{transaction.account.name}}</a>
           </div>
         </td>
           <td>
               <div *ngIf="transaction.txTypeId">
-                  <a [routerLink]="['../transaction-type', transaction.txTypeId  ]" >{{transaction.txTypeId}}</a>
+                  <a [routerLink]="['../transaction-type', transaction.txTypeId  ]" >{{transaction.txType.name}}</a>
               </div>
           </td>
           <td>
               <div *ngIf="transaction.expenseCategoryId">
-                  <a [routerLink]="['../expense-category', transaction.expenseCategoryId  ]" >{{transaction.expenseCategoryId}}</a>
+                  <a [routerLink]="['../expense-category', transaction.expenseCategoryId  ]" >{{transaction.expenseCategory.name}}</a>
               </div>
           </td>
           <td>
               <div *ngIf="transaction.incomeCategoryId">
-                  <a [routerLink]="['../income-category', transaction.incomeCategoryId  ]" >{{transaction.incomeCategoryId}}</a>
+                  <a [routerLink]="['../income-category', transaction.incomeCategoryId  ]" >{{transaction.incomeCategory.name}}</a>
               </div>
           </td>
           <td class="text-right">

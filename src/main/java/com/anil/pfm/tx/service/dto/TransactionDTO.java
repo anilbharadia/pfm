@@ -1,20 +1,29 @@
-package com.anil.pfm.service.dto;
+package com.anil.pfm.tx.service.dto;
 
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
 import java.util.Objects;
+
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import com.anil.pfm.domain.ExpenseCategory;
+import com.anil.pfm.domain.IncomeCategory;
+import com.anil.pfm.service.dto.ExpenseCategoryDTO;
+import com.anil.pfm.service.dto.IncomeCategoryDTO;
+import com.anil.pfm.service.dto.MyAccountDTO;
+import com.anil.pfm.service.dto.TransactionTypeDTO;
 
 /**
  * A DTO for the Transaction entity.
  */
 public class TransactionDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private BigDecimal amount;
@@ -25,15 +34,17 @@ public class TransactionDTO implements Serializable {
     @NotNull
     private Instant date;
 
-    @NotNull
-    private Boolean isTransfer;
-
+    
+    private MyAccountDTO account;
     private Long accountId;
 
+    private TransactionTypeDTO txType;
     private Long txTypeId;
 
+    private ExpenseCategoryDTO expenseCategory;
     private Long expenseCategoryId;
 
+    private IncomeCategoryDTO incomeCategory;
     private Long incomeCategoryId;
 
     public Long getId() {
@@ -68,15 +79,15 @@ public class TransactionDTO implements Serializable {
         this.date = date;
     }
 
-    public Boolean isIsTransfer() {
-        return isTransfer;
-    }
+    public MyAccountDTO getAccount() {
+		return account;
+	}
 
-    public void setIsTransfer(Boolean isTransfer) {
-        this.isTransfer = isTransfer;
-    }
+	public void setAccount(MyAccountDTO account) {
+		this.account = account;
+	}
 
-    public Long getAccountId() {
+	public Long getAccountId() {
         return accountId;
     }
 
@@ -107,8 +118,34 @@ public class TransactionDTO implements Serializable {
     public void setIncomeCategoryId(Long incomeCategoryId) {
         this.incomeCategoryId = incomeCategoryId;
     }
+    
+    
 
-    @Override
+    public TransactionTypeDTO getTxType() {
+		return txType;
+	}
+
+	public void setTxType(TransactionTypeDTO txType) {
+		this.txType = txType;
+	}
+
+	public ExpenseCategoryDTO getExpenseCategory() {
+		return expenseCategory;
+	}
+
+	public void setExpenseCategory(ExpenseCategoryDTO expenseCategory) {
+		this.expenseCategory = expenseCategory;
+	}
+
+	public IncomeCategoryDTO getIncomeCategory() {
+		return incomeCategory;
+	}
+
+	public void setIncomeCategory(IncomeCategoryDTO incomeCategory) {
+		this.incomeCategory = incomeCategory;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -136,7 +173,6 @@ public class TransactionDTO implements Serializable {
             ", amount='" + getAmount() + "'" +
             ", desc='" + getDesc() + "'" +
             ", date='" + getDate() + "'" +
-            ", isTransfer='" + isIsTransfer() + "'" +
             "}";
     }
 }

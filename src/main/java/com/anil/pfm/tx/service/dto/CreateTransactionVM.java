@@ -1,4 +1,4 @@
-package com.anil.pfm.service.dto;
+package com.anil.pfm.tx.service.dto;
 
 
 import java.io.Serializable;

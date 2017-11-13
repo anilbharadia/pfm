@@ -1,12 +1,14 @@
-package com.anil.pfm.web.rest;
+package com.anil.pfm.tx.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.anil.pfm.service.TransactionService;
+import com.anil.pfm.tx.service.dto.CreateTransactionVM;
+import com.anil.pfm.tx.service.dto.FilterTransactionVM;
+import com.anil.pfm.tx.service.dto.TransactionDTO;
 import com.anil.pfm.web.rest.errors.BadRequestAlertException;
 import com.anil.pfm.web.rest.util.HeaderUtil;
 import com.anil.pfm.web.rest.util.PaginationUtil;
-import com.anil.pfm.service.dto.CreateTransactionVM;
-import com.anil.pfm.service.dto.TransactionDTO;
+
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -95,6 +97,15 @@ public class TransactionResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @PostMapping("/transactions/filter")
+    @Timed
+    public ResponseEntity<List<TransactionDTO>> filterTransactions(@Valid @RequestBody FilterTransactionVM vm, @ApiParam Pageable pageable) {
+        log.debug("REST request to filter Transactions");
+        Page<TransactionDTO> page = transactionService.filter(vm, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/transactions/filter");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
     /**
      * GET  /transactions/:id : get the "id" transaction.
      *

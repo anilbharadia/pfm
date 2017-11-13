@@ -1,9 +1,11 @@
 package com.anil.pfm.service;
 
-import com.anil.pfm.service.dto.CreateTransactionVM;
-import com.anil.pfm.service.dto.TransactionDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.anil.pfm.tx.service.dto.CreateTransactionVM;
+import com.anil.pfm.tx.service.dto.FilterTransactionVM;
+import com.anil.pfm.tx.service.dto.TransactionDTO;
 
 /**
  * Service Interface for managing Transaction.
@@ -42,4 +44,6 @@ public interface TransactionService {
      *  @param id the id of the entity
      */
     void delete(Long id);
+
+	Page<TransactionDTO> filter(FilterTransactionVM vm, Pageable pageable);
 }
