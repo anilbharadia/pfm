@@ -21,7 +21,12 @@ export class TxWidgetComponent implements OnInit {
   constructor(private txService: TransactionService) { }
 
   ngOnInit() {
-    this.txService.query({}).subscribe((response) => {
+
+    let filter = {
+      txTypeIds: [this.txTypeId]
+    };
+
+    this.txService.filter(filter).subscribe((response) => {
       this.transactions = response.json;
     });
   }

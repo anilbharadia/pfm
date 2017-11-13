@@ -1,3 +1,4 @@
+import { TxTypes } from './../entities/transaction-type/tx-type.enum';
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
@@ -44,5 +45,9 @@ export class HomeComponent implements OnInit {
 
     login() {
         this.modalRef = this.loginModalService.open();
+    }
+
+    get TxTypes() {
+        return TxTypes;
     }
 }

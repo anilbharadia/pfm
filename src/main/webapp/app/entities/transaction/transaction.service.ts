@@ -31,6 +31,12 @@ export class TransactionService {
         });
     }
 
+    filter(req?: any): Observable<ResponseWrapper> {
+        const copy = this.convert(req);
+        return this.http.post(this.resourceUrl + '/filter', copy)
+            .map((res: Response) => this.convertResponse(res));
+    }
+
     find(id: number): Observable<Transaction> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
