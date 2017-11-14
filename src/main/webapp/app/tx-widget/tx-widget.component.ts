@@ -64,20 +64,16 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
 
   loadTxs() {
 
-    console.log('loadTxs() called')
-    console.log('this.month = ', this.month);
+    let year = this.month.getFullYear();
+    let month = this.month.getMonth();
 
-    let dateFrom = new Date(this.month.getFullYear(), this.month.getMonth(), 1);
-    console.log('dateFrom = ', dateFrom);
-
-    let dateTo = new Date(this.month.getFullYear(), this.month.getMonth() + 1, 0);
-    console.log('dateTo = ', dateTo);
+    let dateFrom = new Date(year, month, 1, 0, 0, 0, 0);
+    let dateTo = new Date(year, month + 1, 0, 23, 59, 59, 999);
 
     const filter = {
       txTypeIds: [this.txTypeId],
       dateFrom: dateFrom,
       dateTo: dateTo
-
     };
 
     this.txService.filter(filter).subscribe((response) => {
