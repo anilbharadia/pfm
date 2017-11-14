@@ -30,5 +30,9 @@ export class TxWidgetComponent implements OnInit {
       this.transactions = response.json;
     });
   }
+  
+  get TxTypes() {
+    return TxTypes;
+  }
 
 }

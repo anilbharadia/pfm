@@ -149,11 +149,16 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
                     .open(TransactionDialogComponent as Component);
             }
 
-            if (params['txTypeId']) {
-                modal.then((m) => {
+            modal.then((m) => {
+                
+                if (params['txTypeId']) {
                     m.componentInstance.transaction.txTypeId = +params['txTypeId'];
-                });
-            }
+                } 
+
+                if (params['accountId']) {
+                    m.componentInstance.transaction.accountId = +params['accountId'];
+                }
+            });
         });
     }
 

@@ -8,14 +8,14 @@
     <span>
       <button 
         expenseButton 
-        class="fa fa-inr btn btn-warning red"
-        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Expense] } }]"
+        class="fa fa-inr btn btn-warning"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Expense, account?.id] } }]"
         title="Expense">
       </button>
       <button 
         incomeButton 
-        class="fa fa-plus btn btn-success red"
-        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Income] } }]"
+        class="fa fa-plus btn btn-success"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Income, account?.id] } }]"
         title="Income">
       </button>
     </span>

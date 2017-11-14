@@ -1,11 +1,13 @@
 <div>
     <jhi-accounts-widget></jhi-accounts-widget>
 </div>
-<div>
-    <jhi-tx-widget [txType]="TxTypes.Expense"></jhi-tx-widget>
-</div>
-<div>
-    <jhi-tx-widget [txType]="TxTypes.Income"></jhi-tx-widget>
+<div class="row">
+    <div class="col-xs-6">
+        <jhi-tx-widget [txType]="TxTypes.Income"></jhi-tx-widget>        
+    </div>
+    <div class="col-xs-6">
+        <jhi-tx-widget [txType]="TxTypes.Expense"></jhi-tx-widget>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-3">

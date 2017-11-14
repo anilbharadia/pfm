@@ -22,7 +22,8 @@
             "account": "Account",
             "txType": "Tx Type",
             "expenseCategory": "Expense Category",
-            "incomeCategory": "Income Category"
+            "incomeCategory": "Income Category",
+            "category": "Category"
         }
     }
 }
