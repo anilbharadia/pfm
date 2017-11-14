@@ -158,23 +158,6 @@ public class Transaction implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Transaction transaction = (Transaction) o;
-        if (transaction.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), transaction.getId());
-    }
-
     public BigDecimal getOpeningBalance() {
 		return openingBalance;
 	}
@@ -190,6 +173,21 @@ public class Transaction implements Serializable {
 	public void setClosingBalance(BigDecimal closingBalance) {
 		this.closingBalance = closingBalance;
 	}
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Transaction transaction = (Transaction) o;
+        if (transaction.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), transaction.getId());
+    }
 
 	@Override
     public int hashCode() {

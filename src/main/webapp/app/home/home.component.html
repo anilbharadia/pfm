@@ -1,14 +1,44 @@
 <div>
     <jhi-accounts-widget></jhi-accounts-widget>
 </div>
-<div class="row">
-    <div class="col-xs-6">
-        <jhi-tx-widget [txType]="TxTypes.Income"></jhi-tx-widget>        
+<div class="row alert alert-info" role="alert">
+    <div class="col-md-1 text-left">
+        <a
+            (click)="previous()"
+            role="button"
+            class="btn btn-outline-primary btn-sm rounded-circle pointer">
+        <span class="fa fa-arrow-left"></span>
+        </a>
     </div>
-    <div class="col-xs-6">
-        <jhi-tx-widget [txType]="TxTypes.Expense"></jhi-tx-widget>
+    <div class="col-md-11 text-center">
+        {{month | date:'MMMM yyyy'}}
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6">
+        <jhi-tx-widget 
+            [txType]="TxTypes.Income"
+            [month]="month"
+            (amount)="totalIncome = $event">
+        </jhi-tx-widget>   
+    </div>
+    <div class="col-md-6">
+        <jhi-tx-widget 
+            [txType]="TxTypes.Expense"
+            [month]="month"
+            (amount)="totalExpense = $event">
+        </jhi-tx-widget>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-success text-right h5">{{totalIncome | currency:'INR':'symbol'}}</div>    
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-danger text-right h5">{{totalExpense | currency:'INR':'symbol'}}</div> 
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-3">
         <span class="hipster img-fluid rounded"></span>

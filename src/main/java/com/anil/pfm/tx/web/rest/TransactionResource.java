@@ -1,16 +1,12 @@
 package com.anil.pfm.tx.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.anil.pfm.service.TransactionService;
-import com.anil.pfm.tx.service.dto.CreateTransactionVM;
-import com.anil.pfm.tx.service.dto.FilterTransactionVM;
-import com.anil.pfm.tx.service.dto.TransactionDTO;
-import com.anil.pfm.web.rest.errors.BadRequestAlertException;
-import com.anil.pfm.web.rest.util.HeaderUtil;
-import com.anil.pfm.web.rest.util.PaginationUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,14 +14,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.anil.pfm.tx.service.TransactionService;
+import com.anil.pfm.tx.service.dto.CreateTransactionVM;
+import com.anil.pfm.tx.service.dto.FilterTransactionVM;
+import com.anil.pfm.tx.service.dto.TransactionDTO;
+import com.anil.pfm.tx.service.dto.UpdateTransactionVM;
+import com.anil.pfm.web.rest.util.HeaderUtil;
+import com.anil.pfm.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 
-import java.util.List;
-import java.util.Optional;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 
 /**
  * REST controller for managing Transaction.
@@ -65,7 +73,7 @@ public class TransactionResource {
     /**
      * PUT  /transactions : Updates an existing transaction.
      *
-     * @param transactionDTO the transactionDTO to update
+     * @param vm the transactionDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated transactionDTO,
      * or with status 400 (Bad Request) if the transactionDTO is not valid,
      * or with status 500 (Internal Server Error) if the transactionDTO couldn't be updated
@@ -73,12 +81,12 @@ public class TransactionResource {
      */
     @PutMapping("/transactions")
     @Timed
-    public ResponseEntity<TransactionDTO> updateTransaction(@Valid @RequestBody TransactionDTO transactionDTO) throws URISyntaxException {
-        log.debug("REST request to update Transaction : {}", transactionDTO);
+    public ResponseEntity<TransactionDTO> updateTransaction(@Valid @RequestBody UpdateTransactionVM vm) throws URISyntaxException {
+        log.debug("REST request to update Transaction : {}", vm);
 
-        TransactionDTO result = transactionService.update(transactionDTO);
+        TransactionDTO result = transactionService.update(vm);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, transactionDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, vm.getId().toString()))
             .body(result);
     }
 

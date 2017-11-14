@@ -16,6 +16,9 @@ import { Account, LoginModalService, Principal } from '../shared';
 export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
+    totalIncome: number;
+    totalExpense: number;
+    month = new Date();
 
     constructor(
         private principal: Principal,
@@ -49,5 +52,19 @@ export class HomeComponent implements OnInit {
 
     get TxTypes() {
         return TxTypes;
+    }
+
+    previous() {
+        console.log('previous() called')
+
+        let date = this.month;
+        this.month = new Date(date.getFullYear(), date.getMonth() - 1, date.getDay());
+
+        console.log('this.month = ' + this.month);
+
+        this.eventManager.broadcast({
+            name: 'transactionListModification',
+            content: 'Current Month Changed'
+        });
     }
 }

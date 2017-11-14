@@ -4,8 +4,8 @@ import com.anil.pfm.PfmApp;
 
 import com.anil.pfm.domain.Transaction;
 import com.anil.pfm.repository.TransactionRepository;
-import com.anil.pfm.service.TransactionService;
 import com.anil.pfm.service.mapper.TransactionMapper;
+import com.anil.pfm.tx.service.TransactionService;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
 import com.anil.pfm.tx.web.rest.TransactionResource;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;

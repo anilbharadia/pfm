@@ -5,16 +5,21 @@
         jhiSort [(predicate)]="predicate" 
         [(ascending)]="reverse" 
         >
+        <th></th>
         <th jhiSortBy="date"><span jhiTranslate="pfmApp.transaction.date">Date</span> <span class="fa fa-sort"></span></th>
-        <th jhiSortBy="amount"><span jhiTranslate="pfmApp.transaction.amount">Amount</span> <span class="fa fa-sort"></span></th>
-        <th jhiSortBy="desc"><span jhiTranslate="pfmApp.transaction.desc">Desc</span> <span class="fa fa-sort"></span></th>
-        <th jhiSortBy="accountId"><span jhiTranslate="pfmApp.transaction.account">Account</span> <span class="fa fa-sort"></span></th>
-        <th jhiSortBy="txTypeId"><span jhiTranslate="pfmApp.transaction.txType">Tx Type</span> <span class="fa fa-sort"></span></th>
+        <th jhiSortBy="desc">
+            <span jhiTranslate="pfmApp.transaction.desc">Desc</span>
+            <!-- <span class="fa fa-sort"></span> -->
+        </th>
+        <th jhiSortBy="accountId">
+            <span jhiTranslate="pfmApp.transaction.account">Account</span> 
+            <!-- <span class="fa fa-sort"></span> -->
+        </th>
         <th jhiSortBy="expenseCategoryId" *ngIf="txTypeId === TxTypes.Expense">
-          <span jhiTranslate="pfmApp.transaction.category">
-            Category
-          </span>
-          <span class="fa fa-sort"></span>
+            <span jhiTranslate="pfmApp.transaction.category">
+                Category
+            </span>
+            <!-- <span class="fa fa-sort"></span> -->
         </th>
         <th jhiSortBy="incomeCategoryId" *ngIf="txTypeId === TxTypes.Income">
             <span jhiTranslate="pfmApp.transaction.category">
@@ -22,25 +27,31 @@
             </span>
             <span class="fa fa-sort"></span>
         </th>
-        <th></th>
+        <th jhiSortBy="amount"><span jhiTranslate="pfmApp.transaction.amount">Amount</span> <span class="fa fa-sort"></span></th>
       </tr>
     </thead>
       <tbody>
       <tr *ngFor="let transaction of transactions ;trackBy: trackId">
+        <td class="text-right">
+            <div class="btn-group flex-btn-group-container">
+                <button type="submit"
+                        [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/delete'} }]"
+                        replaceUrl="true"
+                        class="btn btn-outline-danger btn-sm rounded-circle pointer">
+                    <span class="fa fa-remove"></span>
+                </button>
+            </div>
+        </td>
         <td>{{transaction.date | date:'dd-MMM-yyyy'}}</td>
         <td>
             <a [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]">
-            {{transaction.amount}}</a></td>
-        <td>{{transaction.desc}}</td>
+                {{transaction.desc}}
+            </a>
+        </td>
         <td>
           <div *ngIf="transaction.accountId">
             <a [routerLink]="['../my-account', transaction.accountId  ]" >{{transaction.account.name}}</a>
           </div>
-        </td>
-        <td *ngIf="transaction.txTypeId">
-            <div>
-                <a [routerLink]="['../transaction-type', transaction.txTypeId  ]" >{{transaction.txType.name}}</a>
-            </div>
         </td>
         <td *ngIf="transaction.expenseCategoryId">
             <div>
@@ -50,35 +61,14 @@
                 </a>
             </div>
         </td>
-          <td>
-              <div *ngIf="transaction.incomeCategoryId">
-                  <a [routerLink]="['../income-category', transaction.incomeCategoryId  ]" >{{transaction.incomeCategory.name}}</a>
-              </div>
-          </td>
-          <td class="text-right">
-              <div class="btn-group flex-btn-group-container">
-                  <button type="submit"
-                          [routerLink]="['../transaction', transaction.id ]"
-                          class="btn btn-info btn-sm">
-                      <span class="fa fa-eye"></span>
-                      <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span> -->
-                  </button>
-                  <button type="submit"
-                          [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]"
-                          replaceUrl="true"
-                          class="btn btn-primary btn-sm">
-                      <span class="fa fa-pencil"></span>
-                      <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span> -->
-                  </button>
-                  <button type="submit"
-                          [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/delete'} }]"
-                          replaceUrl="true"
-                          class="btn btn-danger btn-sm">
-                      <span class="fa fa-remove"></span>
-                      <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span> -->
-                  </button>
-              </div>
-          </td>
+        <td *ngIf="transaction.incomeCategoryId">
+            <div>
+                <a [routerLink]="['../income-category', transaction.incomeCategoryId  ]" >{{transaction.incomeCategory.name}}</a>
+            </div>
+        </td>
+        <td class="text-right">
+            {{transaction.amount | currency:'INR':'symbol'}}
+        </td>
       </tr>
       </tbody>
   </table>

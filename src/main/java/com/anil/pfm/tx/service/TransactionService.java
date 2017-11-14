@@ -1,4 +1,4 @@
-package com.anil.pfm.service;
+package com.anil.pfm.tx.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import com.anil.pfm.tx.service.dto.CreateTransactionVM;
 import com.anil.pfm.tx.service.dto.FilterTransactionVM;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
+import com.anil.pfm.tx.service.dto.UpdateTransactionVM;
 
 /**
  * Service Interface for managing Transaction.
@@ -20,7 +21,7 @@ public interface TransactionService {
      */
     TransactionDTO save(CreateTransactionVM vm);
     
-    TransactionDTO update(TransactionDTO vm);
+    TransactionDTO update(UpdateTransactionVM vm);
 
     /**
      *  Get all the transactions.

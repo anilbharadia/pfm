@@ -3,6 +3,7 @@ package com.anil.pfm.service.mapper;
 import com.anil.pfm.domain.*;
 import com.anil.pfm.tx.service.dto.CreateTransactionVM;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
+import com.anil.pfm.tx.service.dto.UpdateTransactionVM;
 
 import org.mapstruct.*;
 
@@ -27,6 +28,12 @@ public interface TransactionMapper extends EntityMapper<TransactionDTO, Transact
     @Mapping(source = "expenseCategoryId", target = "expenseCategory")
     @Mapping(source = "incomeCategoryId", target = "incomeCategory")
     Transaction toEntity(TransactionDTO transactionDTO);
+    
+    @Mapping(source = "accountId", target = "account")
+    @Mapping(source = "txTypeId", target = "txType")
+    @Mapping(source = "expenseCategoryId", target = "expenseCategory")
+    @Mapping(source = "incomeCategoryId", target = "incomeCategory")
+    Transaction update(UpdateTransactionVM vm, @MappingTarget Transaction tx);
     
     @Mapping(source = "accountId", target = "account")
     @Mapping(source = "txTypeId", target = "txType")

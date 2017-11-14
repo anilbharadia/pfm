@@ -1,14 +1,15 @@
-package com.anil.pfm.service.impl;
+package com.anil.pfm.tx.service.impl;
 
-import com.anil.pfm.service.TransactionService;
 import com.anil.pfm.domain.MyAccount;
 import com.anil.pfm.domain.Transaction;
 import com.anil.pfm.domain.TransactionType;
 import com.anil.pfm.repository.TransactionRepository;
 import com.anil.pfm.service.mapper.TransactionMapper;
+import com.anil.pfm.tx.service.TransactionService;
 import com.anil.pfm.tx.service.dto.CreateTransactionVM;
 import com.anil.pfm.tx.service.dto.FilterTransactionVM;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
+import com.anil.pfm.tx.service.dto.UpdateTransactionVM;
 
 import java.math.BigDecimal;
 
@@ -28,12 +29,12 @@ public class TransactionServiceImpl implements TransactionService {
 
 	private final Logger log = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
-	private final TransactionRepository transactionRepository;
+	private final TransactionRepository txRepository;
 
 	private final TransactionMapper transactionMapper;
 
 	public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionMapper transactionMapper) {
-		this.transactionRepository = transactionRepository;
+		this.txRepository = transactionRepository;
 		this.transactionMapper = transactionMapper;
 	}
 
@@ -51,19 +52,32 @@ public class TransactionServiceImpl implements TransactionService {
 
 		updateBalance(transaction);
 
-		transaction = transactionRepository.save(transaction);
+		transaction = txRepository.save(transaction);
 		return transactionMapper.toDto(transaction);
 	}
+	
+	@Override
+	public TransactionDTO update(UpdateTransactionVM vm) {
+		log.debug("Request to update Transaction : {}", vm);
+		
+		Transaction tx = txRepository.findOne(vm.getId());
+		
+		transactionMapper.update(vm, tx);
 
-	private void updateBalance(Transaction transaction) {
+		tx = txRepository.save(tx);
+		
+		return transactionMapper.toDto(tx);
+	}
 
-		MyAccount account = transaction.getAccount();
+	private void updateBalance(Transaction tx) {
+
+		MyAccount account = tx.getAccount();
 		BigDecimal balance = account.getBalance();
 
-		transaction.setOpeningBalance(balance);
+		tx.setOpeningBalance(balance);
 
-		TransactionType type = transaction.getTxType();
-		BigDecimal amount = transaction.getAmount();
+		TransactionType type = tx.getTxType();
+		BigDecimal amount = tx.getAmount();
 
 		if (type.isExpense()) {
 			balance = balance.subtract(amount);
@@ -71,7 +85,7 @@ public class TransactionServiceImpl implements TransactionService {
 			balance = balance.add(amount);
 		}
 		account.setBalance(balance);
-		transaction.setClosingBalance(balance);
+		tx.setClosingBalance(balance);
 	}
 
 	/**
@@ -85,7 +99,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Transactional(readOnly = true)
 	public Page<TransactionDTO> findAll(Pageable pageable) {
 		log.debug("Request to get all Transactions");
-		return transactionRepository.findAll(pageable).map(transactionMapper::toDto);
+		return txRepository.findAll(pageable).map(transactionMapper::toDto);
 	}
 
 	/**
@@ -99,7 +113,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Transactional(readOnly = true)
 	public TransactionDTO findOne(Long id) {
 		log.debug("Request to get Transaction : {}", id);
-		Transaction transaction = transactionRepository.findOne(id);
+		Transaction transaction = txRepository.findOne(id);
 		return transactionMapper.toDto(transaction);
 	}
 
@@ -112,18 +126,18 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public void delete(Long id) {
 		log.debug("Request to delete Transaction : {}", id);
-		transactionRepository.delete(id);
-	}
-
-	@Override
-	public TransactionDTO update(TransactionDTO vm) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Transaction tx = txRepository.findOne(id);
+		
+		tx.setAmount(tx.getAmount().negate());
+		updateBalance(tx);
+		
+		txRepository.delete(id);
 	}
 
 	@Override
 	public Page<TransactionDTO> filter(FilterTransactionVM vm, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return transactionRepository.filter(vm, pageable).map(transactionMapper::toDto);
+		return txRepository.filter(vm, pageable).map(transactionMapper::toDto);
 	}
 }

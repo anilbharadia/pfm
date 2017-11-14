@@ -31,6 +31,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long>,
 			q = q.and(t.txType.id.in(vm.getTxTypeIds()));
 		}
 		
+		if (vm.getDateFrom() != null) {
+			q = q.and(t.date.after(vm.getDateFrom()));
+		}
+		
+		if (vm.getDateTo() != null) {
+			q = q.and(t.date.before(vm.getDateTo()));
+		}
+		
 		return findAll(q, pageable);
 	}
 
