@@ -22,7 +22,7 @@ export class TxWidgetComponent implements OnInit {
 
   ngOnInit() {
 
-    let filter = {
+    const filter = {
       txTypeIds: [this.txTypeId]
     };
 
@@ -30,7 +30,7 @@ export class TxWidgetComponent implements OnInit {
       this.transactions = response.json;
     });
   }
-  
+
   get TxTypes() {
     return TxTypes;
   }

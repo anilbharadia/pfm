@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { activateRoute } from './../../account/activate/activate.route';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -130,13 +131,6 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        // this.route.params.subscribe((params) => {
-        //     let txTypeId = params['txTypeId'];
-        //     console.log('params ', params);
-        //     console.log('txTypeId from param is ', txTypeId)
-        //     this.transaction.txTypeId = txTypeId;
-        // });
-
         this.routeSub = this.route.params.subscribe((params) => {
 
             let modal: Promise<NgbModalRef>;
@@ -150,13 +144,19 @@ export class TransactionPopupComponent implements OnInit, OnDestroy {
             }
 
             modal.then((m) => {
-                
+
+                const tx = m.componentInstance.transaction;
+
                 if (params['txTypeId']) {
-                    m.componentInstance.transaction.txTypeId = +params['txTypeId'];
-                } 
+                    tx.txTypeId = +params['txTypeId'];
+                }
 
                 if (params['accountId']) {
-                    m.componentInstance.transaction.accountId = +params['accountId'];
+                    tx.accountId = +params['accountId'];
+                }
+
+                if (!tx.date) {
+                    tx.date = new DatePipe(navigator.language).transform(new Date(), 'yyyy-MM-ddThh:mm');
                 }
             });
         });

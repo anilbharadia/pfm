@@ -25,7 +25,6 @@ export class AccountWidgetComponent implements OnInit {
   load() {
     this.accService.find(this.accountId).subscribe((account) => {
         this.account = account;
-        console.log('loaded account object ', this.account);
     });
   }
 

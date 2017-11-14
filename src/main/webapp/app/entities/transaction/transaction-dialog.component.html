@@ -17,6 +17,37 @@
             <input type="text" class="form-control" id="id" name="id"
                    [(ngModel)]="transaction.id" readonly />
         </div>
+        <div class="row">
+        <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.account" for="field_account">Account</label>
+            <select 
+                class="form-control" 
+                id="field_account" 
+                name="account" 
+                required
+                [(ngModel)]="transaction.accountId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="myAccountOption.id" *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">{{myAccountOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-control-label" jhiTranslate="pfmApp.transaction.date" for="field_date">Date</label>
+            <div class="d-flex">
+                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="transaction.date"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+    </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.transaction.amount" for="field_amount">Amount</label>
             <input type="number" class="form-control" name="amount" id="field_amount"
@@ -42,35 +73,6 @@
                    This field is required.
                 </small>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="pfmApp.transaction.date" for="field_date">Date</label>
-            <div class="d-flex">
-                <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="transaction.date"
-                required  />
-            </div>
-            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.date?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="pfmApp.transaction.account" for="field_account">Account</label>
-            <select 
-                class="form-control" 
-                id="field_account" 
-                name="account" 
-                required
-                [(ngModel)]="transaction.accountId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="myAccountOption.id" *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">{{myAccountOption.name}}</option>
-            </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.transaction.txType" for="field_txType">Tx Type</label>
