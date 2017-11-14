@@ -59,12 +59,25 @@ export class HomeComponent implements OnInit {
 
         let date = this.month;
         this.month = new Date(date.getFullYear(), date.getMonth() - 1, date.getDay());
-
         console.log('this.month = ' + this.month);
+        
+        this.notifytTransactionListModification();
+    }
 
+    next() {
+        console.log('next() called')
+
+        let date = this.month;
+        this.month = new Date(date.getFullYear(), date.getMonth() + 1, date.getDay());
+        console.log('this.month = ' + this.month);
+        
+        this.notifytTransactionListModification();
+    }
+
+    notifytTransactionListModification() {
         this.eventManager.broadcast({
-            name: 'transactionListModification',
-            content: 'Current Month Changed'
+            name: 'currentMonthChanged',
+            month: this.month
         });
     }
 }

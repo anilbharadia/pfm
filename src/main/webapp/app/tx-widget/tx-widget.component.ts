@@ -51,6 +51,15 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
       'transactionListModification', 
       (response) => this.loadTxs()
     );
+
+    this.eventSubscriber = this.eventManager.subscribe(
+      'currentMonthChanged', 
+      (event) => {
+        console.log('currentMonthChanged event = ', event);
+        this.month = event.month;
+        this.loadTxs();
+      }
+    );
   }
 
   loadTxs() {

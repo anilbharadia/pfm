@@ -7,11 +7,19 @@
             (click)="previous()"
             role="button"
             class="btn btn-outline-primary btn-sm rounded-circle pointer">
-        <span class="fa fa-arrow-left"></span>
+            <span class="fa fa-arrow-left"></span>
         </a>
     </div>
-    <div class="col-md-11 text-center">
+    <div class="col-md-10 text-center">
         {{month | date:'MMMM yyyy'}}
+    </div>
+    <div class="col-md-1 text-right">
+        <a
+            (click)="next()"
+            role="button"
+            class="btn btn-outline-primary btn-sm rounded-circle pointer">
+            <span class="fa fa-arrow-right"></span>
+        </a>
     </div>
 </div>
 <div class="row">
