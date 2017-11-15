@@ -14,6 +14,7 @@ import { TxTypes } from '../entities/transaction-type/tx-type.enum';
 export class AccountsWidgetComponent implements OnInit, OnDestroy {
 
   accounts: MyAccount[];
+  totalBalance: number;
   eventSubscriber: Subscription;
 
   constructor(
@@ -47,6 +48,7 @@ export class AccountsWidgetComponent implements OnInit, OnDestroy {
 
   private onSuccess(data, headers) {
     this.accounts = data;
+    this.totalBalance = this.accounts.length < 1 ? 0 : this.accounts.map((a) => a.balance).reduce((x, y) => x + y);
   }
   private onError(error) {
       this.jhiAlertService.error(error.message, null, null);

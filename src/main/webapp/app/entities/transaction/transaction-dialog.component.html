@@ -142,7 +142,11 @@
                     required
                     [(ngModel)]="transaction.transferAccountId" >
                     <option [ngValue]="null"></option>
-                    <option [ngValue]="myAccountOption.id" *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">{{myAccountOption.name}}</option>
+                    <option 
+                        [ngValue]="myAccountOption.id" 
+                        *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">
+                        {{myAccountOption.name}}
+                    </option>
                 </select>
             </div>
         </div>
