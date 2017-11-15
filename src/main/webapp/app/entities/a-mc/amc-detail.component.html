@@ -1,0 +1,39 @@
+
+<div *ngIf="aMC">
+    <h2><span jhiTranslate="pfmApp.aMC.detail.title">AMC</span> {{aMC.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.aMC.name">Name</span></dt>
+        <dd>
+            <span>{{aMC.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.aMC.website">Website</span></dt>
+        <dd>
+            <span>{{aMC.website}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.aMC.logoURL">Logo URL</span></dt>
+        <dd>
+            <span>{{aMC.logoURL}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.aMC.mfrtAgent">Mfrt Agent</span></dt>
+        <dd>
+            <div *ngIf="aMC.mfrtAgentId">
+                <a [routerLink]="['/mfrt-agent', aMC.mfrtAgentId]">{{aMC.mfrtAgentId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'amc/'+ aMC.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

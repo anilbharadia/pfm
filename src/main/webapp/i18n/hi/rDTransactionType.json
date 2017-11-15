@@ -1,0 +1,9 @@
+{
+    "pfmApp": {
+        "RDTransactionType" : {
+            "null": "",
+            "INSTALLMENT": "INSTALLMENT",
+            "INTEREST": "INTEREST"
+        }
+    }
+}

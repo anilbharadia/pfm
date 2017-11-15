@@ -1,0 +1,133 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myRecurringDepositLabel" jhiTranslate="pfmApp.recurringDeposit.home.createOrEditLabel">Create or edit a Recurring Deposit</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!recurringDeposit.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="recurringDeposit.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.accountNumber" for="field_accountNumber">Account Number</label>
+            <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                [(ngModel)]="recurringDeposit.accountNumber"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.startDate" for="field_startDate">Start Date</label>
+            <div class="d-flex">
+                <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="recurringDeposit.startDate"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.startDate?.dirty && editForm.controls.startDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.startDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.startDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.endDate" for="field_endDate">End Date</label>
+            <div class="d-flex">
+                <input id="field_endDate" type="datetime-local" class="form-control" name="endDate" [(ngModel)]="recurringDeposit.endDate"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.endDate?.dirty && editForm.controls.endDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.endDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.endDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.installmentDateDay" for="field_installmentDateDay">Installment Date Day</label>
+            <input type="number" class="form-control" name="installmentDateDay" id="field_installmentDateDay"
+                [(ngModel)]="recurringDeposit.installmentDateDay" required />
+            <div [hidden]="!(editForm.controls.installmentDateDay?.dirty && editForm.controls.installmentDateDay?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.installmentDateDay?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.installmentDateDay?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.currentBalance" for="field_currentBalance">Current Balance</label>
+            <input type="number" class="form-control" name="currentBalance" id="field_currentBalance"
+                [(ngModel)]="recurringDeposit.currentBalance" required />
+            <div [hidden]="!(editForm.controls.currentBalance?.dirty && editForm.controls.currentBalance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.currentBalance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.currentBalance?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="recurringDeposit.status" id="field_status"  required>
+                <option value="OPEN">{{'pfmApp.RDStatus.OPEN' | translate}}</option>
+                <option value="CLOSED">{{'pfmApp.RDStatus.CLOSED' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.interestRate" for="field_interestRate">Interest Rate</label>
+            <input type="number" class="form-control" name="interestRate" id="field_interestRate"
+                [(ngModel)]="recurringDeposit.interestRate"  />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.bank" for="field_bank">Bank</label>
+            <select class="form-control" id="field_bank" name="bank" [(ngModel)]="recurringDeposit.bankId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="bankOption.id" *ngFor="let bankOption of banks; trackBy: trackBankById">{{bankOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.goal" for="field_goal">Goal</label>
+            <select class="form-control" id="field_goal" name="goal" [(ngModel)]="recurringDeposit.goalId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="goalOption.id" *ngFor="let goalOption of goals; trackBy: trackGoalById">{{goalOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.recurringDeposit.owner" for="field_owner">Owner</label>
+            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="recurringDeposit.ownerId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="personOption.id" *ngFor="let personOption of people; trackBy: trackPersonById">{{personOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

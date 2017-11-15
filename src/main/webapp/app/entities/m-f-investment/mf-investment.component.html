@@ -1,0 +1,90 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.mFInvestment.home.title">MF Investments</span>
+        <button class="btn btn-primary float-right jh-create-entity create-mf-investment" [routerLink]="['/', { outlets: { popup: ['mf-investment-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.mFInvestment.home.createLabel">
+            Create new MF Investment
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="mFInvestments">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="purchaseDate"><span jhiTranslate="pfmApp.mFInvestment.purchaseDate">Purchase Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="navDate"><span jhiTranslate="pfmApp.mFInvestment.navDate">Nav Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amount"><span jhiTranslate="pfmApp.mFInvestment.amount">Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nav"><span jhiTranslate="pfmApp.mFInvestment.nav">Nav</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="unit"><span jhiTranslate="pfmApp.mFInvestment.unit">Unit</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fundId"><span jhiTranslate="pfmApp.mFInvestment.fund">Fund</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="folioId"><span jhiTranslate="pfmApp.mFInvestment.folio">Folio</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="goalId"><span jhiTranslate="pfmApp.mFInvestment.goal">Goal</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mFInvestment of mFInvestments ;trackBy: trackId">
+                <td><a [routerLink]="['../mf-investment', mFInvestment.id ]">{{mFInvestment.id}}</a></td>
+                <td>{{mFInvestment.purchaseDate | date:'medium'}}</td>
+                <td>{{mFInvestment.navDate | date:'medium'}}</td>
+                <td>{{mFInvestment.amount}}</td>
+                <td>{{mFInvestment.nav}}</td>
+                <td>{{mFInvestment.unit}}</td>
+                <td>
+                    <div *ngIf="mFInvestment.fundId">
+                        <a [routerLink]="['../mutual-fund', mFInvestment.fundId  ]" >{{mFInvestment.fundId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="mFInvestment.folioId">
+                        <a [routerLink]="['../mf-portfolio', mFInvestment.folioId  ]" >{{mFInvestment.folioId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="mFInvestment.goalId">
+                        <a [routerLink]="['../goal', mFInvestment.goalId  ]" >{{mFInvestment.goalId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../mf-investment', mFInvestment.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mf-investment/'+ mFInvestment.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mf-investment/'+ mFInvestment.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="mFInvestments && mFInvestments.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

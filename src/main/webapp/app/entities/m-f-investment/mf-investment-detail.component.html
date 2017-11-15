@@ -1,0 +1,59 @@
+
+<div *ngIf="mFInvestment">
+    <h2><span jhiTranslate="pfmApp.mFInvestment.detail.title">MF Investment</span> {{mFInvestment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.mFInvestment.purchaseDate">Purchase Date</span></dt>
+        <dd>
+            <span>{{mFInvestment.purchaseDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.navDate">Nav Date</span></dt>
+        <dd>
+            <span>{{mFInvestment.navDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.amount">Amount</span></dt>
+        <dd>
+            <span>{{mFInvestment.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.nav">Nav</span></dt>
+        <dd>
+            <span>{{mFInvestment.nav}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.unit">Unit</span></dt>
+        <dd>
+            <span>{{mFInvestment.unit}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.fund">Fund</span></dt>
+        <dd>
+            <div *ngIf="mFInvestment.fundId">
+                <a [routerLink]="['/mutual-fund', mFInvestment.fundId]">{{mFInvestment.fundId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.folio">Folio</span></dt>
+        <dd>
+            <div *ngIf="mFInvestment.folioId">
+                <a [routerLink]="['/mf-portfolio', mFInvestment.folioId]">{{mFInvestment.folioId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFInvestment.goal">Goal</span></dt>
+        <dd>
+            <div *ngIf="mFInvestment.goalId">
+                <a [routerLink]="['/goal', mFInvestment.goalId]">{{mFInvestment.goalId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'mf-investment/'+ mFInvestment.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

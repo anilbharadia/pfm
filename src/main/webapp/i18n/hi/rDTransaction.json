@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "rDTransaction" : {
+            "home": {
+                "title": "RDTransactions",
+                "createLabel": "नया RD Transaction बनाएँ",
+                "createOrEditLabel": "RD Transaction बनाएँ या संपादित करें"
+            },
+            "created": "एक नया RD Transaction [identifier: {{ param }}] तैयार है",
+            "updated": "एक RD Transaction [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "RD Transaction [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "RD Transaction [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "RD Transaction"
+            },
+            "date": "Date",
+            "type": "Type",
+            "recurringDeposit": "Recurring Deposit"
+        }
+    }
+}

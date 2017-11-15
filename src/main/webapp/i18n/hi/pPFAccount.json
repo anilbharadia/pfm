@@ -1,0 +1,25 @@
+{
+    "pfmApp": {
+        "pPFAccount" : {
+            "home": {
+                "title": "PPFAccounts",
+                "createLabel": "नया PPF Account बनाएँ",
+                "createOrEditLabel": "PPF Account बनाएँ या संपादित करें"
+            },
+            "created": "एक नया PPF Account [identifier: {{ param }}] तैयार है",
+            "updated": "एक PPF Account [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "PPF Account [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "PPF Account [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "PPF Account"
+            },
+            "accountNumber": "Account Number",
+            "balance": "Balance",
+            "bank": "Bank",
+            "owner": "Owner",
+            "goal": "Goal"
+        }
+    }
+}

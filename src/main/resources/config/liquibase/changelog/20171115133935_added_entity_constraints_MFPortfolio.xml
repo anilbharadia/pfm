@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity MFPortfolio.
+    -->
+    <changeSet id="20171115133935-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="amc_id"
+                                 baseTableName="mf_portfolio"
+                                 constraintName="fk_mfportfolio_amc_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="amc"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_id"
+                                 baseTableName="mf_portfolio"
+                                 constraintName="fk_mfportfolio_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="person"/>
+
+    </changeSet>
+</databaseChangeLog>

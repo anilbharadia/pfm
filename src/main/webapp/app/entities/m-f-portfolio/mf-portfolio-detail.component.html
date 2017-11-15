@@ -1,0 +1,37 @@
+
+<div *ngIf="mFPortfolio">
+    <h2><span jhiTranslate="pfmApp.mFPortfolio.detail.title">MF Portfolio</span> {{mFPortfolio.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.mFPortfolio.folioNumber">Folio Number</span></dt>
+        <dd>
+            <span>{{mFPortfolio.folioNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFPortfolio.amc">Amc</span></dt>
+        <dd>
+            <div *ngIf="mFPortfolio.amcId">
+                <a [routerLink]="['/amc', mFPortfolio.amcId]">{{mFPortfolio.amcId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.mFPortfolio.owner">Owner</span></dt>
+        <dd>
+            <div *ngIf="mFPortfolio.ownerId">
+                <a [routerLink]="['/person', mFPortfolio.ownerId]">{{mFPortfolio.ownerId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'mf-portfolio/'+ mFPortfolio.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

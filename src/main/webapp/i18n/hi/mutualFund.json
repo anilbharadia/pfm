@@ -1,0 +1,24 @@
+{
+    "pfmApp": {
+        "mutualFund" : {
+            "home": {
+                "title": "MutualFunds",
+                "createLabel": "नया Mutual Fund बनाएँ",
+                "createOrEditLabel": "Mutual Fund बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Mutual Fund [identifier: {{ param }}] तैयार है",
+            "updated": "एक Mutual Fund [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Mutual Fund [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Mutual Fund [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Mutual Fund"
+            },
+            "name": "Name",
+            "manager": "Manager",
+            "amc": "Amc",
+            "category": "Category"
+        }
+    }
+}

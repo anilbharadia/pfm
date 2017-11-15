@@ -1,0 +1,76 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.mFPortfolio.home.title">MF Portfolios</span>
+        <button class="btn btn-primary float-right jh-create-entity create-mf-portfolio" [routerLink]="['/', { outlets: { popup: ['mf-portfolio-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.mFPortfolio.home.createLabel">
+            Create new MF Portfolio
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="mFPortfolios">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="folioNumber"><span jhiTranslate="pfmApp.mFPortfolio.folioNumber">Folio Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amcId"><span jhiTranslate="pfmApp.mFPortfolio.amc">Amc</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerId"><span jhiTranslate="pfmApp.mFPortfolio.owner">Owner</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mFPortfolio of mFPortfolios ;trackBy: trackId">
+                <td><a [routerLink]="['../mf-portfolio', mFPortfolio.id ]">{{mFPortfolio.id}}</a></td>
+                <td>{{mFPortfolio.folioNumber}}</td>
+                <td>
+                    <div *ngIf="mFPortfolio.amcId">
+                        <a [routerLink]="['../amc', mFPortfolio.amcId  ]" >{{mFPortfolio.amcId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="mFPortfolio.ownerId">
+                        <a [routerLink]="['../person', mFPortfolio.ownerId  ]" >{{mFPortfolio.ownerId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../mf-portfolio', mFPortfolio.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mf-portfolio/'+ mFPortfolio.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mf-portfolio/'+ mFPortfolio.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="mFPortfolios && mFPortfolios.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

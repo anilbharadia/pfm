@@ -1,0 +1,22 @@
+{
+    "pfmApp": {
+        "mFCategory" : {
+            "home": {
+                "title": "MFCategories",
+                "createLabel": "नया MF Category बनाएँ",
+                "createOrEditLabel": "MF Category बनाएँ या संपादित करें"
+            },
+            "created": "एक नया MF Category [identifier: {{ param }}] तैयार है",
+            "updated": "एक MF Category [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "MF Category [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "MF Category [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "MF Category"
+            },
+            "name": "Name",
+            "parent": "Parent"
+        }
+    }
+}

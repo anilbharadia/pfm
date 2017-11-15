@@ -1,0 +1,22 @@
+{
+    "pfmApp": {
+        "mFCategory" : {
+            "home": {
+                "title": "MF Categories",
+                "createLabel": "Create a new MF Category",
+                "createOrEditLabel": "Create or edit a MF Category"
+            },
+            "created": "A new MF Category is created with identifier {{ param }}",
+            "updated": "A MF Category is updated with identifier {{ param }}",
+            "deleted": "A MF Category is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete MF Category {{ id }}?"
+            },
+            "detail": {
+                "title": "MF Category"
+            },
+            "name": "Name",
+            "parent": "Parent"
+        }
+    }
+}

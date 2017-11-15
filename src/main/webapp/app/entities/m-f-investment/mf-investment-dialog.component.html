@@ -1,0 +1,105 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMFInvestmentLabel" jhiTranslate="pfmApp.mFInvestment.home.createOrEditLabel">Create or edit a MF Investment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!mFInvestment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="mFInvestment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.purchaseDate" for="field_purchaseDate">Purchase Date</label>
+            <div class="d-flex">
+                <input id="field_purchaseDate" type="datetime-local" class="form-control" name="purchaseDate" [(ngModel)]="mFInvestment.purchaseDate"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.purchaseDate?.dirty && editForm.controls.purchaseDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.purchaseDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.purchaseDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.navDate" for="field_navDate">Nav Date</label>
+            <div class="d-flex">
+                <input id="field_navDate" type="datetime-local" class="form-control" name="navDate" [(ngModel)]="mFInvestment.navDate"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.navDate?.dirty && editForm.controls.navDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.navDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.navDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="mFInvestment.amount" required />
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.nav" for="field_nav">Nav</label>
+            <input type="number" class="form-control" name="nav" id="field_nav"
+                [(ngModel)]="mFInvestment.nav"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.unit" for="field_unit">Unit</label>
+            <input type="number" class="form-control" name="unit" id="field_unit"
+                [(ngModel)]="mFInvestment.unit"  />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.fund" for="field_fund">Fund</label>
+            <select class="form-control" id="field_fund" name="fund" [(ngModel)]="mFInvestment.fundId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="mutualFundOption.id" *ngFor="let mutualFundOption of mutualfunds; trackBy: trackMutualFundById">{{mutualFundOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.folio" for="field_folio">Folio</label>
+            <select class="form-control" id="field_folio" name="folio" [(ngModel)]="mFInvestment.folioId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="mFPortfolioOption.id" *ngFor="let mFPortfolioOption of mfportfolios; trackBy: trackMFPortfolioById">{{mFPortfolioOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.goal" for="field_goal">Goal</label>
+            <select class="form-control" id="field_goal" name="goal" [(ngModel)]="mFInvestment.goalId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="goalOption.id" *ngFor="let goalOption of goals; trackBy: trackGoalById">{{goalOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

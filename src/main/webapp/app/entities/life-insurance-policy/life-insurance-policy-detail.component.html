@@ -1,0 +1,59 @@
+
+<div *ngIf="lifeInsurancePolicy">
+    <h2><span jhiTranslate="pfmApp.lifeInsurancePolicy.detail.title">Life Insurance Policy</span> {{lifeInsurancePolicy.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.policyNumber">Policy Number</span></dt>
+        <dd>
+            <span>{{lifeInsurancePolicy.policyNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.name">Name</span></dt>
+        <dd>
+            <span>{{lifeInsurancePolicy.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.totalPremiumPaid">Total Premium Paid</span></dt>
+        <dd>
+            <span>{{lifeInsurancePolicy.totalPremiumPaid}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.premium">Premium</span></dt>
+        <dd>
+            <span>{{lifeInsurancePolicy.premium}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.sumAssured">Sum Assured</span></dt>
+        <dd>
+            <span>{{lifeInsurancePolicy.sumAssured}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.company">Company</span></dt>
+        <dd>
+            <div *ngIf="lifeInsurancePolicy.companyId">
+                <a [routerLink]="['/life-insurance-company', lifeInsurancePolicy.companyId]">{{lifeInsurancePolicy.companyId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.owner">Owner</span></dt>
+        <dd>
+            <div *ngIf="lifeInsurancePolicy.ownerId">
+                <a [routerLink]="['/person', lifeInsurancePolicy.ownerId]">{{lifeInsurancePolicy.ownerId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.lifeInsurancePolicy.goal">Goal</span></dt>
+        <dd>
+            <div *ngIf="lifeInsurancePolicy.goalId">
+                <a [routerLink]="['/goal', lifeInsurancePolicy.goalId]">{{lifeInsurancePolicy.goalId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'life-insurance-policy/'+ lifeInsurancePolicy.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

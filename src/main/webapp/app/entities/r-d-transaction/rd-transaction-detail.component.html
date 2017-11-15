@@ -1,0 +1,35 @@
+
+<div *ngIf="rDTransaction">
+    <h2><span jhiTranslate="pfmApp.rDTransaction.detail.title">RD Transaction</span> {{rDTransaction.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.rDTransaction.date">Date</span></dt>
+        <dd>
+            <span>{{rDTransaction.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.rDTransaction.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'pfmApp.RDTransactionType.' + rDTransaction.type}}">{{rDTransaction.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.rDTransaction.recurringDeposit">Recurring Deposit</span></dt>
+        <dd>
+            <div *ngIf="rDTransaction.recurringDepositId">
+                <a [routerLink]="['/recurring-deposit', rDTransaction.recurringDepositId]">{{rDTransaction.recurringDepositId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rd-transaction/'+ rDTransaction.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

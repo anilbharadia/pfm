@@ -1,0 +1,59 @@
+
+<div *ngIf="fixedDeposit">
+    <h2><span jhiTranslate="pfmApp.fixedDeposit.detail.title">Fixed Deposit</span> {{fixedDeposit.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.accountNumber">Account Number</span></dt>
+        <dd>
+            <span>{{fixedDeposit.accountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.amount">Amount</span></dt>
+        <dd>
+            <span>{{fixedDeposit.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.openDate">Open Date</span></dt>
+        <dd>
+            <span>{{fixedDeposit.openDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.maturityDate">Maturity Date</span></dt>
+        <dd>
+            <span>{{fixedDeposit.maturityDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'pfmApp.FDStatus.' + fixedDeposit.status}}">{{fixedDeposit.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.bank">Bank</span></dt>
+        <dd>
+            <div *ngIf="fixedDeposit.bankId">
+                <a [routerLink]="['/bank', fixedDeposit.bankId]">{{fixedDeposit.bankId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.goal">Goal</span></dt>
+        <dd>
+            <div *ngIf="fixedDeposit.goalId">
+                <a [routerLink]="['/goal', fixedDeposit.goalId]">{{fixedDeposit.goalId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.fixedDeposit.owner">Owner</span></dt>
+        <dd>
+            <div *ngIf="fixedDeposit.ownerId">
+                <a [routerLink]="['/person', fixedDeposit.ownerId]">{{fixedDeposit.ownerId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'fixed-deposit/'+ fixedDeposit.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

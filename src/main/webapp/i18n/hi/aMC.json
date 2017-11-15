@@ -1,0 +1,24 @@
+{
+    "pfmApp": {
+        "aMC" : {
+            "home": {
+                "title": "AMCS",
+                "createLabel": "नया AMC बनाएँ",
+                "createOrEditLabel": "AMC बनाएँ या संपादित करें"
+            },
+            "created": "एक नया AMC [identifier: {{ param }}] तैयार है",
+            "updated": "एक AMC [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "AMC [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "AMC [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "AMC"
+            },
+            "name": "Name",
+            "website": "Website",
+            "logoURL": "Logo URL",
+            "mfrtAgent": "Mfrt Agent"
+        }
+    }
+}

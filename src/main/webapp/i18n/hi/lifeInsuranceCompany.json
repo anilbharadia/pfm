@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "lifeInsuranceCompany" : {
+            "home": {
+                "title": "LifeInsuranceCompanies",
+                "createLabel": "नया Life Insurance Company बनाएँ",
+                "createOrEditLabel": "Life Insurance Company बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Life Insurance Company [identifier: {{ param }}] तैयार है",
+            "updated": "एक Life Insurance Company [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Life Insurance Company [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Life Insurance Company [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Life Insurance Company"
+            },
+            "name": "Name"
+        }
+    }
+}

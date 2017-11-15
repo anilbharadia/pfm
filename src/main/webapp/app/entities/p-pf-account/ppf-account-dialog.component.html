@@ -1,0 +1,72 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPPFAccountLabel" jhiTranslate="pfmApp.pPFAccount.home.createOrEditLabel">Create or edit a PPF Account</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!pPFAccount.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="pPFAccount.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.pPFAccount.accountNumber" for="field_accountNumber">Account Number</label>
+            <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                [(ngModel)]="pPFAccount.accountNumber" required />
+            <div [hidden]="!(editForm.controls.accountNumber?.dirty && editForm.controls.accountNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.accountNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.pPFAccount.balance" for="field_balance">Balance</label>
+            <input type="number" class="form-control" name="balance" id="field_balance"
+                [(ngModel)]="pPFAccount.balance" required />
+            <div [hidden]="!(editForm.controls.balance?.dirty && editForm.controls.balance?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.balance?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.balance?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.pPFAccount.bank" for="field_bank">Bank</label>
+            <select class="form-control" id="field_bank" name="bank" [(ngModel)]="pPFAccount.bankId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="bankOption.id" *ngFor="let bankOption of banks; trackBy: trackBankById">{{bankOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.pPFAccount.owner" for="field_owner">Owner</label>
+            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="pPFAccount.ownerId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="personOption.id" *ngFor="let personOption of people; trackBy: trackPersonById">{{personOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.pPFAccount.goal" for="field_goal">Goal</label>
+            <select class="form-control" id="field_goal" name="goal" [(ngModel)]="pPFAccount.goalId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="goalOption.id" *ngFor="let goalOption of goals; trackBy: trackGoalById">{{goalOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

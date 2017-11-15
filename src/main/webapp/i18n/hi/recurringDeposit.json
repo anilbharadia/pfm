@@ -1,0 +1,30 @@
+{
+    "pfmApp": {
+        "recurringDeposit" : {
+            "home": {
+                "title": "RecurringDeposits",
+                "createLabel": "नया Recurring Deposit बनाएँ",
+                "createOrEditLabel": "Recurring Deposit बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Recurring Deposit [identifier: {{ param }}] तैयार है",
+            "updated": "एक Recurring Deposit [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Recurring Deposit [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Recurring Deposit [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Recurring Deposit"
+            },
+            "accountNumber": "Account Number",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "installmentDateDay": "Installment Date Day",
+            "currentBalance": "Current Balance",
+            "status": "Status",
+            "interestRate": "Interest Rate",
+            "bank": "Bank",
+            "goal": "Goal",
+            "owner": "Owner"
+        }
+    }
+}

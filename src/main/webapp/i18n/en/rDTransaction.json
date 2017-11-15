@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "rDTransaction" : {
+            "home": {
+                "title": "RD Transactions",
+                "createLabel": "Create a new RD Transaction",
+                "createOrEditLabel": "Create or edit a RD Transaction"
+            },
+            "created": "A new RD Transaction is created with identifier {{ param }}",
+            "updated": "A RD Transaction is updated with identifier {{ param }}",
+            "deleted": "A RD Transaction is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete RD Transaction {{ id }}?"
+            },
+            "detail": {
+                "title": "RD Transaction"
+            },
+            "date": "Date",
+            "type": "Type",
+            "recurringDeposit": "Recurring Deposit"
+        }
+    }
+}

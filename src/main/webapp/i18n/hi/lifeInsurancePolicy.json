@@ -1,0 +1,28 @@
+{
+    "pfmApp": {
+        "lifeInsurancePolicy" : {
+            "home": {
+                "title": "LifeInsurancePolicies",
+                "createLabel": "नया Life Insurance Policy बनाएँ",
+                "createOrEditLabel": "Life Insurance Policy बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Life Insurance Policy [identifier: {{ param }}] तैयार है",
+            "updated": "एक Life Insurance Policy [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Life Insurance Policy [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Life Insurance Policy [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Life Insurance Policy"
+            },
+            "policyNumber": "Policy Number",
+            "name": "Name",
+            "totalPremiumPaid": "Total Premium Paid",
+            "premium": "Premium",
+            "sumAssured": "Sum Assured",
+            "company": "Company",
+            "owner": "Owner",
+            "goal": "Goal"
+        }
+    }
+}

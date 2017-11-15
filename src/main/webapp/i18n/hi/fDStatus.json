@@ -1,0 +1,9 @@
+{
+    "pfmApp": {
+        "FDStatus" : {
+            "null": "",
+            "OPEN": "OPEN",
+            "CLOSED": "CLOSED"
+        }
+    }
+}

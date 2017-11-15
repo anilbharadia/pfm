@@ -1,0 +1,113 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myLifeInsurancePolicyLabel" jhiTranslate="pfmApp.lifeInsurancePolicy.home.createOrEditLabel">Create or edit a Life Insurance Policy</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!lifeInsurancePolicy.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="lifeInsurancePolicy.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.policyNumber" for="field_policyNumber">Policy Number</label>
+            <input type="text" class="form-control" name="policyNumber" id="field_policyNumber"
+                [(ngModel)]="lifeInsurancePolicy.policyNumber" required />
+            <div [hidden]="!(editForm.controls.policyNumber?.dirty && editForm.controls.policyNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.policyNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="lifeInsurancePolicy.name" required />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.totalPremiumPaid" for="field_totalPremiumPaid">Total Premium Paid</label>
+            <input type="number" class="form-control" name="totalPremiumPaid" id="field_totalPremiumPaid"
+                [(ngModel)]="lifeInsurancePolicy.totalPremiumPaid" required />
+            <div [hidden]="!(editForm.controls.totalPremiumPaid?.dirty && editForm.controls.totalPremiumPaid?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.totalPremiumPaid?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.totalPremiumPaid?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.premium" for="field_premium">Premium</label>
+            <input type="number" class="form-control" name="premium" id="field_premium"
+                [(ngModel)]="lifeInsurancePolicy.premium" required />
+            <div [hidden]="!(editForm.controls.premium?.dirty && editForm.controls.premium?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.premium?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.premium?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.sumAssured" for="field_sumAssured">Sum Assured</label>
+            <input type="number" class="form-control" name="sumAssured" id="field_sumAssured"
+                [(ngModel)]="lifeInsurancePolicy.sumAssured" required />
+            <div [hidden]="!(editForm.controls.sumAssured?.dirty && editForm.controls.sumAssured?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sumAssured?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.sumAssured?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.company" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" [(ngModel)]="lifeInsurancePolicy.companyId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="lifeInsuranceCompanyOption.id" *ngFor="let lifeInsuranceCompanyOption of lifeinsurancecompanies; trackBy: trackLifeInsuranceCompanyById">{{lifeInsuranceCompanyOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.owner" for="field_owner">Owner</label>
+            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="lifeInsurancePolicy.ownerId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="personOption.id" *ngFor="let personOption of people; trackBy: trackPersonById">{{personOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="pfmApp.lifeInsurancePolicy.goal" for="field_goal">Goal</label>
+            <select class="form-control" id="field_goal" name="goal" [(ngModel)]="lifeInsurancePolicy.goalId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="goalOption.id" *ngFor="let goalOption of goals; trackBy: trackGoalById">{{goalOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

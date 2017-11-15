@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "mFPortfolio" : {
+            "home": {
+                "title": "MFPortfolios",
+                "createLabel": "नया MF Portfolio बनाएँ",
+                "createOrEditLabel": "MF Portfolio बनाएँ या संपादित करें"
+            },
+            "created": "एक नया MF Portfolio [identifier: {{ param }}] तैयार है",
+            "updated": "एक MF Portfolio [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "MF Portfolio [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "MF Portfolio [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "MF Portfolio"
+            },
+            "folioNumber": "Folio Number",
+            "amc": "Amc",
+            "owner": "Owner"
+        }
+    }
+}

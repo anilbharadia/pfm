@@ -1,0 +1,30 @@
+{
+    "pfmApp": {
+        "recurringDeposit" : {
+            "home": {
+                "title": "Recurring Deposits",
+                "createLabel": "Create a new Recurring Deposit",
+                "createOrEditLabel": "Create or edit a Recurring Deposit"
+            },
+            "created": "A new Recurring Deposit is created with identifier {{ param }}",
+            "updated": "A Recurring Deposit is updated with identifier {{ param }}",
+            "deleted": "A Recurring Deposit is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Recurring Deposit {{ id }}?"
+            },
+            "detail": {
+                "title": "Recurring Deposit"
+            },
+            "accountNumber": "Account Number",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "installmentDateDay": "Installment Date Day",
+            "currentBalance": "Current Balance",
+            "status": "Status",
+            "interestRate": "Interest Rate",
+            "bank": "Bank",
+            "goal": "Goal",
+            "owner": "Owner"
+        }
+    }
+}

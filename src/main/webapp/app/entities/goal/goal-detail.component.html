@@ -1,0 +1,37 @@
+
+<div *ngIf="goal">
+    <h2><span jhiTranslate="pfmApp.goal.detail.title">Goal</span> {{goal.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.goal.name">Name</span></dt>
+        <dd>
+            <span>{{goal.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.goal.amount">Amount</span></dt>
+        <dd>
+            <span>{{goal.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.goal.dueDate">Due Date</span></dt>
+        <dd>
+            <span>{{goal.dueDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.goal.balance">Balance</span></dt>
+        <dd>
+            <span>{{goal.balance}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'goal/'+ goal.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity PPFAccount.
+    -->
+    <changeSet id="20171115133940-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="bank_id"
+                                 baseTableName="ppf_account"
+                                 constraintName="fk_ppfaccount_bank_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bank"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_id"
+                                 baseTableName="ppf_account"
+                                 constraintName="fk_ppfaccount_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="person"/>
+
+        <addForeignKeyConstraint baseColumnNames="goal_id"
+                                 baseTableName="ppf_account"
+                                 constraintName="fk_ppfaccount_goal_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="goal"/>
+
+    </changeSet>
+</databaseChangeLog>

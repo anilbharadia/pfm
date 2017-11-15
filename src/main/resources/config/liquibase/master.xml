@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
+	<!-- auto generated in first round -->
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171107054809_added_entity_Bank.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171107054810_added_entity_Person.xml" relativeToChangelogFile="false"/>
@@ -14,16 +15,49 @@
     <include file="config/liquibase/changelog/20171110061943_added_entity_TransactionType.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110061944_added_entity_ExpenseCategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110061945_added_entity_IncomeCategory.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    
     <include file="config/liquibase/changelog/20171107054811_added_entity_constraints_BankAccount.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171107054812_added_entity_constraints_MyAccount.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171107054813_added_entity_constraints_Transaction.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110061944_added_entity_constraints_ExpenseCategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110061945_added_entity_constraints_IncomeCategory.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 
+	<!-- Manual changes -->
     <include file="config/liquibase/changelog/20171110123045_load-data.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110152520_add-opening-closing-balance.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110160542_removed_is_transfer_contraint_from_tx.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171115065806_transaction_added_transfer_account.xml" relativeToChangelogFile="false"/>
+  
+  	<!-- auto generated in second round (goals) -->
+  	<include file="config/liquibase/changelog/20171115133930_added_entity_Goal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133931_added_entity_MFRTAgent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133932_added_entity_MFCategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133933_added_entity_AMC.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133934_added_entity_MutualFund.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133935_added_entity_MFPortfolio.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133936_added_entity_MFInvestment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133937_added_entity_FixedDeposit.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133938_added_entity_RecurringDeposit.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133939_added_entity_RDTransaction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133940_added_entity_PPFAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133941_added_entity_PPFTransaction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133942_added_entity_LifeInsuranceCompany.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133943_added_entity_LifeInsurancePolicy.xml" relativeToChangelogFile="false"/>
+
+    <include file="config/liquibase/changelog/20171115133932_added_entity_constraints_MFCategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133933_added_entity_constraints_AMC.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133934_added_entity_constraints_MutualFund.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133935_added_entity_constraints_MFPortfolio.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133936_added_entity_constraints_MFInvestment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133937_added_entity_constraints_FixedDeposit.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133938_added_entity_constraints_RecurringDeposit.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133939_added_entity_constraints_RDTransaction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133940_added_entity_constraints_PPFAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133941_added_entity_constraints_PPFTransaction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171115133943_added_entity_constraints_LifeInsurancePolicy.xml" relativeToChangelogFile="false"/>
+    
+    <!-- For future rounds -->
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->  
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    
 </databaseChangeLog>

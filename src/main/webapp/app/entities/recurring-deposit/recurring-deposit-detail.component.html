@@ -1,0 +1,67 @@
+
+<div *ngIf="recurringDeposit">
+    <h2><span jhiTranslate="pfmApp.recurringDeposit.detail.title">Recurring Deposit</span> {{recurringDeposit.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.accountNumber">Account Number</span></dt>
+        <dd>
+            <span>{{recurringDeposit.accountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{recurringDeposit.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.endDate">End Date</span></dt>
+        <dd>
+            <span>{{recurringDeposit.endDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.installmentDateDay">Installment Date Day</span></dt>
+        <dd>
+            <span>{{recurringDeposit.installmentDateDay}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.currentBalance">Current Balance</span></dt>
+        <dd>
+            <span>{{recurringDeposit.currentBalance}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'pfmApp.RDStatus.' + recurringDeposit.status}}">{{recurringDeposit.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.interestRate">Interest Rate</span></dt>
+        <dd>
+            <span>{{recurringDeposit.interestRate}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.bank">Bank</span></dt>
+        <dd>
+            <div *ngIf="recurringDeposit.bankId">
+                <a [routerLink]="['/bank', recurringDeposit.bankId]">{{recurringDeposit.bankId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.goal">Goal</span></dt>
+        <dd>
+            <div *ngIf="recurringDeposit.goalId">
+                <a [routerLink]="['/goal', recurringDeposit.goalId]">{{recurringDeposit.goalId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.recurringDeposit.owner">Owner</span></dt>
+        <dd>
+            <div *ngIf="recurringDeposit.ownerId">
+                <a [routerLink]="['/person', recurringDeposit.ownerId]">{{recurringDeposit.ownerId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'recurring-deposit/'+ recurringDeposit.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

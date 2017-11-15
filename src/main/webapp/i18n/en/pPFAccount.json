@@ -1,0 +1,25 @@
+{
+    "pfmApp": {
+        "pPFAccount" : {
+            "home": {
+                "title": "PPF Accounts",
+                "createLabel": "Create a new PPF Account",
+                "createOrEditLabel": "Create or edit a PPF Account"
+            },
+            "created": "A new PPF Account is created with identifier {{ param }}",
+            "updated": "A PPF Account is updated with identifier {{ param }}",
+            "deleted": "A PPF Account is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete PPF Account {{ id }}?"
+            },
+            "detail": {
+                "title": "PPF Account"
+            },
+            "accountNumber": "Account Number",
+            "balance": "Balance",
+            "bank": "Bank",
+            "owner": "Owner",
+            "goal": "Goal"
+        }
+    }
+}

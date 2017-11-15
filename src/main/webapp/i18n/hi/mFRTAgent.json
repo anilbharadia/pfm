@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "mFRTAgent" : {
+            "home": {
+                "title": "MFRTAgents",
+                "createLabel": "नया MFRT Agent बनाएँ",
+                "createOrEditLabel": "MFRT Agent बनाएँ या संपादित करें"
+            },
+            "created": "एक नया MFRT Agent [identifier: {{ param }}] तैयार है",
+            "updated": "एक MFRT Agent [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "MFRT Agent [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "MFRT Agent [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "MFRT Agent"
+            },
+            "name": "Name"
+        }
+    }
+}

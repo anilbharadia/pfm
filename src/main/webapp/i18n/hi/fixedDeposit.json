@@ -1,0 +1,28 @@
+{
+    "pfmApp": {
+        "fixedDeposit" : {
+            "home": {
+                "title": "FixedDeposits",
+                "createLabel": "नया Fixed Deposit बनाएँ",
+                "createOrEditLabel": "Fixed Deposit बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Fixed Deposit [identifier: {{ param }}] तैयार है",
+            "updated": "एक Fixed Deposit [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Fixed Deposit [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Fixed Deposit [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Fixed Deposit"
+            },
+            "accountNumber": "Account Number",
+            "amount": "Amount",
+            "openDate": "Open Date",
+            "maturityDate": "Maturity Date",
+            "status": "Status",
+            "bank": "Bank",
+            "goal": "Goal",
+            "owner": "Owner"
+        }
+    }
+}

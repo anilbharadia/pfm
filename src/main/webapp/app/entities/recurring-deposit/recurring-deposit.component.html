@@ -1,0 +1,94 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.recurringDeposit.home.title">Recurring Deposits</span>
+        <button class="btn btn-primary float-right jh-create-entity create-recurring-deposit" [routerLink]="['/', { outlets: { popup: ['recurring-deposit-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.recurringDeposit.home.createLabel">
+            Create new Recurring Deposit
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="recurringDeposits">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="accountNumber"><span jhiTranslate="pfmApp.recurringDeposit.accountNumber">Account Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startDate"><span jhiTranslate="pfmApp.recurringDeposit.startDate">Start Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endDate"><span jhiTranslate="pfmApp.recurringDeposit.endDate">End Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="installmentDateDay"><span jhiTranslate="pfmApp.recurringDeposit.installmentDateDay">Installment Date Day</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currentBalance"><span jhiTranslate="pfmApp.recurringDeposit.currentBalance">Current Balance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="pfmApp.recurringDeposit.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="interestRate"><span jhiTranslate="pfmApp.recurringDeposit.interestRate">Interest Rate</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bankId"><span jhiTranslate="pfmApp.recurringDeposit.bank">Bank</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="goalId"><span jhiTranslate="pfmApp.recurringDeposit.goal">Goal</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerId"><span jhiTranslate="pfmApp.recurringDeposit.owner">Owner</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let recurringDeposit of recurringDeposits ;trackBy: trackId">
+                <td><a [routerLink]="['../recurring-deposit', recurringDeposit.id ]">{{recurringDeposit.id}}</a></td>
+                <td>{{recurringDeposit.accountNumber}}</td>
+                <td>{{recurringDeposit.startDate | date:'medium'}}</td>
+                <td>{{recurringDeposit.endDate | date:'medium'}}</td>
+                <td>{{recurringDeposit.installmentDateDay}}</td>
+                <td>{{recurringDeposit.currentBalance}}</td>
+                <td jhiTranslate="{{'pfmApp.RDStatus.' + recurringDeposit.status}}">{{recurringDeposit.status}}</td>
+                <td>{{recurringDeposit.interestRate}}</td>
+                <td>
+                    <div *ngIf="recurringDeposit.bankId">
+                        <a [routerLink]="['../bank', recurringDeposit.bankId  ]" >{{recurringDeposit.bankId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="recurringDeposit.goalId">
+                        <a [routerLink]="['../goal', recurringDeposit.goalId  ]" >{{recurringDeposit.goalId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="recurringDeposit.ownerId">
+                        <a [routerLink]="['../person', recurringDeposit.ownerId  ]" >{{recurringDeposit.ownerId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../recurring-deposit', recurringDeposit.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'recurring-deposit/'+ recurringDeposit.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'recurring-deposit/'+ recurringDeposit.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="recurringDeposits && recurringDeposits.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

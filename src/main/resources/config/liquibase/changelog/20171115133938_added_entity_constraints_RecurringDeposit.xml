@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity RecurringDeposit.
+    -->
+    <changeSet id="20171115133938-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="bank_id"
+                                 baseTableName="recurring_deposit"
+                                 constraintName="fk_recurring_deposit_bank_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bank"/>
+
+        <addForeignKeyConstraint baseColumnNames="goal_id"
+                                 baseTableName="recurring_deposit"
+                                 constraintName="fk_recurring_deposit_goal_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="goal"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_id"
+                                 baseTableName="recurring_deposit"
+                                 constraintName="fk_recurring_deposit_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="person"/>
+
+    </changeSet>
+</databaseChangeLog>

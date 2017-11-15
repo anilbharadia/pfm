@@ -1,0 +1,74 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.aMC.home.title">AMCS</span>
+        <button class="btn btn-primary float-right jh-create-entity create-amc" [routerLink]="['/', { outlets: { popup: ['amc-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.aMC.home.createLabel">
+            Create new AMC
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="aMCS">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="pfmApp.aMC.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="website"><span jhiTranslate="pfmApp.aMC.website">Website</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="logoURL"><span jhiTranslate="pfmApp.aMC.logoURL">Logo URL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="mfrtAgentId"><span jhiTranslate="pfmApp.aMC.mfrtAgent">Mfrt Agent</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let aMC of aMCS ;trackBy: trackId">
+                <td><a [routerLink]="['../amc', aMC.id ]">{{aMC.id}}</a></td>
+                <td>{{aMC.name}}</td>
+                <td>{{aMC.website}}</td>
+                <td>{{aMC.logoURL}}</td>
+                <td>
+                    <div *ngIf="aMC.mfrtAgentId">
+                        <a [routerLink]="['../mfrt-agent', aMC.mfrtAgentId  ]" >{{aMC.mfrtAgentId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../amc', aMC.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'amc/'+ aMC.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'amc/'+ aMC.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="aMCS && aMCS.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

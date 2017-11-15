@@ -1,0 +1,25 @@
+{
+    "pfmApp": {
+        "pPFTransaction" : {
+            "home": {
+                "title": "PPFTransactions",
+                "createLabel": "नया PPF Transaction बनाएँ",
+                "createOrEditLabel": "PPF Transaction बनाएँ या संपादित करें"
+            },
+            "created": "एक नया PPF Transaction [identifier: {{ param }}] तैयार है",
+            "updated": "एक PPF Transaction [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "PPF Transaction [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "PPF Transaction [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "PPF Transaction"
+            },
+            "date": "Date",
+            "desc": "Desc",
+            "amount": "Amount",
+            "type": "Type",
+            "account": "Account"
+        }
+    }
+}

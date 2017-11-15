@@ -1,0 +1,28 @@
+{
+    "pfmApp": {
+        "mFInvestment" : {
+            "home": {
+                "title": "MFInvestments",
+                "createLabel": "नया MF Investment बनाएँ",
+                "createOrEditLabel": "MF Investment बनाएँ या संपादित करें"
+            },
+            "created": "एक नया MF Investment [identifier: {{ param }}] तैयार है",
+            "updated": "एक MF Investment [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "MF Investment [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "MF Investment [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "MF Investment"
+            },
+            "purchaseDate": "Purchase Date",
+            "navDate": "Nav Date",
+            "amount": "Amount",
+            "nav": "Nav",
+            "unit": "Unit",
+            "fund": "Fund",
+            "folio": "Folio",
+            "goal": "Goal"
+        }
+    }
+}

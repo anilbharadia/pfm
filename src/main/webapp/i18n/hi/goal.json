@@ -1,0 +1,24 @@
+{
+    "pfmApp": {
+        "goal" : {
+            "home": {
+                "title": "Goals",
+                "createLabel": "नया Goal बनाएँ",
+                "createOrEditLabel": "Goal बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Goal [identifier: {{ param }}] तैयार है",
+            "updated": "एक Goal [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Goal [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Goal [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Goal"
+            },
+            "name": "Name",
+            "amount": "Amount",
+            "dueDate": "Due Date",
+            "balance": "Balance"
+        }
+    }
+}

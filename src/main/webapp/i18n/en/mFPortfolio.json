@@ -1,0 +1,23 @@
+{
+    "pfmApp": {
+        "mFPortfolio" : {
+            "home": {
+                "title": "MF Portfolios",
+                "createLabel": "Create a new MF Portfolio",
+                "createOrEditLabel": "Create or edit a MF Portfolio"
+            },
+            "created": "A new MF Portfolio is created with identifier {{ param }}",
+            "updated": "A MF Portfolio is updated with identifier {{ param }}",
+            "deleted": "A MF Portfolio is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete MF Portfolio {{ id }}?"
+            },
+            "detail": {
+                "title": "MF Portfolio"
+            },
+            "folioNumber": "Folio Number",
+            "amc": "Amc",
+            "owner": "Owner"
+        }
+    }
+}

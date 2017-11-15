@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "lifeInsuranceCompany" : {
+            "home": {
+                "title": "Life Insurance Companies",
+                "createLabel": "Create a new Life Insurance Company",
+                "createOrEditLabel": "Create or edit a Life Insurance Company"
+            },
+            "created": "A new Life Insurance Company is created with identifier {{ param }}",
+            "updated": "A Life Insurance Company is updated with identifier {{ param }}",
+            "deleted": "A Life Insurance Company is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Life Insurance Company {{ id }}?"
+            },
+            "detail": {
+                "title": "Life Insurance Company"
+            },
+            "name": "Name"
+        }
+    }
+}

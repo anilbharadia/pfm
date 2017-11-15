@@ -1,0 +1,21 @@
+{
+    "pfmApp": {
+        "mFRTAgent" : {
+            "home": {
+                "title": "MFRT Agents",
+                "createLabel": "Create a new MFRT Agent",
+                "createOrEditLabel": "Create or edit a MFRT Agent"
+            },
+            "created": "A new MFRT Agent is created with identifier {{ param }}",
+            "updated": "A MFRT Agent is updated with identifier {{ param }}",
+            "deleted": "A MFRT Agent is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete MFRT Agent {{ id }}?"
+            },
+            "detail": {
+                "title": "MFRT Agent"
+            },
+            "name": "Name"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "pfmApp": {
+        "mFInvestment" : {
+            "home": {
+                "title": "MF Investments",
+                "createLabel": "Create a new MF Investment",
+                "createOrEditLabel": "Create or edit a MF Investment"
+            },
+            "created": "A new MF Investment is created with identifier {{ param }}",
+            "updated": "A MF Investment is updated with identifier {{ param }}",
+            "deleted": "A MF Investment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete MF Investment {{ id }}?"
+            },
+            "detail": {
+                "title": "MF Investment"
+            },
+            "purchaseDate": "Purchase Date",
+            "navDate": "Nav Date",
+            "amount": "Amount",
+            "nav": "Nav",
+            "unit": "Unit",
+            "fund": "Fund",
+            "folio": "Folio",
+            "goal": "Goal"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "pfmApp": {
+        "aMC" : {
+            "home": {
+                "title": "AMCS",
+                "createLabel": "Create a new AMC",
+                "createOrEditLabel": "Create or edit a AMC"
+            },
+            "created": "A new AMC is created with identifier {{ param }}",
+            "updated": "A AMC is updated with identifier {{ param }}",
+            "deleted": "A AMC is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete AMC {{ id }}?"
+            },
+            "detail": {
+                "title": "AMC"
+            },
+            "name": "Name",
+            "website": "Website",
+            "logoURL": "Logo URL",
+            "mfrtAgent": "Mfrt Agent"
+        }
+    }
+}

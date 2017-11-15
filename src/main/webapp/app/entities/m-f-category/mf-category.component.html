@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.mFCategory.home.title">MF Categories</span>
+        <button class="btn btn-primary float-right jh-create-entity create-mf-category" [routerLink]="['/', { outlets: { popup: ['mf-category-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.mFCategory.home.createLabel">
+            Create new MF Category
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="mFCategories">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="pfmApp.mFCategory.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="parentId"><span jhiTranslate="pfmApp.mFCategory.parent">Parent</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mFCategory of mFCategories ;trackBy: trackId">
+                <td><a [routerLink]="['../mf-category', mFCategory.id ]">{{mFCategory.id}}</a></td>
+                <td>{{mFCategory.name}}</td>
+                <td>
+                    <div *ngIf="mFCategory.parentId">
+                        <a [routerLink]="['../mf-category', mFCategory.parentId  ]" >{{mFCategory.parentId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../mf-category', mFCategory.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mf-category/'+ mFCategory.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mf-category/'+ mFCategory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="mFCategories && mFCategories.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

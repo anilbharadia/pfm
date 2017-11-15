@@ -52,6 +52,20 @@ public class CacheConfiguration {
             cm.createCache(com.anil.pfm.domain.ExpenseCategory.class.getName() + ".subCategories", jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.IncomeCategory.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.IncomeCategory.class.getName() + ".subCategories", jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.Goal.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.MFRTAgent.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.MFCategory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.AMC.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.MutualFund.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.MFPortfolio.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.MFInvestment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.FixedDeposit.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.RecurringDeposit.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.RDTransaction.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.PPFAccount.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.PPFTransaction.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.LifeInsuranceCompany.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.domain.LifeInsurancePolicy.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

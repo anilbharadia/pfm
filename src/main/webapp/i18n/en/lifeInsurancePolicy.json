@@ -1,0 +1,28 @@
+{
+    "pfmApp": {
+        "lifeInsurancePolicy" : {
+            "home": {
+                "title": "Life Insurance Policies",
+                "createLabel": "Create a new Life Insurance Policy",
+                "createOrEditLabel": "Create or edit a Life Insurance Policy"
+            },
+            "created": "A new Life Insurance Policy is created with identifier {{ param }}",
+            "updated": "A Life Insurance Policy is updated with identifier {{ param }}",
+            "deleted": "A Life Insurance Policy is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Life Insurance Policy {{ id }}?"
+            },
+            "detail": {
+                "title": "Life Insurance Policy"
+            },
+            "policyNumber": "Policy Number",
+            "name": "Name",
+            "totalPremiumPaid": "Total Premium Paid",
+            "premium": "Premium",
+            "sumAssured": "Sum Assured",
+            "company": "Company",
+            "owner": "Owner",
+            "goal": "Goal"
+        }
+    }
+}

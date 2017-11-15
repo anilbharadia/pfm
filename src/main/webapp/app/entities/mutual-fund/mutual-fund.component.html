@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.mutualFund.home.title">Mutual Funds</span>
+        <button class="btn btn-primary float-right jh-create-entity create-mutual-fund" [routerLink]="['/', { outlets: { popup: ['mutual-fund-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.mutualFund.home.createLabel">
+            Create new Mutual Fund
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="mutualFunds">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="pfmApp.mutualFund.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="manager"><span jhiTranslate="pfmApp.mutualFund.manager">Manager</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amcId"><span jhiTranslate="pfmApp.mutualFund.amc">Amc</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="categoryId"><span jhiTranslate="pfmApp.mutualFund.category">Category</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mutualFund of mutualFunds ;trackBy: trackId">
+                <td><a [routerLink]="['../mutual-fund', mutualFund.id ]">{{mutualFund.id}}</a></td>
+                <td>{{mutualFund.name}}</td>
+                <td>{{mutualFund.manager}}</td>
+                <td>
+                    <div *ngIf="mutualFund.amcId">
+                        <a [routerLink]="['../amc', mutualFund.amcId  ]" >{{mutualFund.amcId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="mutualFund.categoryId">
+                        <a [routerLink]="['../mf-category', mutualFund.categoryId  ]" >{{mutualFund.categoryId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../mutual-fund', mutualFund.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mutual-fund/'+ mutualFund.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'mutual-fund/'+ mutualFund.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="mutualFunds && mutualFunds.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,90 @@
+<div>
+    <h2>
+        <span jhiTranslate="pfmApp.fixedDeposit.home.title">Fixed Deposits</span>
+        <button class="btn btn-primary float-right jh-create-entity create-fixed-deposit" [routerLink]="['/', { outlets: { popup: ['fixed-deposit-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="pfmApp.fixedDeposit.home.createLabel">
+            Create new Fixed Deposit
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="fixedDeposits">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="accountNumber"><span jhiTranslate="pfmApp.fixedDeposit.accountNumber">Account Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amount"><span jhiTranslate="pfmApp.fixedDeposit.amount">Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="openDate"><span jhiTranslate="pfmApp.fixedDeposit.openDate">Open Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maturityDate"><span jhiTranslate="pfmApp.fixedDeposit.maturityDate">Maturity Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="pfmApp.fixedDeposit.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bankId"><span jhiTranslate="pfmApp.fixedDeposit.bank">Bank</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="goalId"><span jhiTranslate="pfmApp.fixedDeposit.goal">Goal</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ownerId"><span jhiTranslate="pfmApp.fixedDeposit.owner">Owner</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let fixedDeposit of fixedDeposits ;trackBy: trackId">
+                <td><a [routerLink]="['../fixed-deposit', fixedDeposit.id ]">{{fixedDeposit.id}}</a></td>
+                <td>{{fixedDeposit.accountNumber}}</td>
+                <td>{{fixedDeposit.amount}}</td>
+                <td>{{fixedDeposit.openDate | date:'medium'}}</td>
+                <td>{{fixedDeposit.maturityDate | date:'medium'}}</td>
+                <td jhiTranslate="{{'pfmApp.FDStatus.' + fixedDeposit.status}}">{{fixedDeposit.status}}</td>
+                <td>
+                    <div *ngIf="fixedDeposit.bankId">
+                        <a [routerLink]="['../bank', fixedDeposit.bankId  ]" >{{fixedDeposit.bankId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="fixedDeposit.goalId">
+                        <a [routerLink]="['../goal', fixedDeposit.goalId  ]" >{{fixedDeposit.goalId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="fixedDeposit.ownerId">
+                        <a [routerLink]="['../person', fixedDeposit.ownerId  ]" >{{fixedDeposit.ownerId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../fixed-deposit', fixedDeposit.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'fixed-deposit/'+ fixedDeposit.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'fixed-deposit/'+ fixedDeposit.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="fixedDeposits && fixedDeposits.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

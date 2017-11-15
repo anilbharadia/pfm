@@ -1,0 +1,47 @@
+
+<div *ngIf="pPFAccount">
+    <h2><span jhiTranslate="pfmApp.pPFAccount.detail.title">PPF Account</span> {{pPFAccount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="pfmApp.pPFAccount.accountNumber">Account Number</span></dt>
+        <dd>
+            <span>{{pPFAccount.accountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.pPFAccount.balance">Balance</span></dt>
+        <dd>
+            <span>{{pPFAccount.balance}}</span>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.pPFAccount.bank">Bank</span></dt>
+        <dd>
+            <div *ngIf="pPFAccount.bankId">
+                <a [routerLink]="['/bank', pPFAccount.bankId]">{{pPFAccount.bankId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.pPFAccount.owner">Owner</span></dt>
+        <dd>
+            <div *ngIf="pPFAccount.ownerId">
+                <a [routerLink]="['/person', pPFAccount.ownerId]">{{pPFAccount.ownerId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="pfmApp.pPFAccount.goal">Goal</span></dt>
+        <dd>
+            <div *ngIf="pPFAccount.goalId">
+                <a [routerLink]="['/goal', pPFAccount.goalId]">{{pPFAccount.goalId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'ppf-account/'+ pPFAccount.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

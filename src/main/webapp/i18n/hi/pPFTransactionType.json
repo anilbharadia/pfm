@@ -1,0 +1,9 @@
+{
+    "pfmApp": {
+        "PPFTransactionType" : {
+            "null": "",
+            "INSTALLMENT": "INSTALLMENT",
+            "INTEREST": "INTEREST"
+        }
+    }
+}

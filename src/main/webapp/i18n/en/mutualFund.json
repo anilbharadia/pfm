@@ -1,0 +1,24 @@
+{
+    "pfmApp": {
+        "mutualFund" : {
+            "home": {
+                "title": "Mutual Funds",
+                "createLabel": "Create a new Mutual Fund",
+                "createOrEditLabel": "Create or edit a Mutual Fund"
+            },
+            "created": "A new Mutual Fund is created with identifier {{ param }}",
+            "updated": "A Mutual Fund is updated with identifier {{ param }}",
+            "deleted": "A Mutual Fund is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Mutual Fund {{ id }}?"
+            },
+            "detail": {
+                "title": "Mutual Fund"
+            },
+            "name": "Name",
+            "manager": "Manager",
+            "amc": "Amc",
+            "category": "Category"
+        }
+    }
+}
