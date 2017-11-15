@@ -1,3 +1,5 @@
+entity Person {} // existing entity
+entity Bank {} // existing entity
 
 entity Goal {
 	name String required,
@@ -170,3 +172,9 @@ relationship ManyToOne{
 relationship ManyToOne{
 	LifeInsurancePolicy{owner} to Person
 }
+
+paginate * with pagination
+
+dto * with mapstruct
+
+service all with serviceImpl
