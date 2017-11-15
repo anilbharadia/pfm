@@ -25,5 +25,5 @@
     <include file="config/liquibase/changelog/20171110123045_load-data.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110152520_add-opening-closing-balance.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171110160542_removed_is_transfer_contraint_from_tx.xml" relativeToChangelogFile="false"/>
-    
+    <include file="config/liquibase/changelog/20171115065806_transaction_added_transfer_account.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

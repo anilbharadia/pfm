@@ -132,6 +132,19 @@
                     </option>
                 </select>
             </div>
+            <div class="form-group col-md-6" *ngIf="transaction.txTypeId === TxTypes.Transfer">
+                <label class="form-control-label" jhiTranslate="pfmApp.transaction.transferAccount" for="field_transfer_account">Account</label>
+                <select 
+                    class="form-control" 
+                    id="field_transfer_account" 
+                    name="transferAccount"
+                    [disabled]="transaction.id"
+                    required
+                    [(ngModel)]="transaction.transferAccountId" >
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="myAccountOption.id" *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">{{myAccountOption.name}}</option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

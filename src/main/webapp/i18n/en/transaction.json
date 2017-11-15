@@ -16,6 +16,7 @@
                 "title": "Transaction"
             },
             "amount": "Amount",
+            "transferAccount" : "Transfer Account",
             "desc": "Desc",
             "date": "Date",
             "isTransfer": "Is Transfer",

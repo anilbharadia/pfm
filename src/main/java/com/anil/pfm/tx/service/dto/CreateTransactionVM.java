@@ -24,6 +24,8 @@ public class CreateTransactionVM implements Serializable {
     private Instant date;
 
     private Long accountId;
+    
+    private Long transferAccountId;
 
     private Long txTypeId;
 
@@ -87,6 +89,14 @@ public class CreateTransactionVM implements Serializable {
     public void setIncomeCategoryId(Long incomeCategoryId) {
         this.incomeCategoryId = incomeCategoryId;
     }
+    
+	public Long getTransferAccountId() {
+		return transferAccountId;
+	}
+
+	public void setTransferAccountId(Long transferAccountId) {
+		this.transferAccountId = transferAccountId;
+	}
 
 	@Override
 	public int hashCode() {

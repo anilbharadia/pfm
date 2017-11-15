@@ -5,6 +5,8 @@ import com.anil.pfm.tx.service.dto.CreateTransactionVM;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
 import com.anil.pfm.tx.service.dto.UpdateTransactionVM;
 
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
+
 import org.mapstruct.*;
 
 /**
@@ -35,7 +37,11 @@ public interface TransactionMapper extends EntityMapper<TransactionDTO, Transact
     @Mapping(source = "incomeCategoryId", target = "incomeCategory")
     Transaction update(UpdateTransactionVM vm, @MappingTarget Transaction tx);
     
+    @Mapping(ignore = true, target="id")
+    @Mapping(ignore = true, target="openingBalance")
+    @Mapping(ignore = true, target="closingBalance")
     @Mapping(source = "accountId", target = "account")
+    @Mapping(source = "transferAccountId", target = "transferAccount")
     @Mapping(source = "txTypeId", target = "txType")
     @Mapping(source = "expenseCategoryId", target = "expenseCategory")
     @Mapping(source = "incomeCategoryId", target = "incomeCategory")

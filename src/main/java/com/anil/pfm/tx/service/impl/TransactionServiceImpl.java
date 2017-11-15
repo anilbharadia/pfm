@@ -81,9 +81,18 @@ public class TransactionServiceImpl implements TransactionService {
 
 		if (type.isExpense()) {
 			balance = balance.subtract(amount);
+		
 		} else if (type.isIncome()) {
 			balance = balance.add(amount);
+		
+		} else if (type.isTransfer()) {
+			balance = balance.subtract(amount);
+			
+			MyAccount transferAcc = tx.getTransferAccount();
+			
+			transferAcc.setBalance(transferAcc.getBalance().add(amount));
 		}
+		
 		account.setBalance(balance);
 		tx.setClosingBalance(balance);
 	}

@@ -47,6 +47,9 @@ public class Transaction implements Serializable {
 
     @ManyToOne
     private MyAccount account;
+    
+    @ManyToOne
+    private MyAccount transferAccount;
 
     @ManyToOne
     private TransactionType txType;
@@ -173,8 +176,16 @@ public class Transaction implements Serializable {
 	public void setClosingBalance(BigDecimal closingBalance) {
 		this.closingBalance = closingBalance;
 	}
-    
-    @Override
+	
+    public MyAccount getTransferAccount() {
+		return transferAccount;
+	}
+
+	public void setTransferAccount(MyAccount transferAccount) {
+		this.transferAccount = transferAccount;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
