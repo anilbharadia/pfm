@@ -1,5 +1,13 @@
-entity Person {} // existing entity
-entity Bank {} // existing entity
+
+
+// existing entity
+entity Person {
+	name String required
+}
+entity Bank {
+	name String required
+}
+// existing entities
 
 entity Goal {
 	name String required,
