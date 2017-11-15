@@ -1,23 +1,29 @@
 <div class="card " style="width: 15rem; margin: 20px">
   <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
   <div class="card-body">
-    <h4 class="card-title">{{account?.name}}</h4>
-    <h3 class="card-text">
+    <h4 class="card-title text-center">{{account?.name}}</h4>
+    <h3 class="card-text text-right">
       {{account?.balance | currency:'INR':'symbol'}}
     </h3>
-    <span>
+    <div class="text-right">
       <button 
-        expenseButton 
-        class="fa fa-minus btn btn-danger"
-        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Expense, account?.id] } }]"
-        title="Expense">
-      </button>
-      <button 
-        incomeButton 
-        class="fa fa-plus btn btn-success"
+        class="btn btn-outline-success btn-sm rounded-circle"
         [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Income, account?.id] } }]"
         title="Income">
+        <span class="fa fa-plus"></span>
       </button>
-    </span>
+      <button 
+        class="btn btn-outline-danger btn-sm rounded-circle"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Expense, account?.id] } }]"
+        title="Expense">
+        <span class="fa fa-minus"></span>
+      </button>
+      <button 
+        class="btn btn-outline-info btn-sm rounded-circle"
+        [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Transfer, account?.id] } }]"
+        title="Transfer">
+        <span class="fa fa-arrows-h"></span>
+      </button>
+    </div>
   </div>
 </div>

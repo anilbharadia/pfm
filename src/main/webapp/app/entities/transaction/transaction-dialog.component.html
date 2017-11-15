@@ -23,7 +23,8 @@
                 <select 
                     class="form-control" 
                     id="field_account" 
-                    name="account" 
+                    name="account"
+                    [disabled]="transaction.id"
                     required
                     [(ngModel)]="transaction.accountId" >
                     <option [ngValue]="null"></option>

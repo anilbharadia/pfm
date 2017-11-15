@@ -6,8 +6,8 @@ import { TxTypes } from '../entities/transaction-type/tx-type.enum';
 @Component({
   selector: 'jhi-account-widget',
   templateUrl: './account-widget.component.html',
-  styleUrls: ['./account-widget.component.css']
-  // styles: []
+  // styleUrls: ['./account-widget.component.css']
+  styles: []
 })
 export class AccountWidgetComponent implements OnInit {
 
