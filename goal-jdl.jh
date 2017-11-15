@@ -1,0 +1,172 @@
+
+entity Goal {
+	name String required,
+    amount BigDecimal required,
+    dueDate Instant,
+    balance BigDecimal
+}
+
+entity MFRTAgent {
+	name String required
+}
+
+entity MFCategory {
+	name String required
+}
+relationship ManyToOne {
+	MFCategory{parent} to MFCategory
+}
+
+entity AMC {
+	name String required,
+    website String,
+    logoURL String
+}
+relationship ManyToOne {
+	AMC{mfrtAgent} to MFRTAgent
+}
+
+entity MutualFund {
+	name String required,
+    manager String required
+}
+relationship ManyToOne {
+	MutualFund{amc} to AMC
+}
+relationship ManyToOne {
+	MutualFund{category} to MFCategory
+}
+
+entity MFPortfolio {
+	folioNumber String required,
+}
+relationship ManyToOne {
+	MFPortfolio{amc} to AMC
+}
+relationship ManyToOne {
+	MFPortfolio{owner} to Person
+}
+
+entity MFInvestment {
+	purchaseDate Instant required,
+	navDate Instant required,
+    amount BigDecimal required,
+    nav BigDecimal,
+    unit BigDecimal
+}
+relationship ManyToOne {
+	MFInvestment{fund} to MutualFund
+}
+relationship ManyToOne {
+	MFInvestment{folio} to MFPortfolio
+}
+relationship ManyToOne {
+	MFInvestment{goal} to Goal
+}
+
+enum FDStatus {
+	OPEN, CLOSED
+}
+entity FixedDeposit {
+	accountNumber String,
+	amount BigDecimal required,
+    openDate Instant required,
+    maturityDate Instant required,
+    status FDStatus required
+}
+relationship ManyToOne {
+	FixedDeposit{bank} to Bank
+}
+relationship ManyToOne {
+	FixedDeposit{goal} to Goal
+}
+relationship ManyToOne {
+	FixedDeposit{owner} to Person
+}
+
+enum RDStatus {
+	OPEN, CLOSED
+}
+
+entity RecurringDeposit {
+	accountNumber String,
+    startDate Instant required,
+    endDate Instant required,
+    installmentDateDay Integer required,
+    currentBalance BigDecimal required,
+    status RDStatus required,
+    interestRate BigDecimal,
+}
+relationship ManyToOne {
+	RecurringDeposit{bank} to Bank
+}
+relationship ManyToOne {
+	RecurringDeposit{goal} to Goal
+}
+relationship ManyToOne {
+	RecurringDeposit{owner} to Person
+}
+
+enum RDTransactionType {
+	INSTALLMENT,
+    INTEREST
+}
+entity RDTransaction {
+	date Instant required,
+    type RDTransactionType
+}
+relationship ManyToOne {
+	RDTransaction{recurringDeposit} to RecurringDeposit
+}
+
+entity PPFAccount {
+	accountNumber String required,
+    balance BigDecimal required
+}
+relationship ManyToOne {
+	PPFAccount{bank} to Bank
+}
+relationship ManyToOne {
+	PPFAccount{owner} to Person
+}
+relationship ManyToOne {
+	PPFAccount{goal} to Goal
+}
+
+enum PPFTransactionType {
+	INSTALLMENT, INTEREST
+}
+entity PPFTransaction {
+	date Instant required,
+    desc String,
+    amount BigDecimal required,
+	type PPFTransactionType required
+}
+relationship ManyToOne {
+	PPFTransaction{account} to PPFAccount
+}
+
+
+entity LifeInsuranceCompany {
+	name String required
+}
+
+entity LifeInsurancePolicy {
+	policyNumber String required,
+    name String required,
+    totalPremiumPaid BigDecimal required,
+    premium BigDecimal required,
+    sumAssured BigDecimal required
+}
+relationship ManyToOne {
+	LifeInsurancePolicy{company} to LifeInsuranceCompany
+}
+relationship ManyToOne{
+	LifeInsurancePolicy{owner} to Person
+}
+relationship ManyToOne{
+	LifeInsurancePolicy{goal} to Goal
+}
+relationship ManyToOne{
+	LifeInsurancePolicy{owner} to Person
+}
