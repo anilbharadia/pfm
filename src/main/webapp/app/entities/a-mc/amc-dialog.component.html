@@ -38,7 +38,9 @@
             <label class="form-control-label" jhiTranslate="pfmApp.aMC.mfrtAgent" for="field_mfrtAgent">Mfrt Agent</label>
             <select class="form-control" id="field_mfrtAgent" name="mfrtAgent" [(ngModel)]="aMC.mfrtAgentId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="mFRTAgentOption.id" *ngFor="let mFRTAgentOption of mfrtagents; trackBy: trackMFRTAgentById">{{mFRTAgentOption.id}}</option>
+                <option [ngValue]="mFRTAgentOption.id" *ngFor="let mFRTAgentOption of mfrtagents; trackBy: trackMFRTAgentById">
+                    {{mFRTAgentOption.name}}
+                </option>
             </select>
         </div>
     </div>

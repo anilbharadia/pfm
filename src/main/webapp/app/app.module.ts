@@ -25,6 +25,7 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
+import { GoalsWidgetComponent } from './goals-widget/goals-widget.component';
 
 @NgModule({
     imports: [

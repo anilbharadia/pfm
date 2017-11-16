@@ -6,28 +6,11 @@
         [(ascending)]="reverse" 
         >
         <th></th>
-        <th jhiSortBy="date"><span jhiTranslate="pfmApp.transaction.date">Date</span> <span class="fa fa-sort"></span></th>
-        <th jhiSortBy="desc">
-            <span jhiTranslate="pfmApp.transaction.desc">Desc</span>
-            <!-- <span class="fa fa-sort"></span> -->
-        </th>
-        <th jhiSortBy="accountId">
-            <span jhiTranslate="pfmApp.transaction.account">Account</span> 
-            <!-- <span class="fa fa-sort"></span> -->
-        </th>
-        <th jhiSortBy="expenseCategoryId" *ngIf="txTypeId === TxTypes.Expense">
-            <span jhiTranslate="pfmApp.transaction.category">
-                Category
-            </span>
-            <!-- <span class="fa fa-sort"></span> -->
-        </th>
-        <th jhiSortBy="incomeCategoryId" *ngIf="txTypeId === TxTypes.Income">
-            <span jhiTranslate="pfmApp.transaction.category">
-                Category
-            </span>
-            <span class="fa fa-sort"></span>
-        </th>
-        <th jhiSortBy="amount"><span jhiTranslate="pfmApp.transaction.amount">Amount</span> <span class="fa fa-sort"></span></th>
+        <th><span jhiTranslate="pfmApp.transaction.date">Date</span></th>
+        <th><span jhiTranslate="pfmApp.transaction.desc">Desc</span></th>
+        <th><span jhiTranslate="pfmApp.transaction.account">Account</span></th>
+        <th><span jhiTranslate="pfmApp.transaction.category">Category</span></th>
+        <th><span jhiTranslate="pfmApp.transaction.amount">Amount</span></th>
       </tr>
     </thead>
       <tbody>
@@ -42,7 +25,7 @@
                 </button>
             </div>
         </td>
-        <td>{{transaction.date | date:'dd-MMM-yyyy'}}</td>
+        <td>{{transaction.date | date:'dd-MMM-yy'}}</td>
         <td>
             <a [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]">
                 {{transaction.desc}}

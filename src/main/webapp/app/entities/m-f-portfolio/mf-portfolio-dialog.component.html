@@ -28,14 +28,18 @@
             <label class="form-control-label" jhiTranslate="pfmApp.mFPortfolio.amc" for="field_amc">Amc</label>
             <select class="form-control" id="field_amc" name="amc" [(ngModel)]="mFPortfolio.amcId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="aMCOption.id" *ngFor="let aMCOption of amcs; trackBy: trackAMCById">{{aMCOption.id}}</option>
+                <option [ngValue]="aMCOption.id" *ngFor="let aMCOption of amcs; trackBy: trackAMCById">
+                    {{aMCOption.name}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.mFPortfolio.owner" for="field_owner">Owner</label>
             <select class="form-control" id="field_owner" name="owner" [(ngModel)]="mFPortfolio.ownerId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="personOption.id" *ngFor="let personOption of people; trackBy: trackPersonById">{{personOption.id}}</option>
+                <option [ngValue]="personOption.id" *ngFor="let personOption of people; trackBy: trackPersonById">
+                    {{personOption.name}}
+                </option>
             </select>
         </div>
     </div>

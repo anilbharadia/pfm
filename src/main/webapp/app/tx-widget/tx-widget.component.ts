@@ -9,7 +9,10 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angu
 @Component({
   selector: 'jhi-tx-widget',
   templateUrl: './tx-widget.component.html',
-  styles: []
+  styles: [`tr td{
+    padding: 5px !important;
+    margin: 5px !important;
+  }`]
 })
 export class TxWidgetComponent implements OnInit, OnDestroy {
 

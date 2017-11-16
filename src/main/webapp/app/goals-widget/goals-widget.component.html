@@ -1,0 +1,25 @@
+<div class="card border border-info">
+  <h3 class="card-header bg-info text-white">Goals</h3>
+  <div class="card-block">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let goal of goals">
+        <span>{{goal.name}} ({{goal.balance | currency:'INR':'symbol'}} / {{goal.amount | currency:'INR':'symbol'}})</span>
+        <span class="float-right">
+            <button 
+            class="btn btn-outline-success btn-xs rounded-circle"
+            [routerLink]="['/', { outlets: { popup: ['transaction-new'] } }]"
+            title="Invest">
+            <span class="fa fa-plus"></span>
+          </button>
+        </span>
+        <ngb-progressbar 
+          type="info" 
+          [value]="goal.balance"
+          [max]="goal.amount"
+          [striped]="true">
+          <span>{{goal.balance * 100 / goal.amount | number:'1.0-0'}}%</span>
+        </ngb-progressbar>
+      </li>
+    </ul>
+  </div>
+</div>

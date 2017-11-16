@@ -76,21 +76,27 @@
             <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.fund" for="field_fund">Fund</label>
             <select class="form-control" id="field_fund" name="fund" [(ngModel)]="mFInvestment.fundId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="mutualFundOption.id" *ngFor="let mutualFundOption of mutualfunds; trackBy: trackMutualFundById">{{mutualFundOption.id}}</option>
+                <option [ngValue]="mutualFundOption.id" *ngFor="let mutualFundOption of mutualfunds; trackBy: trackMutualFundById">
+                    {{mutualFundOption.amcId}} {{mutualFundOption.name}} Fund
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.folio" for="field_folio">Folio</label>
             <select class="form-control" id="field_folio" name="folio" [(ngModel)]="mFInvestment.folioId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="mFPortfolioOption.id" *ngFor="let mFPortfolioOption of mfportfolios; trackBy: trackMFPortfolioById">{{mFPortfolioOption.id}}</option>
+                <option [ngValue]="mFPortfolioOption.id" *ngFor="let mFPortfolioOption of mfportfolios; trackBy: trackMFPortfolioById">
+                    {{mFPortfolioOption.id}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.goal" for="field_goal">Goal</label>
             <select class="form-control" id="field_goal" name="goal" [(ngModel)]="mFInvestment.goalId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="goalOption.id" *ngFor="let goalOption of goals; trackBy: trackGoalById">{{goalOption.id}}</option>
+                <option [ngValue]="goalOption.id" *ngFor="let goalOption of goals; trackBy: trackGoalById">
+                    {{goalOption.name}}
+                </option>
             </select>
         </div>
     </div>

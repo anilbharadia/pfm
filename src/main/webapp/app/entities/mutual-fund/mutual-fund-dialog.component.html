@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.mutualFund.manager" for="field_manager">Manager</label>
             <input type="text" class="form-control" name="manager" id="field_manager"
-                [(ngModel)]="mutualFund.manager" required />
+                [(ngModel)]="mutualFund.manager" />
             <div [hidden]="!(editForm.controls.manager?.dirty && editForm.controls.manager?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.manager?.errors?.required" jhiTranslate="entity.validation.required">
@@ -39,14 +39,18 @@
             <label class="form-control-label" jhiTranslate="pfmApp.mutualFund.amc" for="field_amc">Amc</label>
             <select class="form-control" id="field_amc" name="amc" [(ngModel)]="mutualFund.amcId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="aMCOption.id" *ngFor="let aMCOption of amcs; trackBy: trackAMCById">{{aMCOption.id}}</option>
+                <option [ngValue]="aMCOption.id" *ngFor="let aMCOption of amcs; trackBy: trackAMCById">
+                    {{aMCOption.name}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="pfmApp.mutualFund.category" for="field_category">Category</label>
             <select class="form-control" id="field_category" name="category" [(ngModel)]="mutualFund.categoryId" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="mFCategoryOption.id" *ngFor="let mFCategoryOption of mfcategories; trackBy: trackMFCategoryById">{{mFCategoryOption.id}}</option>
+                <option [ngValue]="mFCategoryOption.id" *ngFor="let mFCategoryOption of mfcategories; trackBy: trackMFCategoryById">
+                    {{mFCategoryOption.name}}
+                </option>
             </select>
         </div>
     </div>

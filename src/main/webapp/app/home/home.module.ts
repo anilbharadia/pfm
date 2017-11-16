@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { PfmSharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent } from './';
+import { GoalsWidgetComponent } from '../goals-widget/goals-widget.component';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { HOME_ROUTE, HomeComponent } from './';
         HomeComponent,
         AccountWidgetComponent,
         AccountsWidgetComponent,
-        TxWidgetComponent
+        TxWidgetComponent,
+        GoalsWidgetComponent
     ],
     entryComponents: [
     ],
