@@ -1,0 +1,19 @@
+id;name;parent_id
+1;Equity;NULL
+2;Debt;NULL
+3;Hybrid;NULL
+4;Money Market;NULL
+5;Large Cap;1
+6;Small & Mid Cap;1
+7;Diversified Equity;1
+8;Thematic - Infrastructure;1
+9;ELSS;1
+10;Index;1
+11;Debt Long Term;2
+12;Debt Short Term;2
+13;Debt Ultra Short Term;2
+14;Credit Opportunities;2
+15;Gilt Long Term;2
+16;Balanced;3
+17;MIP Aggressive;3
+18;Liquid;4

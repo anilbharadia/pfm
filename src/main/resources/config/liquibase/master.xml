@@ -56,6 +56,10 @@
     <include file="config/liquibase/changelog/20171115133941_added_entity_constraints_PPFTransaction.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171115133943_added_entity_constraints_LifeInsurancePolicy.xml" relativeToChangelogFile="false"/>
     
+    <!-- Manual changes -->
+    <include file="config/liquibase/changelog/20171116083456_mf_manager_removed_not_null.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171116012545_load-data2.xml" relativeToChangelogFile="false"/>
+    
     <!-- For future rounds -->
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->  
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

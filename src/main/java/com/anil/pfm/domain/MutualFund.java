@@ -27,8 +27,7 @@ public class MutualFund implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "manager", nullable = false)
+    @Column(name = "manager")
     private String manager;
 
     @ManyToOne

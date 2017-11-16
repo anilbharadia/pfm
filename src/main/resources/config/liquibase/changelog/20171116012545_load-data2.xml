@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+	<changeSet id="load-mfrt-agents" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/mfrt-agents.csv"
+                  separator=";"
+                  tableName="mfrt_agent">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="load-amcs" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/amcs.csv"
+                  separator=";"
+                  tableName="amc">
+            <column name="id" type="numeric"/>
+            <column name="mfrt_agent_id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="load-goals" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/goals.csv"
+                  separator=";"
+                  tableName="goal">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="amount" type="numeric"/>
+        </loadData>
+    </changeSet>
+    
+    <changeSet id="load-life-insurance-companies" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/life-insurance-companies.csv"
+                  separator=";"
+                  tableName="life_insurance_company">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+    
+    <changeSet id="load-mf-categories" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/mf-categories.csv"
+                  separator=";"
+                  tableName="mf_category">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="parent_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+    
+    <changeSet id="load-mutual-funds" author="Anil">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/data/mutual-funds.csv"
+                  separator=";"
+                  tableName="mutual_fund">
+            <column name="id" type="numeric"/>
+            <column name="amc_id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="category_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
