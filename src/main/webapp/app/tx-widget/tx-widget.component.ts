@@ -36,7 +36,7 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.loadTxs();    
+    this.loadTxs();
 
     this.registerChangeInTransactions();
   }
@@ -51,12 +51,12 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
 
   registerChangeInTransactions() {
     this.eventSubscriber = this.eventManager.subscribe(
-      'transactionListModification', 
+      'transactionListModification',
       (response) => this.loadTxs()
     );
 
     this.eventSubscriber = this.eventManager.subscribe(
-      'currentMonthChanged', 
+      'currentMonthChanged',
       (event) => {
         console.log('currentMonthChanged event = ', event);
         this.month = event.month;
@@ -67,16 +67,16 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
 
   loadTxs() {
 
-    let year = this.month.getFullYear();
-    let month = this.month.getMonth();
+    const year = this.month.getFullYear();
+    const month = this.month.getMonth();
 
-    let dateFrom = new Date(year, month, 1, 0, 0, 0, 0);
-    let dateTo = new Date(year, month + 1, 0, 23, 59, 59, 999);
+    const dateFrom = new Date(year, month, 1, 0, 0, 0, 0);
+    const dateTo = new Date(year, month + 1, 0, 23, 59, 59, 999);
 
     const filter = {
       txTypeIds: [this.txTypeId],
-      dateFrom: dateFrom,
-      dateTo: dateTo
+      dateFrom,
+      dateTo
     };
 
     this.txService.filter(filter).subscribe((response) => {

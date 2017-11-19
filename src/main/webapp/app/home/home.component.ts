@@ -57,20 +57,20 @@ export class HomeComponent implements OnInit {
     previous() {
         console.log('previous() called')
 
-        let date = this.month;
+        const date = this.month;
         this.month = new Date(date.getFullYear(), date.getMonth() - 1, date.getDay());
         console.log('this.month = ' + this.month);
-        
+
         this.notifytTransactionListModification();
     }
 
     next() {
         console.log('next() called')
 
-        let date = this.month;
+        const date = this.month;
         this.month = new Date(date.getFullYear(), date.getMonth() + 1, date.getDay());
         console.log('this.month = ' + this.month);
-        
+
         this.notifytTransactionListModification();
     }
 

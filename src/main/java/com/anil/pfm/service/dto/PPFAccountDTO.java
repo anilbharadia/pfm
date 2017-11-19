@@ -1,19 +1,20 @@
 package com.anil.pfm.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the PPFAccount entity.
  */
 public class PPFAccountDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private String accountNumber;
@@ -21,10 +22,13 @@ public class PPFAccountDTO implements Serializable {
     @NotNull
     private BigDecimal balance;
 
+    private BankDTO bank;
     private Long bankId;
 
+    private PersonDTO owner;
     private Long ownerId;
 
+    private GoalDTO goal;
     private Long goalId;
 
     public Long getId() {
@@ -74,8 +78,34 @@ public class PPFAccountDTO implements Serializable {
     public void setGoalId(Long goalId) {
         this.goalId = goalId;
     }
+    
+    
 
-    @Override
+    public BankDTO getBank() {
+		return bank;
+	}
+
+	public void setBank(BankDTO bank) {
+		this.bank = bank;
+	}
+
+	public PersonDTO getOwner() {
+		return owner;
+	}
+
+	public void setOwner(PersonDTO owner) {
+		this.owner = owner;
+	}
+
+	public GoalDTO getGoal() {
+		return goal;
+	}
+
+	public void setGoal(GoalDTO goal) {
+		this.goal = goal;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
@@ -36,6 +37,9 @@ export class PPFTransactionDialogComponent implements OnInit {
         this.isSaving = false;
         this.pPFAccountService.query()
             .subscribe((res: ResponseWrapper) => { this.ppfaccounts = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        if (!this.pPFTransaction.date) {
+            this.pPFTransaction.date = new DatePipe(navigator.language).transform(new Date(), 'yyyy-MM-ddThh:mm');
+        }
     }
 
     clear() {
