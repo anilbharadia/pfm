@@ -1,24 +1,21 @@
 package com.anil.pfm.repository;
 
-import com.anil.pfm.domain.QTransaction;
-import com.anil.pfm.domain.Transaction;
-import com.anil.pfm.tx.service.dto.FilterTransactionVM;
-import com.anil.pfm.tx.service.dto.TransactionDTO;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BooleanExpression;
-
-import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
+
+import com.anil.pfm.tx.domain.QTransaction;
+import com.anil.pfm.tx.domain.Transaction;
+import com.anil.pfm.tx.service.dto.FilterTransactionVM;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 
 /**
  * Spring Data JPA repository for the Transaction entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long>, QueryDslPredicateExecutor<Transaction> {
 

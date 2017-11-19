@@ -1,7 +1,11 @@
-package com.anil.pfm.domain;
+package com.anil.pfm.tx.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.anil.pfm.domain.ExpenseCategory;
+import com.anil.pfm.domain.IncomeCategory;
+import com.anil.pfm.domain.TransactionType;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

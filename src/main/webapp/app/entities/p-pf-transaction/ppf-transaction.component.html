@@ -28,9 +28,9 @@
             <tbody>
             <tr *ngFor="let pPFTransaction of pPFTransactions ;trackBy: trackId">
                 <td><a [routerLink]="['../ppf-transaction', pPFTransaction.id ]">{{pPFTransaction.id}}</a></td>
-                <td>{{pPFTransaction.date | date:'medium'}}</td>
+                <td>{{pPFTransaction.date | date:'dd-MMM-yyyy'}}</td>
                 <td>{{pPFTransaction.desc}}</td>
-                <td>{{pPFTransaction.amount}}</td>
+                <td>{{pPFTransaction.amount | currency:'INR':'symbol'}}</td>
                 <td jhiTranslate="{{'pfmApp.PPFTransactionType.' + pPFTransaction.type}}">{{pPFTransaction.type}}</td>
                 <td>
                     <div *ngIf="pPFTransaction.accountId">

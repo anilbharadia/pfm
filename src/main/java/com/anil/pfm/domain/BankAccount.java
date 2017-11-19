@@ -1,5 +1,6 @@
 package com.anil.pfm.domain;
 
+import com.anil.pfm.tx.domain.MyAccount;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

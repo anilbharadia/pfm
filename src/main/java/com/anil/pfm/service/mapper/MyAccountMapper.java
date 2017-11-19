@@ -1,11 +1,12 @@
 package com.anil.pfm.service.mapper;
 
-import com.anil.pfm.domain.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.anil.pfm.repository.MyAccountRepository;
 import com.anil.pfm.service.dto.MyAccountDTO;
-
-import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.anil.pfm.tx.domain.MyAccount;
 
 /**
  * Mapper for the entity MyAccount and its DTO MyAccountDTO.

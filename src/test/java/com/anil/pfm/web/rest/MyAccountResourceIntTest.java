@@ -1,12 +1,11 @@
 package com.anil.pfm.web.rest;
 
 import com.anil.pfm.PfmApp;
-
-import com.anil.pfm.domain.MyAccount;
 import com.anil.pfm.repository.MyAccountRepository;
 import com.anil.pfm.service.MyAccountService;
 import com.anil.pfm.service.dto.MyAccountDTO;
 import com.anil.pfm.service.mapper.MyAccountMapper;
+import com.anil.pfm.tx.domain.MyAccount;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

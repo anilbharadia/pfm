@@ -44,8 +44,8 @@ public class CacheConfiguration {
             cm.createCache(com.anil.pfm.domain.Bank.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.Person.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.BankAccount.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.MyAccount.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.Transaction.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.tx.domain.MyAccount.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.tx.domain.Transaction.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.TransactionCategory.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.TransactionType.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.ExpenseCategory.class.getName(), jcacheConfiguration);

@@ -1,7 +1,10 @@
-package com.anil.pfm.domain;
+package com.anil.pfm.tx.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.anil.pfm.domain.BankAccount;
+import com.anil.pfm.domain.Person;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -15,7 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "my_account")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class MyAccount implements Serializable {
+public class MyAccount implements IAccount, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -60,6 +63,7 @@ public class MyAccount implements Serializable {
         this.name = name;
     }
 
+    @Override
     public BigDecimal getBalance() {
         return balance;
     }
@@ -69,6 +73,7 @@ public class MyAccount implements Serializable {
         return this;
     }
 
+    @Override
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }

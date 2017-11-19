@@ -1,7 +1,8 @@
 package com.anil.pfm.repository;
 
-import com.anil.pfm.domain.MyAccount;
 import org.springframework.stereotype.Repository;
+
+import com.anil.pfm.tx.domain.MyAccount;
 
 import org.springframework.data.jpa.repository.*;
 

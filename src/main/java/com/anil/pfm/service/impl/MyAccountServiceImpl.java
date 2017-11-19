@@ -1,10 +1,11 @@
 package com.anil.pfm.service.impl;
 
 import com.anil.pfm.service.MyAccountService;
-import com.anil.pfm.domain.MyAccount;
 import com.anil.pfm.repository.MyAccountRepository;
 import com.anil.pfm.service.dto.MyAccountDTO;
 import com.anil.pfm.service.mapper.MyAccountMapper;
+import com.anil.pfm.tx.domain.MyAccount;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
