@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface PPFTransactionMapper extends EntityMapper<PPFTransactionDTO, PPFTransaction> {
 
     @Mapping(source = "account.id", target = "accountId")
-    PPFTransactionDTO toDto(PPFTransaction pPFTransaction); 
+    PPFTransactionDTO toDto(PPFTransaction tx); 
 
     @Mapping(source = "accountId", target = "account")
     PPFTransaction toEntity(PPFTransactionDTO pPFTransactionDTO);

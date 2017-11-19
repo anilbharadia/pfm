@@ -1,4 +1,5 @@
 import { BaseEntity } from './../../shared';
+import { PPFAccount } from '../p-pf-account/index';
 
 export const enum PPFTransactionType {
     'INSTALLMENT',
@@ -12,6 +13,7 @@ export class PPFTransaction implements BaseEntity {
         public desc?: string,
         public amount?: number,
         public type?: PPFTransactionType,
+        public account?:PPFAccount,
         public accountId?: number,
     ) {
     }

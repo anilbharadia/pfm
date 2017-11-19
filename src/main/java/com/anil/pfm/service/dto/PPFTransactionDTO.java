@@ -1,13 +1,13 @@
 package com.anil.pfm.service.dto;
 
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+
 import com.anil.pfm.domain.enumeration.PPFTransactionType;
 
 /**
@@ -15,7 +15,9 @@ import com.anil.pfm.domain.enumeration.PPFTransactionType;
  */
 public class PPFTransactionDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private Instant date;
@@ -28,6 +30,8 @@ public class PPFTransactionDTO implements Serializable {
     @NotNull
     private PPFTransactionType type;
 
+    private PPFAccountDTO account;
+    
     private Long accountId;
 
     public Long getId() {
@@ -77,8 +81,16 @@ public class PPFTransactionDTO implements Serializable {
     public void setAccountId(Long pPFAccountId) {
         this.accountId = pPFAccountId;
     }
+    
+    public PPFAccountDTO getAccount() {
+		return account;
+	}
 
-    @Override
+	public void setAccount(PPFAccountDTO account) {
+		this.account = account;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

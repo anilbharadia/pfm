@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.anil.pfm.domain.enumeration.PPFTransactionType;
+import com.anil.pfm.tx.domain.MyAccount;
 
 /**
  * A PPFTransaction.
@@ -45,6 +46,9 @@ public class PPFTransaction implements Serializable {
 
     @ManyToOne
     private PPFAccount account;
+    
+    //@ManyToOne
+    //private MyAccount fromAccount;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

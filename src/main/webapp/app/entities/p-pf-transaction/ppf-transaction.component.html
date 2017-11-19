@@ -34,7 +34,9 @@
                 <td jhiTranslate="{{'pfmApp.PPFTransactionType.' + pPFTransaction.type}}">{{pPFTransaction.type}}</td>
                 <td>
                     <div *ngIf="pPFTransaction.accountId">
-                        <a [routerLink]="['../ppf-account', pPFTransaction.accountId  ]" >{{pPFTransaction.accountId}}</a>
+                        <a [routerLink]="['../ppf-account', pPFTransaction.accountId  ]" >
+                            {{pPFTransaction.accountId}} ({{pPFTransaction.account?.owner?.name}})
+                        </a>
                     </div>
                 </td>
                 <td class="text-right">

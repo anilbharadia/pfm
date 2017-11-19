@@ -15,19 +15,19 @@
         <dt><span jhiTranslate="pfmApp.pPFAccount.bank">Bank</span></dt>
         <dd>
             <div *ngIf="pPFAccount.bankId">
-                <a [routerLink]="['/bank', pPFAccount.bankId]">{{pPFAccount.bankId}}</a>
+                <a [routerLink]="['/bank', pPFAccount.bankId]">{{pPFAccount.bank?.name}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="pfmApp.pPFAccount.owner">Owner</span></dt>
         <dd>
             <div *ngIf="pPFAccount.ownerId">
-                <a [routerLink]="['/person', pPFAccount.ownerId]">{{pPFAccount.ownerId}}</a>
+                <a [routerLink]="['/person', pPFAccount.ownerId]">{{pPFAccount.owner?.name}}</a>
             </div>
         </dd>
         <dt><span jhiTranslate="pfmApp.pPFAccount.goal">Goal</span></dt>
         <dd>
             <div *ngIf="pPFAccount.goalId">
-                <a [routerLink]="['/goal', pPFAccount.goalId]">{{pPFAccount.goalId}}</a>
+                <a [routerLink]="['/goal', pPFAccount.goalId]">{{pPFAccount.goal?.name}}</a>
             </div>
         </dd>
     </dl>
