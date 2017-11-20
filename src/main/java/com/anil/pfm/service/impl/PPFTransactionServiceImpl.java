@@ -1,7 +1,5 @@
 package com.anil.pfm.service.impl;
 
-import java.math.BigDecimal;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,6 +13,7 @@ import com.anil.pfm.repository.PPFTransactionRepository;
 import com.anil.pfm.service.PPFTransactionService;
 import com.anil.pfm.service.dto.PPFTransactionDTO;
 import com.anil.pfm.service.mapper.PPFTransactionMapper;
+import com.anil.pfm.tx.service.TransactionService;
 
 
 /**
@@ -26,13 +25,16 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
 
     private final Logger log = LoggerFactory.getLogger(PPFTransactionServiceImpl.class);
 
-    private final PPFTransactionRepository txRepository;
+    private final PPFTransactionRepository repository;
 
-    private final PPFTransactionMapper txMapper;
+    private final PPFTransactionMapper mapper;
+    
+    private final TransactionService txService;
 
-    public PPFTransactionServiceImpl(PPFTransactionRepository pPFTransactionRepository, PPFTransactionMapper pPFTransactionMapper) {
-        this.txRepository = pPFTransactionRepository;
-        this.txMapper = pPFTransactionMapper;
+    public PPFTransactionServiceImpl(PPFTransactionRepository pPFTransactionRepository, PPFTransactionMapper pPFTransactionMapper, TransactionService txService) {
+        this.repository = pPFTransactionRepository;
+        this.mapper = pPFTransactionMapper;
+        this.txService = txService;
     }
 
     /**
@@ -44,23 +46,29 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
     @Override
     public PPFTransactionDTO save(PPFTransactionDTO pPFTransactionDTO) {
         log.debug("Request to save PPFTransaction : {}", pPFTransactionDTO);
-        PPFTransaction tx = txMapper.toEntity(pPFTransactionDTO);
+        PPFTransaction tx = mapper.toEntity(pPFTransactionDTO);
         
         updateBalance(tx);
         
-        tx = txRepository.save(tx);
-        return txMapper.toDto(tx);
+        tx = repository.save(tx);
+        return mapper.toDto(tx);
     }
     
     private void updateBalance(PPFTransaction tx) {
 
-		PPFAccount account = tx.getAccount();
+		updatePPFAccountBalance(tx);
 		
-		BigDecimal balance = account.getBalance();
+		updateMyAccountBalance(tx);
+	}
 
-		balance = balance.add(tx.getAmount());
-		
-		account.setBalance(balance);
+	private void updateMyAccountBalance(PPFTransaction tx) {
+
+		txService.save(mapper.toCreateTransactionVM(tx));
+	}
+
+	private void updatePPFAccountBalance(PPFTransaction tx) {
+		PPFAccount account = tx.getAccount();
+		account.setBalance(account.getBalance().add(tx.getAmount()));
 	}
 
     /**
@@ -73,8 +81,8 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
     @Transactional(readOnly = true)
     public Page<PPFTransactionDTO> findAll(Pageable pageable) {
         log.debug("Request to get all PPFTransactions");
-        return txRepository.findAll(pageable)
-            .map(txMapper::toDto);
+        return repository.findAll(pageable)
+            .map(mapper::toDto);
     }
 
     /**
@@ -87,8 +95,8 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
     @Transactional(readOnly = true)
     public PPFTransactionDTO findOne(Long id) {
         log.debug("Request to get PPFTransaction : {}", id);
-        PPFTransaction pPFTransaction = txRepository.findOne(id);
-        return txMapper.toDto(pPFTransaction);
+        PPFTransaction pPFTransaction = repository.findOne(id);
+        return mapper.toDto(pPFTransaction);
     }
 
     /**
@@ -100,11 +108,11 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
     public void delete(Long id) {
         log.debug("Request to delete PPFTransaction : {}", id);
         
-        PPFTransaction tx = txRepository.findOne(id);
+        PPFTransaction tx = repository.findOne(id);
 		
 		tx.setAmount(tx.getAmount().negate());
 		updateBalance(tx);
         
-        txRepository.delete(id);
+        repository.delete(id);
     }
 }

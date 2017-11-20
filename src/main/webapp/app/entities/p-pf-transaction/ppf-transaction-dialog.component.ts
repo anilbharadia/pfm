@@ -1,3 +1,5 @@
+import { MyAccountService } from './../my-account/my-account.service';
+import { MyAccount } from './../my-account/my-account.model';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -23,20 +25,30 @@ export class PPFTransactionDialogComponent implements OnInit {
     isSaving: boolean;
 
     ppfaccounts: PPFAccount[];
+    myaccounts: MyAccount[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private pPFTransactionService: PPFTransactionService,
         private pPFAccountService: PPFAccountService,
+        private myAccountService: MyAccountService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+
         this.pPFAccountService.query()
             .subscribe((res: ResponseWrapper) => { this.ppfaccounts = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+
+        this.myAccountService.query()
+            .subscribe(
+            (res: ResponseWrapper) => { this.myaccounts = res.json; },
+            (res: ResponseWrapper) => this.onError(res.json)
+            );
+
         if (!this.pPFTransaction.date) {
             this.pPFTransaction.date = new DatePipe(navigator.language).transform(new Date(), 'yyyy-MM-ddThh:mm');
         }
@@ -63,7 +75,7 @@ export class PPFTransactionDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: PPFTransaction) {
-        this.eventManager.broadcast({ name: 'pPFTransactionListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'pPFTransactionListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -92,11 +104,11 @@ export class PPFTransactionPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private pPFTransactionPopupService: PPFTransactionPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.pPFTransactionPopupService
                     .open(PPFTransactionDialogComponent as Component, params['id']);
             } else {

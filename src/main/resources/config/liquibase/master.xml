@@ -59,6 +59,7 @@
     <!-- Manual changes -->
     <include file="config/liquibase/changelog/20171116083456_mf_manager_removed_not_null.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171116012545_load-data2.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171120065623_ppf_account_add_from_account.xml" relativeToChangelogFile="false"/>
     
     <!-- For future rounds -->
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->  

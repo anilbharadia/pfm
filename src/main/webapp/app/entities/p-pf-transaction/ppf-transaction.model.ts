@@ -15,6 +15,7 @@ export class PPFTransaction implements BaseEntity {
         public type?: PPFTransactionType,
         public account?:PPFAccount,
         public accountId?: number,
+        public fromAccountId?: number
     ) {
     }
 }

@@ -33,6 +33,8 @@ public class PPFTransactionDTO implements Serializable {
     private PPFAccountDTO account;
     
     private Long accountId;
+    
+    private Long fromAccountId;
 
     public Long getId() {
         return id;
@@ -88,6 +90,14 @@ public class PPFTransactionDTO implements Serializable {
 
 	public void setAccount(PPFAccountDTO account) {
 		this.account = account;
+	}
+	
+	public Long getFromAccountId() {
+		return fromAccountId;
+	}
+
+	public void setFromAccountId(Long fromAccountId) {
+		this.fromAccountId = fromAccountId;
 	}
 
 	@Override

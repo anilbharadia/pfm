@@ -19,7 +19,8 @@
             "desc": "Desc",
             "amount": "Amount",
             "type": "Type",
-            "account": "Account"
+            "account": "Account",
+            "fromAccount": "From Account"
         }
     }
 }

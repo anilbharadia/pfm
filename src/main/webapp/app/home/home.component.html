@@ -1,48 +1,49 @@
-<div>
-    <jhi-accounts-widget></jhi-accounts-widget>
+<div *ngIf="isAuthenticated()">
+    <div>
+        <jhi-accounts-widget></jhi-accounts-widget>
+    </div>
+    <div class="row alert alert-info" role="alert">
+        <div class="col-md-1 text-left">
+            <a (click)="previous()" role="button" title="Previous Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
+                <span class="fa fa-arrow-left"></span>
+            </a>
+        </div>
+        <div class="col-md-10 text-center">
+            {{month | date:'MMMM yyyy'}}
+        </div>
+        <div class="col-md-1 text-right">
+            <a (click)="next()" role="button" title="Next Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
+                <span class="fa fa-arrow-right"></span>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <jhi-tx-widget [txType]="TxTypes.Income" [month]="month" (amount)="totalIncome = $event">
+            </jhi-tx-widget>
+        </div>
+        <div class="col-md-6">
+            <jhi-tx-widget [txType]="TxTypes.Expense" [month]="month" (amount)="totalExpense = $event">
+            </jhi-tx-widget>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-success text-right h5">{{totalIncome | currency:'INR':'symbol'}}</div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-danger text-right h5">{{totalExpense | currency:'INR':'symbol'}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <jhi-goals-widget></jhi-goals-widget>
+        </div>
+        <div class="col-md-6">
+            <jhi-goals-widget></jhi-goals-widget>
+        </div>
+    </div>
 </div>
-<div class="row alert alert-info" role="alert">
-    <div class="col-md-1 text-left">
-        <a (click)="previous()" role="button" title="Previous Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
-            <span class="fa fa-arrow-left"></span>
-        </a>
-    </div>
-    <div class="col-md-10 text-center">
-        {{month | date:'MMMM yyyy'}}
-    </div>
-    <div class="col-md-1 text-right">
-        <a (click)="next()" role="button" title="Next Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
-            <span class="fa fa-arrow-right"></span>
-        </a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <jhi-tx-widget [txType]="TxTypes.Income" [month]="month" (amount)="totalIncome = $event">
-        </jhi-tx-widget>
-    </div>
-    <div class="col-md-6">
-        <jhi-tx-widget [txType]="TxTypes.Expense" [month]="month" (amount)="totalExpense = $event">
-        </jhi-tx-widget>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="alert alert-success text-right h5">{{totalIncome | currency:'INR':'symbol'}}</div>
-    </div>
-    <div class="col-md-6">
-        <div class="alert alert-danger text-right h5">{{totalExpense | currency:'INR':'symbol'}}</div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <jhi-goals-widget></jhi-goals-widget>
-    </div>
-    <div class="col-md-6">
-        <jhi-goals-widget></jhi-goals-widget>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-3">
         <span class="hipster img-fluid rounded"></span>
@@ -93,8 +94,7 @@
 
         <p>
             <span jhiTranslate="home.like">If you like JHipster, don't forget to give us a star on</span>
-            <a href="https://github.com/jhipster/generator-jhipster"
-                target="_blank" rel="noopener" jhiTranslate="home.github">GitHub</a>!
+            <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener" jhiTranslate="home.github">GitHub</a>!
         </p>
     </div>
 </div>

@@ -37,33 +37,54 @@
             </div>
         </div>
         <div class="row">
-        <div class="form-group col-md-3">
-            <label class="form-control-label" jhiTranslate="pfmApp.pPFTransaction.amount" for="field_amount">Amount</label>
-            <input type="number" class="form-control" name="amount" id="field_amount" [(ngModel)]="pPFTransaction.amount" required />
-            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
-                    This field is required.
-                </small>
-                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
+            <div class="form-group col-md-3">
+                <label class="form-control-label" jhiTranslate="pfmApp.pPFTransaction.amount" for="field_amount">Amount</label>
+                <input type="number" class="form-control" name="amount" id="field_amount" [(ngModel)]="pPFTransaction.amount" required />
+                <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                        This field should be a number.
+                    </small>
+                </div>
             </div>
-        </div>
-        <div class="form-group col-md-9">
+            <div class="form-group col-md-9">
                 <label class="form-control-label" jhiTranslate="pfmApp.pPFTransaction.desc" for="field_desc">Desc</label>
                 <input type="text" class="form-control" name="desc" id="field_desc" [(ngModel)]="pPFTransaction.desc" />
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="pfmApp.pPFTransaction.type" for="field_type">Type</label>
-            <select class="form-control" name="type" [(ngModel)]="pPFTransaction.type" id="field_type" required>
-                <option value="INSTALLMENT">{{'pfmApp.PPFTransactionType.INSTALLMENT' | translate}}</option>
-                <option value="INTEREST">{{'pfmApp.PPFTransactionType.INTEREST' | translate}}</option>
-            </select>
-            <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
-                    This field is required.
-                </small>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-control-label" jhiTranslate="pfmApp.pPFTransaction.type" for="field_type">Type</label>
+                <select class="form-control" name="type" [(ngModel)]="pPFTransaction.type" id="field_type" required>
+                    <option value="INSTALLMENT">{{'pfmApp.PPFTransactionType.INSTALLMENT' | translate}}</option>
+                    <option value="INTEREST">{{'pfmApp.PPFTransactionType.INTEREST' | translate}}</option>
+                </select>
+                <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div class="form-group col-md-6" *ngIf="pPFTransaction.type=='INSTALLMENT'">
+                <label class="form-control-label" jhiTranslate="pfmApp.pPFTransaction.fromAccount" for="field_from_account">
+                    From Account
+                </label>
+                <select 
+                    class="form-control" 
+                    id="field_from_account" 
+                    name="fromAccount"
+                    [disabled]="pPFTransaction.id"
+                    required
+                    [(ngModel)]="pPFTransaction.fromAccountId" >
+                    <option [ngValue]="null"></option>
+                    <option 
+                        [ngValue]="myAccountOption.id" 
+                        *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">
+                        {{myAccountOption.name}}
+                    </option>
+                </select>
             </div>
         </div>
     </div>

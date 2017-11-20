@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="anil-b (generated)" id="1511160997591-1">
+        <addColumn tableName="ppf_transaction">
+            <column name="from_account_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="anil-b (generated)" id="1511160997591-2">
+        <addForeignKeyConstraint baseColumnNames="from_account_id" baseTableName="ppf_transaction" constraintName="FKrk8iodn53apypsuhgjmhaob44" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="my_account"/>
+    </changeSet>
+    
+    <changeSet id="load-update-tx-types" author="Anil">
+        <loadUpdateData encoding="UTF-8"
+                  file="config/liquibase/data/tx-types.csv"
+                  separator=";"
+                  primaryKey="id"
+                  tableName="transaction_type">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadUpdateData>
+    </changeSet>
+    
+</databaseChangeLog>

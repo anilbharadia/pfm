@@ -19,6 +19,7 @@ public class TransactionType implements Serializable {
 	public static final Long INCOME = 1L;
 	public static final Long EXPENSE = 2L;
 	public static final Long TRANSFER = 3L;
+	public static final Long INVESTMENT = 4L;
 	
     private static final long serialVersionUID = 1L;
 
@@ -41,7 +42,11 @@ public class TransactionType implements Serializable {
     
     public boolean isTransfer() {
     	return this.id == TRANSFER;
-    } 
+    }
+    
+    public boolean isInvestment() {
+    	return this.id == INVESTMENT;
+    }
     
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

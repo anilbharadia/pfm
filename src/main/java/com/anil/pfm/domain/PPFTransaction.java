@@ -47,8 +47,8 @@ public class PPFTransaction implements Serializable {
     @ManyToOne
     private PPFAccount account;
     
-    //@ManyToOne
-    //private MyAccount fromAccount;
+    @ManyToOne
+    private MyAccount fromAccount;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -123,9 +123,18 @@ public class PPFTransaction implements Serializable {
     public void setAccount(PPFAccount pPFAccount) {
         this.account = pPFAccount;
     }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public MyAccount getFromAccount() {
+		return fromAccount;
+	}
+
+	public void setFromAccount(MyAccount fromAccount) {
+		this.fromAccount = fromAccount;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

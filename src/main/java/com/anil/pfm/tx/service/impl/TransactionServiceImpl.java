@@ -79,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
 		TransactionType type = tx.getTxType();
 		BigDecimal amount = tx.getAmount();
 
-		if (type.isExpense()) {
+		if (type.isExpense() || type.isInvestment()) {
 			balance = balance.subtract(amount);
 		
 		} else if (type.isIncome()) {
