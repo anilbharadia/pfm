@@ -16,7 +16,7 @@
                 <select class="form-control" id="field_account" name="account" required [(ngModel)]="pPFTransaction.accountId">
                     <option [ngValue]="null"></option>
                     <option [ngValue]="pPFAccountOption.id" *ngFor="let pPFAccountOption of ppfaccounts; trackBy: trackPPFAccountById">
-                        {{pPFAccountOption.id}} ({{pPFAccountOption.owner?.name}})
+                        {{pPFAccountOption.id}} ({{pPFAccountOption.owner?.name}}) [{{pPFAccountOption.balance | currency:'INR':'symbol'}}]
                     </option>
                 </select>
             </div>
@@ -82,7 +82,7 @@
                     <option 
                         [ngValue]="myAccountOption.id" 
                         *ngFor="let myAccountOption of myaccounts; trackBy: trackMyAccountById">
-                        {{myAccountOption.name}}
+                        {{myAccountOption.name}} [{{myAccountOption.balance | currency:'INR':'symbol'}}]
                     </option>
                 </select>
             </div>
