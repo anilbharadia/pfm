@@ -8,8 +8,11 @@
         <th></th>
         <th><span jhiTranslate="pfmApp.transaction.date">Date</span></th>
         <th><span jhiTranslate="pfmApp.transaction.desc">Desc</span></th>
-        <th><span jhiTranslate="pfmApp.transaction.account">Account</span></th>
-        <th><span jhiTranslate="pfmApp.transaction.category">Category</span></th>
+        <!-- <th><span jhiTranslate="pfmApp.transaction.account">Account</span></th> -->
+        <th>
+            <span *ngIf="!(txTypeId === TxTypes.Investment)" jhiTranslate="pfmApp.transaction.category">Category</span>
+            <span *ngIf="txTypeId === TxTypes.Investment" jhiTranslate="pfmApp.goal.detail.title">Goal</span>
+        </th>
         <th><span jhiTranslate="pfmApp.transaction.amount">Amount</span></th>
       </tr>
     </thead>
@@ -31,11 +34,11 @@
                 {{transaction.desc}}
             </a>
         </td>
-        <td>
+        <!-- <td>
           <div *ngIf="transaction.accountId">
             <a [routerLink]="['../my-account', transaction.accountId  ]" >{{transaction.account.name}}</a>
           </div>
-        </td>
+        </td> -->
         <td *ngIf="transaction.expenseCategoryId">
             <div>
                 <a 
@@ -49,6 +52,7 @@
                 <a [routerLink]="['../income-category', transaction.incomeCategoryId  ]" >{{transaction.incomeCategory.name}}</a>
             </div>
         </td>
+        <td *ngIf="transaction.txType.id===TxTypes.Investment">TODO</td>
         <td class="text-right">
             {{transaction.amount | currency:'INR':'symbol'}}
         </td>

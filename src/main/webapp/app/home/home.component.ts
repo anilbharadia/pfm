@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     modalRef: NgbModalRef;
     totalIncome: number;
     totalExpense: number;
+    totalInvestment: number;
     month = new Date();
 
     constructor(

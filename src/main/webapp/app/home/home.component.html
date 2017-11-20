@@ -2,39 +2,64 @@
     <div>
         <jhi-accounts-widget></jhi-accounts-widget>
     </div>
-    <div class="row alert alert-info" role="alert">
-        <div class="col-md-1 text-left">
-            <a (click)="previous()" role="button" title="Previous Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
-                <span class="fa fa-arrow-left"></span>
-            </a>
+    <div class="card border border-info small">
+        <div class="card-header bg-info text-white row no-gutters">
+            <div class="col-md-1 text-left">
+                <a (click)="previous()" role="button" title="Previous Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
+                    <span class="fa fa-arrow-left"></span>
+                </a>
+            </div>
+            <div class="col-md-10 text-center">
+                <h3>{{month | date:'MMMM yyyy'}}</h3>
+            </div>
+            <div class="col-md-1 text-right">
+                <a (click)="next()" role="button" title="Next Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
+                    <span class="fa fa-arrow-right"></span>
+                </a>
+            </div>
         </div>
-        <div class="col-md-10 text-center">
-            {{month | date:'MMMM yyyy'}}
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card border border-success" style="margin-left: 5px; margin-top: 5px; margin-bottom: 5px">
+                    <div class="card-block">
+                        <jhi-tx-widget [txType]="TxTypes.Income" [month]="month" (amount)="totalIncome = $event"></jhi-tx-widget>
+                    </div>
+                    <div class="card-footer text-right alert-success">
+                        <h5>{{totalIncome | currency:'INR':'symbol'}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border border-info" style="margin-top: 5px; margin-bottom: 5px">
+                    <div class="card-block">
+                        <jhi-tx-widget [txType]="TxTypes.Investment" [month]="month" (amount)="totalInvestment = $event"></jhi-tx-widget>
+                    </div>
+                    <div class="card-footer text-right alert-info">
+                        <h5>{{totalInvestment | currency:'INR':'symbol'}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border border-danger " style="margin-right: 5px; margin-top: 5px; margin-bottom: 5px">
+                    <div class="card-block">
+                        <jhi-tx-widget [txType]="TxTypes.Expense" [month]="month" (amount)="totalExpense = $event"></jhi-tx-widget>
+                    </div>
+                    <div class="card-footer text-right alert-danger">
+                        <h5>{{totalExpense | currency:'INR':'symbol'}}</h5>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-1 text-right">
-            <a (click)="next()" role="button" title="Next Month" class="btn btn-outline-primary btn-sm rounded-circle pointer">
-                <span class="fa fa-arrow-right"></span>
-            </a>
-        </div>
+        <!-- <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-success text-right h5">{{totalIncome | currency:'INR':'symbol'}}</div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-danger text-right h5">{{totalExpense | currency:'INR':'symbol'}}</div>
+            </div>
+        </div> -->
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <jhi-tx-widget [txType]="TxTypes.Income" [month]="month" (amount)="totalIncome = $event">
-            </jhi-tx-widget>
-        </div>
-        <div class="col-md-6">
-            <jhi-tx-widget [txType]="TxTypes.Expense" [month]="month" (amount)="totalExpense = $event">
-            </jhi-tx-widget>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="alert alert-success text-right h5">{{totalIncome | currency:'INR':'symbol'}}</div>
-        </div>
-        <div class="col-md-6">
-            <div class="alert alert-danger text-right h5">{{totalExpense | currency:'INR':'symbol'}}</div>
-        </div>
-    </div>
+    <br>
     <div class="row">
         <div class="col-md-6">
             <jhi-goals-widget></jhi-goals-widget>
