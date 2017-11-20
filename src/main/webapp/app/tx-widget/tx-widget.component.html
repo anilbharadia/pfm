@@ -1,4 +1,4 @@
-<div class="table-responsive" *ngIf="transactions">
+<div class="table-responsive" *ngIf="transactions" style="height: 300px; overflow-y: auto">
   <table class="table table-striped">
     <thead>
       <tr 
@@ -28,7 +28,7 @@
                 </button>
             </div>
         </td>
-        <td>{{transaction.date | date:'dd-MMM-yy'}}</td>
+        <td>{{transaction.date | date:'dd'}}</td>
         <td>
             <a [routerLink]="['/', { outlets: { popup: 'transaction/'+ transaction.id + '/edit'} }]">
                 {{transaction.desc}}
