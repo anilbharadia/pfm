@@ -10,10 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.anil.pfm.domain.PPFAccount;
 import com.anil.pfm.domain.PPFTransaction;
 import com.anil.pfm.repository.PPFTransactionRepository;
+import com.anil.pfm.repository.TransactionRepository;
 import com.anil.pfm.service.PPFTransactionService;
 import com.anil.pfm.service.dto.PPFTransactionDTO;
 import com.anil.pfm.service.mapper.PPFTransactionMapper;
+import com.anil.pfm.tx.domain.Transaction;
 import com.anil.pfm.tx.service.TransactionService;
+import com.anil.pfm.tx.service.dto.TransactionDTO;
 
 
 /**
@@ -30,11 +33,14 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
     private final PPFTransactionMapper mapper;
     
     private final TransactionService txService;
+    
+    private final TransactionRepository txRepository;
 
-    public PPFTransactionServiceImpl(PPFTransactionRepository pPFTransactionRepository, PPFTransactionMapper pPFTransactionMapper, TransactionService txService) {
+    public PPFTransactionServiceImpl(PPFTransactionRepository pPFTransactionRepository, PPFTransactionMapper pPFTransactionMapper, TransactionService txService, TransactionRepository txRepository) {
         this.repository = pPFTransactionRepository;
         this.mapper = pPFTransactionMapper;
         this.txService = txService;
+        this.txRepository = txRepository;
     }
 
     /**
@@ -61,9 +67,12 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
 		updateMyAccountBalance(tx);
 	}
 
-	private void updateMyAccountBalance(PPFTransaction tx) {
+	private void updateMyAccountBalance(PPFTransaction ppfTx) {
 
-		txService.save(mapper.toCreateTransactionVM(tx));
+		TransactionDTO tx = txService.save(mapper.toCreateTransactionVM(ppfTx));
+		
+		ppfTx.setTransaction(txRepository.findOne(tx.getId()));
+		
 	}
 
 	private void updatePPFAccountBalance(PPFTransaction tx) {
@@ -108,11 +117,17 @@ public class PPFTransactionServiceImpl implements PPFTransactionService{
     public void delete(Long id) {
         log.debug("Request to delete PPFTransaction : {}", id);
         
-        PPFTransaction tx = repository.findOne(id);
+        PPFTransaction ppfTx = repository.findOne(id);
 		
-		tx.setAmount(tx.getAmount().negate());
-		updateBalance(tx);
+		ppfTx.setAmount(ppfTx.getAmount().negate());
+		updatePPFAccountBalance(ppfTx);
+		
+		Transaction tx = ppfTx.getTransaction();
         
         repository.delete(id);
+        
+        if (tx != null) {
+			txService.delete(tx.getId());
+		}
     }
 }

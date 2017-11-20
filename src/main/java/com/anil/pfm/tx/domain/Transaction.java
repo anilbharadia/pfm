@@ -63,7 +63,7 @@ public class Transaction implements Serializable {
 
     @ManyToOne
     private IncomeCategory incomeCategory;
-
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

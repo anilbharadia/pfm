@@ -1,6 +1,19 @@
 package com.anil.pfm.tx.service.impl;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import com.anil.pfm.domain.PPFTransaction;
 import com.anil.pfm.domain.TransactionType;
+import com.anil.pfm.repository.PPFTransactionRepository;
 import com.anil.pfm.repository.TransactionRepository;
 import com.anil.pfm.service.mapper.TransactionMapper;
 import com.anil.pfm.tx.domain.MyAccount;
@@ -10,15 +23,6 @@ import com.anil.pfm.tx.service.dto.CreateTransactionVM;
 import com.anil.pfm.tx.service.dto.FilterTransactionVM;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
 import com.anil.pfm.tx.service.dto.UpdateTransactionVM;
-
-import java.math.BigDecimal;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing Transaction.
@@ -32,10 +36,13 @@ public class TransactionServiceImpl implements TransactionService {
 	private final TransactionRepository txRepository;
 
 	private final TransactionMapper transactionMapper;
-
-	public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionMapper transactionMapper) {
+	
+	private final PPFTransactionRepository ppfTxRepository;
+	
+	public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionMapper transactionMapper, PPFTransactionRepository ppfTxRepository) {
 		this.txRepository = transactionRepository;
 		this.transactionMapper = transactionMapper;
+		this.ppfTxRepository = ppfTxRepository;
 	}
 
 	/**
@@ -137,11 +144,24 @@ public class TransactionServiceImpl implements TransactionService {
 		log.debug("Request to delete Transaction : {}", id);
 		
 		Transaction tx = txRepository.findOne(id);
+
+		validateDelete(tx);
 		
 		tx.setAmount(tx.getAmount().negate());
 		updateBalance(tx);
 		
 		txRepository.delete(id);
+	}
+
+	private void validateDelete(Transaction tx) {
+		
+		if (tx.getTxType().isInvestment()) {
+			List<PPFTransaction> ppfTxs = ppfTxRepository.findByTransaction_Id(tx.getId());
+
+			if (!CollectionUtils.isEmpty(ppfTxs)) {
+				throw new RuntimeException("Cannot Delete Transaction directly, Please delete PPF Transacction to delete this.");
+			}			
+		}
 	}
 
 	@Override

@@ -1,15 +1,25 @@
 package com.anil.pfm.web.rest;
 
-import com.anil.pfm.PfmApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.anil.pfm.domain.PPFTransaction;
-import com.anil.pfm.repository.PPFTransactionRepository;
-import com.anil.pfm.service.PPFTransactionService;
-import com.anil.pfm.service.dto.PPFTransactionDTO;
-import com.anil.pfm.service.mapper.PPFTransactionMapper;
-import com.anil.pfm.web.rest.errors.ExceptionTranslator;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -23,18 +33,21 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.anil.pfm.PfmApp;
+import com.anil.pfm.domain.PPFAccount;
+import com.anil.pfm.domain.PPFTransaction;
+import com.anil.pfm.domain.TransactionType;
 import com.anil.pfm.domain.enumeration.PPFTransactionType;
+import com.anil.pfm.repository.MyAccountRepository;
+import com.anil.pfm.repository.PPFAccountRepository;
+import com.anil.pfm.repository.PPFTransactionRepository;
+import com.anil.pfm.repository.TransactionRepository;
+import com.anil.pfm.service.PPFTransactionService;
+import com.anil.pfm.service.dto.PPFTransactionDTO;
+import com.anil.pfm.service.mapper.PPFTransactionMapper;
+import com.anil.pfm.tx.domain.MyAccount;
+import com.anil.pfm.tx.domain.Transaction;
+import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 /**
  * Test class for the PPFTransactionResource REST controller.
  *
@@ -57,7 +70,13 @@ public class PPFTransactionResourceIntTest {
     private static final PPFTransactionType UPDATED_TYPE = PPFTransactionType.INTEREST;
 
     @Autowired
-    private PPFTransactionRepository pPFTransactionRepository;
+    private TransactionRepository txRepository;
+    
+    @Autowired
+    private PPFAccountRepository ppfAccRepository;
+    
+    @Autowired
+    private PPFTransactionRepository repository;
 
     @Autowired
     private PPFTransactionMapper pPFTransactionMapper;
@@ -79,7 +98,10 @@ public class PPFTransactionResourceIntTest {
 
     private MockMvc restPPFTransactionMockMvc;
 
-    private PPFTransaction pPFTransaction;
+    private PPFTransaction ppfTx;
+    
+    @Autowired
+	private MyAccountRepository accountRepository;
 
     @Before
     public void setup() {
@@ -108,39 +130,76 @@ public class PPFTransactionResourceIntTest {
 
     @Before
     public void initTest() {
-        pPFTransaction = createEntity(em);
+        ppfTx = createEntity(em);
     }
 
+    // TODO createPPFTransactionInterestType
+    
     @Test
     @Transactional
     public void createPPFTransaction() throws Exception {
-        int databaseSizeBeforeCreate = pPFTransactionRepository.findAll().size();
+        int databaseSizeBeforeCreate = repository.findAll().size();
 
+        // initialize PPF account
+        PPFAccount ppfAcc = PPFAccountResourceIntTest.createEntity(em);
+        BigDecimal ppfBalanceBefore = BigDecimal.valueOf(36436.54);
+		ppfAcc.setBalance(ppfBalanceBefore);
+		ppfAcc = ppfAccRepository.saveAndFlush(ppfAcc);
+        
+		// initialize my account
+		MyAccount fromAccount = MyAccountResourceIntTest.createEntity(em);
+    	BigDecimal accountBalanceBefore = BigDecimal.valueOf(5555.55);
+		fromAccount.setBalance(accountBalanceBefore);
+    	fromAccount = accountRepository.saveAndFlush(fromAccount);
+		
         // Create the PPFTransaction
-        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(pPFTransaction);
+        PPFTransactionDTO vm = pPFTransactionMapper.toDto(ppfTx);
+        BigDecimal txAmount = BigDecimal.valueOf(736.55);
+		vm.setAmount(txAmount);
+        vm.setAccountId(ppfAcc.getId());
+        vm.setFromAccountId(fromAccount.getId());
+        
         restPPFTransactionMockMvc.perform(post("/api/p-pf-transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(pPFTransactionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(vm)))
             .andExpect(status().isCreated());
 
         // Validate the PPFTransaction in the database
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeCreate + 1);
         PPFTransaction testPPFTransaction = pPFTransactionList.get(pPFTransactionList.size() - 1);
         assertThat(testPPFTransaction.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testPPFTransaction.getDesc()).isEqualTo(DEFAULT_DESC);
-        assertThat(testPPFTransaction.getAmount()).isEqualTo(DEFAULT_AMOUNT);
+        assertThat(testPPFTransaction.getAmount()).isEqualTo(txAmount);
         assertThat(testPPFTransaction.getType()).isEqualTo(DEFAULT_TYPE);
+        
+        // assert PPF Account Balance Credited
+        ppfAcc = ppfAccRepository.findOne(ppfAcc.getId());
+        BigDecimal expectedBalance = ppfBalanceBefore.add(txAmount);
+        assertEquals(expectedBalance, ppfAcc.getBalance());
+        
+        // assert from account balance deducted
+        fromAccount = accountRepository.findOne(fromAccount.getId());
+        expectedBalance = accountBalanceBefore.subtract(txAmount);
+        assertEquals(expectedBalance, fromAccount.getBalance());
+        
+        // assert new Transaction created of type investment
+        List<Transaction> allTxs = txRepository.findAll();
+        assertThat(allTxs).hasSize(1);
+        Transaction tx = allTxs.get(0);
+        assertEquals(TransactionType.INVESTMENT, tx.getTxType().getId());
+        assertEquals(testPPFTransaction.getTransaction(), tx);
+        
     }
 
     @Test
     @Transactional
     public void createPPFTransactionWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = pPFTransactionRepository.findAll().size();
+        int databaseSizeBeforeCreate = repository.findAll().size();
 
         // Create the PPFTransaction with an existing ID
-        pPFTransaction.setId(1L);
-        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(pPFTransaction);
+        ppfTx.setId(1L);
+        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(ppfTx);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPPFTransactionMockMvc.perform(post("/api/p-pf-transactions")
@@ -149,64 +208,64 @@ public class PPFTransactionResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the PPFTransaction in the database
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeCreate);
     }
 
     @Test
     @Transactional
     public void checkDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = pPFTransactionRepository.findAll().size();
+        int databaseSizeBeforeTest = repository.findAll().size();
         // set the field null
-        pPFTransaction.setDate(null);
+        ppfTx.setDate(null);
 
         // Create the PPFTransaction, which fails.
-        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(pPFTransaction);
+        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(ppfTx);
 
         restPPFTransactionMockMvc.perform(post("/api/p-pf-transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(pPFTransactionDTO)))
             .andExpect(status().isBadRequest());
 
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkAmountIsRequired() throws Exception {
-        int databaseSizeBeforeTest = pPFTransactionRepository.findAll().size();
+        int databaseSizeBeforeTest = repository.findAll().size();
         // set the field null
-        pPFTransaction.setAmount(null);
+        ppfTx.setAmount(null);
 
         // Create the PPFTransaction, which fails.
-        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(pPFTransaction);
+        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(ppfTx);
 
         restPPFTransactionMockMvc.perform(post("/api/p-pf-transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(pPFTransactionDTO)))
             .andExpect(status().isBadRequest());
 
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkTypeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = pPFTransactionRepository.findAll().size();
+        int databaseSizeBeforeTest = repository.findAll().size();
         // set the field null
-        pPFTransaction.setType(null);
+        ppfTx.setType(null);
 
         // Create the PPFTransaction, which fails.
-        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(pPFTransaction);
+        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(ppfTx);
 
         restPPFTransactionMockMvc.perform(post("/api/p-pf-transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(pPFTransactionDTO)))
             .andExpect(status().isBadRequest());
 
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeTest);
     }
 
@@ -214,13 +273,13 @@ public class PPFTransactionResourceIntTest {
     @Transactional
     public void getAllPPFTransactions() throws Exception {
         // Initialize the database
-        pPFTransactionRepository.saveAndFlush(pPFTransaction);
+        repository.saveAndFlush(ppfTx);
 
         // Get all the pPFTransactionList
         restPPFTransactionMockMvc.perform(get("/api/p-pf-transactions?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(pPFTransaction.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(ppfTx.getId().intValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].desc").value(hasItem(DEFAULT_DESC.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
@@ -231,13 +290,13 @@ public class PPFTransactionResourceIntTest {
     @Transactional
     public void getPPFTransaction() throws Exception {
         // Initialize the database
-        pPFTransactionRepository.saveAndFlush(pPFTransaction);
+        repository.saveAndFlush(ppfTx);
 
         // Get the pPFTransaction
-        restPPFTransactionMockMvc.perform(get("/api/p-pf-transactions/{id}", pPFTransaction.getId()))
+        restPPFTransactionMockMvc.perform(get("/api/p-pf-transactions/{id}", ppfTx.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(pPFTransaction.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(ppfTx.getId().intValue()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.desc").value(DEFAULT_DESC.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
@@ -252,15 +311,17 @@ public class PPFTransactionResourceIntTest {
             .andExpect(status().isNotFound());
     }
 
+    // TODO implement PPF Account update functionality
+    @Ignore
     @Test
     @Transactional
     public void updatePPFTransaction() throws Exception {
         // Initialize the database
-        pPFTransactionRepository.saveAndFlush(pPFTransaction);
-        int databaseSizeBeforeUpdate = pPFTransactionRepository.findAll().size();
+        repository.saveAndFlush(ppfTx);
+        int databaseSizeBeforeUpdate = repository.findAll().size();
 
         // Update the pPFTransaction
-        PPFTransaction updatedPPFTransaction = pPFTransactionRepository.findOne(pPFTransaction.getId());
+        PPFTransaction updatedPPFTransaction = repository.findOne(ppfTx.getId());
         updatedPPFTransaction
             .date(UPDATED_DATE)
             .desc(UPDATED_DESC)
@@ -274,7 +335,7 @@ public class PPFTransactionResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the PPFTransaction in the database
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeUpdate);
         PPFTransaction testPPFTransaction = pPFTransactionList.get(pPFTransactionList.size() - 1);
         assertThat(testPPFTransaction.getDate()).isEqualTo(UPDATED_DATE);
@@ -285,38 +346,88 @@ public class PPFTransactionResourceIntTest {
 
     @Test
     @Transactional
-    public void updateNonExistingPPFTransaction() throws Exception {
-        int databaseSizeBeforeUpdate = pPFTransactionRepository.findAll().size();
+    public void deletePPFTransaction() throws Exception {
+        
+    	// Create PPF Tx First
+    	int databaseSizeBeforeCreate = repository.findAll().size();
 
+        // initialize PPF account
+        PPFAccount ppfAcc = PPFAccountResourceIntTest.createEntity(em);
+        BigDecimal ppfBalanceBefore = BigDecimal.valueOf(36436.54);
+		ppfAcc.setBalance(ppfBalanceBefore);
+		ppfAcc = ppfAccRepository.saveAndFlush(ppfAcc);
+        
+		// initialize my account
+		MyAccount fromAccount = MyAccountResourceIntTest.createEntity(em);
+    	BigDecimal accountBalanceBefore = BigDecimal.valueOf(5555.55);
+		fromAccount.setBalance(accountBalanceBefore);
+    	fromAccount = accountRepository.saveAndFlush(fromAccount);
+		
         // Create the PPFTransaction
-        PPFTransactionDTO pPFTransactionDTO = pPFTransactionMapper.toDto(pPFTransaction);
-
-        // If the entity doesn't have an ID, it will be created instead of just being updated
-        restPPFTransactionMockMvc.perform(put("/api/p-pf-transactions")
+        PPFTransactionDTO vm = pPFTransactionMapper.toDto(ppfTx);
+        BigDecimal txAmount = BigDecimal.valueOf(736.55);
+		vm.setAmount(txAmount);
+        vm.setAccountId(ppfAcc.getId());
+        vm.setFromAccountId(fromAccount.getId());
+        
+        restPPFTransactionMockMvc.perform(post("/api/p-pf-transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(pPFTransactionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(vm)))
             .andExpect(status().isCreated());
 
         // Validate the PPFTransaction in the database
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
-        assertThat(pPFTransactionList).hasSize(databaseSizeBeforeUpdate + 1);
-    }
-
-    @Test
-    @Transactional
-    public void deletePPFTransaction() throws Exception {
-        // Initialize the database
-        pPFTransactionRepository.saveAndFlush(pPFTransaction);
-        int databaseSizeBeforeDelete = pPFTransactionRepository.findAll().size();
+        List<PPFTransaction> pPFTransactionList = repository.findAll();
+        assertThat(pPFTransactionList).hasSize(databaseSizeBeforeCreate + 1);
+        PPFTransaction createdPPFTx = pPFTransactionList.get(pPFTransactionList.size() - 1);
+        assertThat(createdPPFTx.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(createdPPFTx.getDesc()).isEqualTo(DEFAULT_DESC);
+        assertThat(createdPPFTx.getAmount()).isEqualTo(txAmount);
+        assertThat(createdPPFTx.getType()).isEqualTo(DEFAULT_TYPE);
+        
+        // assert PPF Account Balance Credited
+        ppfAcc = ppfAccRepository.findOne(ppfAcc.getId());
+        BigDecimal expectedBalance = ppfBalanceBefore.add(txAmount);
+        assertEquals(expectedBalance, ppfAcc.getBalance());
+        
+        // assert from account balance deducted
+        fromAccount = accountRepository.findOne(fromAccount.getId());
+        expectedBalance = accountBalanceBefore.subtract(txAmount);
+        assertEquals(expectedBalance, fromAccount.getBalance());
+        
+        // assert new Transaction created of type investment
+        List<Transaction> allTxs = txRepository.findAll();
+        assertThat(allTxs).hasSize(1);
+        Transaction tx = allTxs.get(0);
+        assertEquals(TransactionType.INVESTMENT, tx.getTxType().getId());
+        assertEquals(createdPPFTx.getTransaction(), tx);
+    	
+    	// ------------------------------- ppf tx created -------------------------
+    	
+    	
+    	// Initialize the database
+        int databaseSizeBeforeDelete = repository.findAll().size();
 
         // Get the pPFTransaction
-        restPPFTransactionMockMvc.perform(delete("/api/p-pf-transactions/{id}", pPFTransaction.getId())
+        restPPFTransactionMockMvc.perform(delete("/api/p-pf-transactions/{id}", createdPPFTx.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<PPFTransaction> pPFTransactionList = pPFTransactionRepository.findAll();
+        pPFTransactionList = repository.findAll();
         assertThat(pPFTransactionList).hasSize(databaseSizeBeforeDelete - 1);
+        
+        // assert that PPF Account Balance is deducted
+        ppfAcc = ppfAccRepository.findOne(ppfAcc.getId());
+        assertEquals(ppfBalanceBefore, ppfAcc.getBalance());
+        
+        // assert that My Account Balance is refunded
+        fromAccount = accountRepository.findOne(fromAccount.getId());
+        assertEquals(accountBalanceBefore, fromAccount.getBalance());
+        
+        // assert that Transaction of type investment is deleted
+        allTxs = txRepository.findAll();
+        assertThat(allTxs).hasSize(0);
+        
     }
 
     @Test
@@ -353,7 +464,7 @@ public class PPFTransactionResourceIntTest {
     @Test
     @Transactional
     public void testEntityFromId() {
-        assertThat(pPFTransactionMapper.fromId(42L).getId()).isEqualTo(42);
+        // assertThat(pPFTransactionMapper.fromId(42L).getId()).isEqualTo(42);
         assertThat(pPFTransactionMapper.fromId(null)).isNull();
     }
 }
