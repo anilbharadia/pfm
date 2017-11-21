@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.amc" for="field_amc">Amc</label>
-                    <select class="form-control" id="field_amc" name="amc" [(ngModel)]="mFInvestment.amcId" >
+                    <select class="form-control" id="field_amc" name="amc" required [(ngModel)]="mFInvestment.amcId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="aMCOption.id" *ngFor="let aMCOption of amcs; trackBy: trackAMCById">
                             {{aMCOption.name}}
@@ -40,9 +40,9 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.fund" for="field_fund">Fund</label>
-                    <select class="form-control" id="field_fund" name="fund" [(ngModel)]="mFInvestment.fundId" >
+                    <select class="form-control" id="field_fund" name="fund" [(ngModel)]="mFInvestment.fundId" required >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="mutualFundOption.id" *ngFor="let mutualFundOption of mutualfunds; trackBy: trackMutualFundById">
+                        <option [ngValue]="mutualFundOption.id" *ngFor="let mutualFundOption of mutualfunds | filter:{amcId:mFInvestment.amcId}; trackBy: trackMutualFundById">
                             {{mutualFundOption.name}} Fund
                         </option>
                     </select>
@@ -90,14 +90,9 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="pfmApp.mFInvestment.navDate" for="field_navDate">Nav Date</label>
                     <div class="d-flex">
-                        <input id="field_navDate" type="datetime-local" class="form-control" name="navDate" [(ngModel)]="mFInvestment.navDate"
-                        required  />
+                        <input id="field_navDate" type="datetime-local" class="form-control" name="navDate" [(ngModel)]="mFInvestment.navDate" />
                     </div>
                     <div [hidden]="!(editForm.controls.navDate?.dirty && editForm.controls.navDate?.invalid)">
-                        <small class="form-text text-danger"
-                           [hidden]="!editForm.controls.navDate?.errors?.required" jhiTranslate="entity.validation.required">
-                           This field is required.
-                        </small>
                         <small class="form-text text-danger"
                             [hidden]="!editForm.controls.navDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
                             This field should be a date and time.
