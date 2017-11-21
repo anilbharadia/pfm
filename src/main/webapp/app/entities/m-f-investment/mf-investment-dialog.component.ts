@@ -1,3 +1,5 @@
+import { AMCService } from './../a-mc/amc.service';
+import { AMC } from './../a-mc/amc.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
@@ -25,6 +27,8 @@ export class MFInvestmentDialogComponent implements OnInit {
 
     mutualfunds: MutualFund[];
 
+    amcs: AMC[];
+
     mfportfolios: MFPortfolio[];
 
     goals: Goal[];
@@ -35,6 +39,7 @@ export class MFInvestmentDialogComponent implements OnInit {
         private mFInvestmentService: MFInvestmentService,
         private mutualFundService: MutualFundService,
         private mFPortfolioService: MFPortfolioService,
+        private aMCService: AMCService,
         private goalService: GoalService,
         private eventManager: JhiEventManager
     ) {
@@ -42,6 +47,8 @@ export class MFInvestmentDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+        this.aMCService.query()
+            .subscribe((res: ResponseWrapper) => { this.amcs = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.mutualFundService.query()
             .subscribe((res: ResponseWrapper) => { this.mutualfunds = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.mFPortfolioService.query()
@@ -71,7 +78,7 @@ export class MFInvestmentDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: MFInvestment) {
-        this.eventManager.broadcast({ name: 'mFInvestmentListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'mFInvestmentListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -108,11 +115,11 @@ export class MFInvestmentPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private mFInvestmentPopupService: MFInvestmentPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.mFInvestmentPopupService
                     .open(MFInvestmentDialogComponent as Component, params['id']);
             } else {

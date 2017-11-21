@@ -16,11 +16,12 @@
                 "title": "MF Investment"
             },
             "purchaseDate": "Purchase Date",
+            "amc": "AMC (Fund House)",
             "navDate": "Nav Date",
             "amount": "Amount",
-            "nav": "Nav",
+            "nav": "Nav / Price",
             "unit": "Unit",
-            "fund": "Fund",
+            "fund": "Fund / Scheme",
             "folio": "Folio",
             "goal": "Goal"
         }

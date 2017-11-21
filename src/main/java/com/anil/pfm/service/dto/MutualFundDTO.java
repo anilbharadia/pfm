@@ -1,26 +1,30 @@
 package com.anil.pfm.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the MutualFund entity.
  */
 public class MutualFundDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private String name;
 
-    @NotNull
     private String manager;
 
     private Long amcId;
+
+    private AMCDTO amc;
+
+    private MFCategoryDTO category;
 
     private Long categoryId;
 
@@ -64,7 +68,23 @@ public class MutualFundDTO implements Serializable {
         this.categoryId = mFCategoryId;
     }
 
-    @Override
+    public AMCDTO getAmc() {
+		return amc;
+	}
+
+	public void setAmc(AMCDTO amc) {
+		this.amc = amc;
+	}
+
+	public MFCategoryDTO getCategory() {
+		return category;
+	}
+
+	public void setCategory(MFCategoryDTO category) {
+		this.category = category;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

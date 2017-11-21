@@ -13,7 +13,7 @@ export class PPFTransaction implements BaseEntity {
         public desc?: string,
         public amount?: number,
         public type?: PPFTransactionType,
-        public account?:PPFAccount,
+        public account?: PPFAccount,
         public accountId?: number,
         public fromAccountId?: number
     ) {

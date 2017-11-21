@@ -1,18 +1,19 @@
 package com.anil.pfm.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the AMC entity.
  */
 public class AMCDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private String name;
@@ -22,6 +23,8 @@ public class AMCDTO implements Serializable {
     private String logoURL;
 
     private Long mfrtAgentId;
+    
+    private MFRTAgentDTO mfrtAgent;
 
     public Long getId() {
         return id;
@@ -63,7 +66,15 @@ public class AMCDTO implements Serializable {
         this.mfrtAgentId = mFRTAgentId;
     }
 
-    @Override
+    public MFRTAgentDTO getMfrtAgent() {
+		return mfrtAgent;
+	}
+
+	public void setMfrtAgent(MFRTAgentDTO mfrtAgent) {
+		this.mfrtAgent = mfrtAgent;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

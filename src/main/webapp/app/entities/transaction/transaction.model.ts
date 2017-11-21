@@ -14,7 +14,7 @@ export class Transaction implements BaseEntity {
 
         public account?: MyAccount,
         public accountId?: number,
-        
+
         public transferAccountId?: number,
 
         public txType?: TransactionType,
@@ -22,7 +22,7 @@ export class Transaction implements BaseEntity {
 
         public expenseCategory?: ExpenseCategory,
         public expenseCategoryId?: number,
-        
+
         public incomeCategory?: IncomeCategory,
         public incomeCategoryId?: number,
     ) {
