@@ -5,7 +5,8 @@ import com.anil.pfm.web.rest.errors.BadRequestAlertException;
 import com.anil.pfm.web.rest.util.HeaderUtil;
 import com.anil.pfm.web.rest.util.PaginationUtil;
 import com.anil.pfm.mf.service.MFCategoryService;
-import com.anil.pfm.service.dto.MFCategoryDTO;
+import com.anil.pfm.mf.service.dto.MFCategoryDTO;
+
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;

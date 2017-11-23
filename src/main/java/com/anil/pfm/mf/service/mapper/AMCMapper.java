@@ -1,30 +1,33 @@
 package com.anil.pfm.mf.service.mapper;
 
-import com.anil.pfm.domain.*;
-import com.anil.pfm.mf.domain.AMC;
-import com.anil.pfm.service.dto.AMCDTO;
-import com.anil.pfm.service.mapper.EntityMapper;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import org.mapstruct.*;
+import com.anil.pfm.mf.domain.AMC;
+import com.anil.pfm.mf.repository.AMCRepository;
+import com.anil.pfm.mf.service.dto.AMCDTO;
+import com.anil.pfm.service.mapper.EntityMapper;
 
 /**
  * Mapper for the entity AMC and its DTO AMCDTO.
  */
 @Mapper(componentModel = "spring", uses = {MFRTAgentMapper.class})
-public interface AMCMapper extends EntityMapper<AMCDTO, AMC> {
+public abstract class AMCMapper implements EntityMapper<AMCDTO, AMC> {
 
+	@Autowired
+	protected AMCRepository amcRepository;
+	
     @Mapping(source = "mfrtAgent.id", target = "mfrtAgentId")
-    AMCDTO toDto(AMC aMC); 
+    public abstract AMCDTO toDto(AMC amc); 
 
     @Mapping(source = "mfrtAgentId", target = "mfrtAgent")
-    AMC toEntity(AMCDTO aMCDTO);
+    public abstract AMC toEntity(AMCDTO amcDTO);
 
-    default AMC fromId(Long id) {
+    public AMC fromId(Long id) {
         if (id == null) {
             return null;
         }
-        AMC aMC = new AMC();
-        aMC.setId(id);
-        return aMC;
+        return amcRepository.getOne(id);
     }
 }

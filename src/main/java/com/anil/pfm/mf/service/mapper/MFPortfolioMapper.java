@@ -2,7 +2,7 @@ package com.anil.pfm.mf.service.mapper;
 
 import com.anil.pfm.domain.*;
 import com.anil.pfm.mf.domain.MFPortfolio;
-import com.anil.pfm.service.dto.MFPortfolioDTO;
+import com.anil.pfm.mf.service.dto.MFPortfolioDTO;
 import com.anil.pfm.service.mapper.EntityMapper;
 import com.anil.pfm.service.mapper.PersonMapper;
 

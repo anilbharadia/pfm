@@ -1,24 +1,19 @@
-package com.anil.pfm.service.dto;
+package com.anil.pfm.mf.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * A DTO for the MFCategory entity.
+ * A DTO for the MFRTAgent entity.
  */
-public class MFCategoryDTO implements Serializable {
+public class MFRTAgentDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
-	private Long id;
+    private Long id;
 
     @NotNull
     private String name;
-
-    private Long parentId;
 
     public Long getId() {
         return id;
@@ -36,14 +31,6 @@ public class MFCategoryDTO implements Serializable {
         this.name = name;
     }
 
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long mFCategoryId) {
-        this.parentId = mFCategoryId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,11 +40,11 @@ public class MFCategoryDTO implements Serializable {
             return false;
         }
 
-        MFCategoryDTO mFCategoryDTO = (MFCategoryDTO) o;
-        if(mFCategoryDTO.getId() == null || getId() == null) {
+        MFRTAgentDTO mFRTAgentDTO = (MFRTAgentDTO) o;
+        if(mFRTAgentDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), mFCategoryDTO.getId());
+        return Objects.equals(getId(), mFRTAgentDTO.getId());
     }
 
     @Override
@@ -67,7 +54,7 @@ public class MFCategoryDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "MFCategoryDTO{" +
+        return "MFRTAgentDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
             "}";

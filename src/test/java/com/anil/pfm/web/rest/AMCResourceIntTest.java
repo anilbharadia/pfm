@@ -4,9 +4,9 @@ import com.anil.pfm.PfmApp;
 import com.anil.pfm.mf.domain.AMC;
 import com.anil.pfm.mf.repository.AMCRepository;
 import com.anil.pfm.mf.service.AMCService;
+import com.anil.pfm.mf.service.dto.AMCDTO;
 import com.anil.pfm.mf.service.mapper.AMCMapper;
 import com.anil.pfm.mf.web.rest.AMCResource;
-import com.anil.pfm.service.dto.AMCDTO;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -53,7 +53,7 @@ public class AMCResourceIntTest {
     private AMCRepository aMCRepository;
 
     @Autowired
-    private AMCMapper aMCMapper;
+    private AMCMapper amcMapper;
 
     @Autowired
     private AMCService aMCService;
@@ -109,7 +109,7 @@ public class AMCResourceIntTest {
         int databaseSizeBeforeCreate = aMCRepository.findAll().size();
 
         // Create the AMC
-        AMCDTO aMCDTO = aMCMapper.toDto(aMC);
+        AMCDTO aMCDTO = amcMapper.toDto(aMC);
         restAMCMockMvc.perform(post("/api/a-mcs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(aMCDTO)))
@@ -131,7 +131,7 @@ public class AMCResourceIntTest {
 
         // Create the AMC with an existing ID
         aMC.setId(1L);
-        AMCDTO aMCDTO = aMCMapper.toDto(aMC);
+        AMCDTO aMCDTO = amcMapper.toDto(aMC);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAMCMockMvc.perform(post("/api/a-mcs")
@@ -152,7 +152,7 @@ public class AMCResourceIntTest {
         aMC.setName(null);
 
         // Create the AMC, which fails.
-        AMCDTO aMCDTO = aMCMapper.toDto(aMC);
+        AMCDTO aMCDTO = amcMapper.toDto(aMC);
 
         restAMCMockMvc.perform(post("/api/a-mcs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -216,7 +216,7 @@ public class AMCResourceIntTest {
             .name(UPDATED_NAME)
             .website(UPDATED_WEBSITE)
             .logoURL(UPDATED_LOGO_URL);
-        AMCDTO aMCDTO = aMCMapper.toDto(updatedAMC);
+        AMCDTO aMCDTO = amcMapper.toDto(updatedAMC);
 
         restAMCMockMvc.perform(put("/api/a-mcs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -238,7 +238,7 @@ public class AMCResourceIntTest {
         int databaseSizeBeforeUpdate = aMCRepository.findAll().size();
 
         // Create the AMC
-        AMCDTO aMCDTO = aMCMapper.toDto(aMC);
+        AMCDTO aMCDTO = amcMapper.toDto(aMC);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restAMCMockMvc.perform(put("/api/a-mcs")
@@ -287,22 +287,21 @@ public class AMCResourceIntTest {
     @Transactional
     public void dtoEqualsVerifier() throws Exception {
         TestUtil.equalsVerifier(AMCDTO.class);
-        AMCDTO aMCDTO1 = new AMCDTO();
-        aMCDTO1.setId(1L);
-        AMCDTO aMCDTO2 = new AMCDTO();
-        assertThat(aMCDTO1).isNotEqualTo(aMCDTO2);
-        aMCDTO2.setId(aMCDTO1.getId());
-        assertThat(aMCDTO1).isEqualTo(aMCDTO2);
-        aMCDTO2.setId(2L);
-        assertThat(aMCDTO1).isNotEqualTo(aMCDTO2);
-        aMCDTO1.setId(null);
-        assertThat(aMCDTO1).isNotEqualTo(aMCDTO2);
+        AMCDTO amcDTO1 = new AMCDTO();
+        amcDTO1.setId(1L);
+        AMCDTO amcDTO2 = new AMCDTO();
+        assertThat(amcDTO1).isNotEqualTo(amcDTO2);
+        amcDTO2.setId(amcDTO1.getId());
+        assertThat(amcDTO1).isEqualTo(amcDTO2);
+        amcDTO2.setId(2L);
+        assertThat(amcDTO1).isNotEqualTo(amcDTO2);
+        amcDTO1.setId(null);
+        assertThat(amcDTO1).isNotEqualTo(amcDTO2);
     }
 
     @Test
     @Transactional
     public void testEntityFromId() {
-        assertThat(aMCMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(aMCMapper.fromId(null)).isNull();
+        assertThat(amcMapper.fromId(null)).isNull();
     }
 }

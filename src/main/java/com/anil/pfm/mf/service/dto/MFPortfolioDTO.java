@@ -1,10 +1,12 @@
-package com.anil.pfm.service.dto;
+package com.anil.pfm.mf.service.dto;
 
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
+
+import com.anil.pfm.service.dto.PersonDTO;
 
 /**
  * A DTO for the MFPortfolio entity.

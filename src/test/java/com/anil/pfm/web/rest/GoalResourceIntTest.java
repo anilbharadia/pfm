@@ -333,7 +333,6 @@ public class GoalResourceIntTest {
     @Test
     @Transactional
     public void testEntityFromId() {
-        assertThat(goalMapper.fromId(42L).getId()).isEqualTo(42);
         assertThat(goalMapper.fromId(null)).isNull();
     }
 }

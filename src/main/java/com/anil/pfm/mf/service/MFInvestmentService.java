@@ -1,8 +1,11 @@
 package com.anil.pfm.mf.service;
 
-import com.anil.pfm.service.dto.MFInvestmentDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.anil.pfm.mf.service.dto.CreateMFInvestmentVM;
+import com.anil.pfm.mf.service.dto.MFInvestmentDTO;
+import com.anil.pfm.mf.service.dto.UpdateMFInvestmentVM;
 
 /**
  * Service Interface for managing MFInvestment.
@@ -15,7 +18,9 @@ public interface MFInvestmentService {
      * @param mFInvestmentDTO the entity to save
      * @return the persisted entity
      */
-    MFInvestmentDTO save(MFInvestmentDTO mFInvestmentDTO);
+    MFInvestmentDTO save(CreateMFInvestmentVM vm);
+    
+    MFInvestmentDTO update(UpdateMFInvestmentVM vm);
 
     /**
      *  Get all the mFInvestments.

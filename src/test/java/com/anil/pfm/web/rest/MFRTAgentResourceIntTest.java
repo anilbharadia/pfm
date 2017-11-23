@@ -4,9 +4,9 @@ import com.anil.pfm.PfmApp;
 import com.anil.pfm.mf.domain.MFRTAgent;
 import com.anil.pfm.mf.repository.MFRTAgentRepository;
 import com.anil.pfm.mf.service.MFRTAgentService;
+import com.anil.pfm.mf.service.dto.MFRTAgentDTO;
 import com.anil.pfm.mf.service.mapper.MFRTAgentMapper;
 import com.anil.pfm.mf.web.rest.MFRTAgentResource;
-import com.anil.pfm.service.dto.MFRTAgentDTO;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -284,7 +284,6 @@ public class MFRTAgentResourceIntTest {
     @Test
     @Transactional
     public void testEntityFromId() {
-        assertThat(mFRTAgentMapper.fromId(42L).getId()).isEqualTo(42);
         assertThat(mFRTAgentMapper.fromId(null)).isNull();
     }
 }

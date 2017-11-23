@@ -1,14 +1,24 @@
 package com.anil.pfm.web.rest;
 
 import com.anil.pfm.PfmApp;
+import com.anil.pfm.domain.Goal;
+import com.anil.pfm.domain.TransactionType;
+import com.anil.pfm.mf.domain.AMC;
 import com.anil.pfm.mf.domain.MFInvestment;
 import com.anil.pfm.mf.domain.MutualFund;
+import com.anil.pfm.mf.repository.AMCRepository;
 import com.anil.pfm.mf.repository.MFInvestmentRepository;
 import com.anil.pfm.mf.repository.MutualFundRepository;
 import com.anil.pfm.mf.service.MFInvestmentService;
+import com.anil.pfm.mf.service.dto.CreateMFInvestmentVM;
+import com.anil.pfm.mf.service.dto.MFInvestmentDTO;
 import com.anil.pfm.mf.service.mapper.MFInvestmentMapper;
 import com.anil.pfm.mf.web.rest.MFInvestmentResource;
-import com.anil.pfm.service.dto.MFInvestmentDTO;
+import com.anil.pfm.repository.GoalRepository;
+import com.anil.pfm.repository.MyAccountRepository;
+import com.anil.pfm.repository.TransactionRepository;
+import com.anil.pfm.tx.domain.MyAccount;
+import com.anil.pfm.tx.domain.Transaction;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -26,6 +36,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -33,6 +44,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -62,6 +74,18 @@ public class MFInvestmentResourceIntTest {
 
     @Autowired
     private MutualFundRepository mutualFundRepository;
+    
+    @Autowired
+    private GoalRepository goalRepository;
+    
+    @Autowired
+    private AMCRepository amcRepository;
+    
+    @Autowired
+    private MyAccountRepository myAccountRepository;
+    
+    @Autowired
+    private TransactionRepository transactionRepository; 
     
     @Autowired
     private MFInvestmentRepository mfInvestmentRepository;
@@ -125,14 +149,33 @@ public class MFInvestmentResourceIntTest {
     public void createMFInvestment() throws Exception {
         int databaseSizeBeforeCreate = mfInvestmentRepository.findAll().size();
 
-        MutualFund fund = mutualFundRepository.saveAndFlush(MutualFundResourceIntTest.createEntity(em));
+        Goal goal = GoalResourceIntTest.createEntity(em);
+        BigDecimal goalBalanceBefore = BigDecimal.valueOf(45435.66);
+		goal.setBalance(goalBalanceBefore);
+        goal = goalRepository.saveAndFlush(goal);
+        mfInvestment.setGoal(goal);
+        
+        MyAccount account = MyAccountResourceIntTest.createEntity(em);
+        BigDecimal accoutBalanceBefore = BigDecimal.valueOf(17456.64);
+		account.setBalance(accoutBalanceBefore);
+        account = myAccountRepository.saveAndFlush(account);
+        mfInvestment.setFromAccount(account);
+        
+//        AMC amc = amcRepository.findByName("HDFC");
+//        amc = amcRepository.saveAndFlush(amc);
+//        MutualFund fund = MutualFundResourceIntTest.createEntity(em);
+//        fund.setAmc(amc);
+        MutualFund fund = mutualFundRepository.findByNameAndAmc_Name("Mid-Cap Opportunities", "HDFC"); // .saveAndFlush(fund);
         mfInvestment.setFund(fund);
         
+        BigDecimal investmentAmount = BigDecimal.valueOf(2500);
+		mfInvestment.setAmount(investmentAmount);
+        
         // Create the MFInvestment
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mfInvestment);
+        CreateMFInvestmentVM vm = mFInvestmentMapper.toCreateMFInvestmentVM(mfInvestment);
         restMFInvestmentMockMvc.perform(post("/api/m-f-investments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mFInvestmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(vm)))
             .andExpect(status().isCreated());
 
         // Validate the MFInvestment in the database
@@ -141,11 +184,33 @@ public class MFInvestmentResourceIntTest {
         MFInvestment testMFInvestment = mFInvestmentList.get(mFInvestmentList.size() - 1);
         assertThat(testMFInvestment.getPurchaseDate()).isEqualTo(DEFAULT_PURCHASE_DATE);
         assertThat(testMFInvestment.getNavDate()).isEqualTo(DEFAULT_NAV_DATE);
-        assertThat(testMFInvestment.getAmount()).isEqualTo(DEFAULT_AMOUNT);
+        assertThat(testMFInvestment.getAmount()).isEqualTo(investmentAmount);
         assertThat(testMFInvestment.getNav()).isEqualTo(DEFAULT_NAV);
         assertThat(testMFInvestment.getUnit()).isEqualTo(DEFAULT_UNIT);
+        
+        // assert that the amount debited from my account
+        account = myAccountRepository.findOne(account.getId());
+        assertEquals(accoutBalanceBefore.subtract(investmentAmount), account.getBalance());
+        
+        // assert that the goal balance is updated
+        goal = goalRepository.findOne(goal.getId());
+        assertEquals(goalBalanceBefore.add(investmentAmount), goal.getBalance());
+        
+        // assert that the new transaction is created for this investment
+        List<Transaction> transactions = transactionRepository.findAll();
+        assertThat(transactions).hasSize(1);
+        Transaction createdTransaction = transactions.get(0);
+		assertEquals(TransactionType.INVESTMENT, createdTransaction.getTxType().getId());
+        assertEquals(investmentAmount, createdTransaction.getAmount());
+        assertEquals(account, createdTransaction.getAccount());
+        assertEquals(mfInvestment.getPurchaseDate(), createdTransaction.getDate());
+        assertEquals("MF - " + mfInvestment.getFund().getAmc().getName() + " " + mfInvestment.getFund().getName(), createdTransaction.getDesc());
+        
     }
 
+    // TODO delete MF investment should refund account and deduct goal balance and delete the transaction
+    // TODO update nav related details
+    
     @Test
     @Transactional
     public void createMFInvestmentWithExistingId() throws Exception {

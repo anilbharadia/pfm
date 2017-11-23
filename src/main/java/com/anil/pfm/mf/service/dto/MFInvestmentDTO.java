@@ -1,4 +1,4 @@
-package com.anil.pfm.service.dto;
+package com.anil.pfm.mf.service.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,6 +7,8 @@ import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
+import com.anil.pfm.service.dto.GoalDTO;
+import com.anil.pfm.service.dto.MyAccountDTO;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
 
 /**

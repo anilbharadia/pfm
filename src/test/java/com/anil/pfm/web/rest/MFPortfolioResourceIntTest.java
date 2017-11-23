@@ -4,9 +4,9 @@ import com.anil.pfm.PfmApp;
 import com.anil.pfm.mf.domain.MFPortfolio;
 import com.anil.pfm.mf.repository.MFPortfolioRepository;
 import com.anil.pfm.mf.service.MFPortfolioService;
+import com.anil.pfm.mf.service.dto.MFPortfolioDTO;
 import com.anil.pfm.mf.service.mapper.MFPortfolioMapper;
 import com.anil.pfm.mf.web.rest.MFPortfolioResource;
-import com.anil.pfm.service.dto.MFPortfolioDTO;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

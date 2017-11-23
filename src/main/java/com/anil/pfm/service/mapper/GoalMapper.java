@@ -1,26 +1,26 @@
 package com.anil.pfm.service.mapper;
 
 import com.anil.pfm.domain.*;
+import com.anil.pfm.repository.GoalRepository;
 import com.anil.pfm.service.dto.GoalDTO;
 
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Mapper for the entity Goal and its DTO GoalDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
-public interface GoalMapper extends EntityMapper<GoalDTO, Goal> {
+public abstract class GoalMapper implements EntityMapper<GoalDTO, Goal> {
 
+    @Autowired
+	protected GoalRepository goalRepository;
     
 
-    
-
-    default Goal fromId(Long id) {
+    public Goal fromId(Long id) {
         if (id == null) {
             return null;
         }
-        Goal goal = new Goal();
-        goal.setId(id);
-        return goal;
+        return goalRepository.findOne(id);
     }
 }

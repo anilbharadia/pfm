@@ -1,8 +1,9 @@
 package com.anil.pfm.mf.service;
 
-import com.anil.pfm.service.dto.MutualFundDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.anil.pfm.mf.service.dto.MutualFundDTO;
 
 /**
  * Service Interface for managing MutualFund.

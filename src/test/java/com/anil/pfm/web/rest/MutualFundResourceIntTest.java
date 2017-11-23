@@ -4,9 +4,9 @@ import com.anil.pfm.PfmApp;
 import com.anil.pfm.mf.domain.MutualFund;
 import com.anil.pfm.mf.repository.MutualFundRepository;
 import com.anil.pfm.mf.service.MutualFundService;
+import com.anil.pfm.mf.service.dto.MutualFundDTO;
 import com.anil.pfm.mf.service.mapper.MutualFundMapper;
 import com.anil.pfm.mf.web.rest.MutualFundResource;
-import com.anil.pfm.service.dto.MutualFundDTO;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -293,7 +293,6 @@ public class MutualFundResourceIntTest {
     @Test
     @Transactional
     public void testEntityFromId() {
-        assertThat(mutualFundMapper.fromId(42L).getId()).isEqualTo(42);
         assertThat(mutualFundMapper.fromId(null)).isNull();
     }
 }

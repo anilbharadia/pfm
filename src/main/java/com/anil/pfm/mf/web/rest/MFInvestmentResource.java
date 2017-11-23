@@ -5,7 +5,10 @@ import com.anil.pfm.web.rest.errors.BadRequestAlertException;
 import com.anil.pfm.web.rest.util.HeaderUtil;
 import com.anil.pfm.web.rest.util.PaginationUtil;
 import com.anil.pfm.mf.service.MFInvestmentService;
-import com.anil.pfm.service.dto.MFInvestmentDTO;
+import com.anil.pfm.mf.service.dto.CreateMFInvestmentVM;
+import com.anil.pfm.mf.service.dto.MFInvestmentDTO;
+import com.anil.pfm.mf.service.dto.UpdateMFInvestmentVM;
+
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -44,18 +47,16 @@ public class MFInvestmentResource {
     /**
      * POST  /m-f-investments : Create a new mFInvestment.
      *
-     * @param mFInvestmentDTO the mFInvestmentDTO to create
+     * @param vm the mFInvestmentDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new mFInvestmentDTO, or with status 400 (Bad Request) if the mFInvestment has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/m-f-investments")
     @Timed
-    public ResponseEntity<MFInvestmentDTO> createMFInvestment(@Valid @RequestBody MFInvestmentDTO mFInvestmentDTO) throws URISyntaxException {
-        log.debug("REST request to save MFInvestment : {}", mFInvestmentDTO);
-        if (mFInvestmentDTO.getId() != null) {
-            throw new BadRequestAlertException("A new mFInvestment cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        MFInvestmentDTO result = mFInvestmentService.save(mFInvestmentDTO);
+    public ResponseEntity<MFInvestmentDTO> createMFInvestment(@Valid @RequestBody CreateMFInvestmentVM vm) throws URISyntaxException {
+        log.debug("REST request to save MFInvestment : {}", vm);
+        
+        MFInvestmentDTO result = mFInvestmentService.save(vm);
         return ResponseEntity.created(new URI("/api/m-f-investments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,7 +65,7 @@ public class MFInvestmentResource {
     /**
      * PUT  /m-f-investments : Updates an existing mFInvestment.
      *
-     * @param mFInvestmentDTO the mFInvestmentDTO to update
+     * @param vm the mFInvestmentDTO to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated mFInvestmentDTO,
      * or with status 400 (Bad Request) if the mFInvestmentDTO is not valid,
      * or with status 500 (Internal Server Error) if the mFInvestmentDTO couldn't be updated
@@ -72,14 +73,12 @@ public class MFInvestmentResource {
      */
     @PutMapping("/m-f-investments")
     @Timed
-    public ResponseEntity<MFInvestmentDTO> updateMFInvestment(@Valid @RequestBody MFInvestmentDTO mFInvestmentDTO) throws URISyntaxException {
-        log.debug("REST request to update MFInvestment : {}", mFInvestmentDTO);
-        if (mFInvestmentDTO.getId() == null) {
-            return createMFInvestment(mFInvestmentDTO);
-        }
-        MFInvestmentDTO result = mFInvestmentService.save(mFInvestmentDTO);
+    public ResponseEntity<MFInvestmentDTO> updateMFInvestment(@Valid @RequestBody UpdateMFInvestmentVM vm) throws URISyntaxException {
+        log.debug("REST request to update MFInvestment : {}", vm);
+        
+        MFInvestmentDTO result = mFInvestmentService.update(vm);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, mFInvestmentDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, vm.getId().toString()))
             .body(result);
     }
 

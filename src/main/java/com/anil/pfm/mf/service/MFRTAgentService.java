@@ -1,8 +1,9 @@
 package com.anil.pfm.mf.service;
 
-import com.anil.pfm.service.dto.MFRTAgentDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.anil.pfm.mf.service.dto.MFRTAgentDTO;
 
 /**
  * Service Interface for managing MFRTAgent.

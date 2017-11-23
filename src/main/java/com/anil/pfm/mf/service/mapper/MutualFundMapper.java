@@ -1,32 +1,35 @@
 package com.anil.pfm.mf.service.mapper;
 
-import com.anil.pfm.domain.*;
-import com.anil.pfm.mf.domain.MutualFund;
-import com.anil.pfm.service.dto.MutualFundDTO;
-import com.anil.pfm.service.mapper.EntityMapper;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import org.mapstruct.*;
+import com.anil.pfm.mf.domain.MutualFund;
+import com.anil.pfm.mf.repository.MutualFundRepository;
+import com.anil.pfm.mf.service.dto.MutualFundDTO;
+import com.anil.pfm.service.mapper.EntityMapper;
 
 /**
  * Mapper for the entity MutualFund and its DTO MutualFundDTO.
  */
 @Mapper(componentModel = "spring", uses = {AMCMapper.class, MFCategoryMapper.class})
-public interface MutualFundMapper extends EntityMapper<MutualFundDTO, MutualFund> {
+public abstract class MutualFundMapper implements EntityMapper<MutualFundDTO, MutualFund> {
 
+	@Autowired
+	protected MutualFundRepository mutualFundRepository;
+	
     @Mapping(source = "amc.id", target = "amcId")
     @Mapping(source = "category.id", target = "categoryId")
-    MutualFundDTO toDto(MutualFund mutualFund); 
+    public abstract MutualFundDTO toDto(MutualFund mutualFund); 
 
     @Mapping(source = "amcId", target = "amc")
     @Mapping(source = "categoryId", target = "category")
-    MutualFund toEntity(MutualFundDTO mutualFundDTO);
+    public abstract MutualFund toEntity(MutualFundDTO mutualFundDTO);
 
-    default MutualFund fromId(Long id) {
+    public MutualFund fromId(Long id) {
         if (id == null) {
             return null;
         }
-        MutualFund mutualFund = new MutualFund();
-        mutualFund.setId(id);
-        return mutualFund;
+        return mutualFundRepository.findOne(id);
     }
 }

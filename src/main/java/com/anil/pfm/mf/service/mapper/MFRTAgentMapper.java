@@ -1,28 +1,26 @@
 package com.anil.pfm.mf.service.mapper;
 
-import com.anil.pfm.domain.*;
-import com.anil.pfm.mf.domain.MFRTAgent;
-import com.anil.pfm.service.dto.MFRTAgentDTO;
-import com.anil.pfm.service.mapper.EntityMapper;
+import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import org.mapstruct.*;
+import com.anil.pfm.mf.domain.MFRTAgent;
+import com.anil.pfm.mf.repository.MFRTAgentRepository;
+import com.anil.pfm.mf.service.dto.MFRTAgentDTO;
+import com.anil.pfm.service.mapper.EntityMapper;
 
 /**
  * Mapper for the entity MFRTAgent and its DTO MFRTAgentDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
-public interface MFRTAgentMapper extends EntityMapper<MFRTAgentDTO, MFRTAgent> {
+public abstract class MFRTAgentMapper implements EntityMapper<MFRTAgentDTO, MFRTAgent> {
 
-    
+	@Autowired
+	protected MFRTAgentRepository mfrtAgentRepository;
 
-    
-
-    default MFRTAgent fromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        MFRTAgent mFRTAgent = new MFRTAgent();
-        mFRTAgent.setId(id);
-        return mFRTAgent;
-    }
+	public MFRTAgent fromId(Long id) {
+		if (id == null) {
+			return null;
+		}
+		return mfrtAgentRepository.findOne(id);
+	}
 }

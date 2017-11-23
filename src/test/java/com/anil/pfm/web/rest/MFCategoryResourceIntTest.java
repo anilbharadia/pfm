@@ -4,9 +4,9 @@ import com.anil.pfm.PfmApp;
 import com.anil.pfm.mf.domain.MFCategory;
 import com.anil.pfm.mf.repository.MFCategoryRepository;
 import com.anil.pfm.mf.service.MFCategoryService;
+import com.anil.pfm.mf.service.dto.MFCategoryDTO;
 import com.anil.pfm.mf.service.mapper.MFCategoryMapper;
 import com.anil.pfm.mf.web.rest.MFCategoryResource;
-import com.anil.pfm.service.dto.MFCategoryDTO;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
