@@ -1,19 +1,20 @@
 package com.anil.pfm.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the MyAccount entity.
  */
 public class MyAccountDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private String name;
@@ -21,8 +22,12 @@ public class MyAccountDTO implements Serializable {
     private BigDecimal balance;
 
     private Long bankAccountId;
+    
+    private BankAccountDTO bankAccount;
 
     private Long ownerId;
+    
+    private PersonDTO owner;
 
     public Long getId() {
         return id;
@@ -64,7 +69,23 @@ public class MyAccountDTO implements Serializable {
         this.ownerId = personId;
     }
 
-    @Override
+    public PersonDTO getOwner() {
+		return owner;
+	}
+
+	public void setOwner(PersonDTO owner) {
+		this.owner = owner;
+	}
+
+	public BankAccountDTO getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(BankAccountDTO bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

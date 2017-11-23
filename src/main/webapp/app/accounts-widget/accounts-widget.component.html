@@ -1,19 +1,37 @@
-<p>
-  <div class="container">
-    <div class="row">
-      <jhi-account-widget 
-        *ngFor="let account of accounts" 
-        [accountId]="account.id"></jhi-account-widget>
-      <div>
-          <div class="card " style="width: 15rem; margin: 20px">
-            <div class="card-body">
-              <h4 class="card-title text-center">Total</h4>
-              <h3 class="card-text text-right">
-                {{totalBalance | currency:'INR':'symbol'}}
-              </h3>
-            </div>
-          </div>
+<div class="card-group">
+  <!-- <jhi-account-widget *ngFor="let account of accounts" [accountId]="account.id"></jhi-account-widget> -->
+
+  <div *ngFor="let account of accounts" class="card">
+    <div class="card-header text-center">
+      <strong>{{account?.name}}</strong>
+      <span class="float-right fa fa-ellipsis-v"></span>
+    </div>
+    <div class="card-body">
+      <h5 class="card-text text-right">
+        {{account?.balance | currency:'INR':'symbol'}}
+      </h5>
+      <div class="card-footer text-right">
+        <a class="btn btn-outline-success btn-mini rounded-circle" [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Income, account?.id] } }]"
+          title="Income">
+          <span class="fa fa-plus"></span>
+        </a>
+        <button class="btn btn-outline-danger btn-mini rounded-circle" [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Expense, account?.id] } }]"
+          title="Expense">
+          <span class="fa fa-minus"></span>
+        </button>
+        <button class="btn btn-outline-info btn-mini rounded-circle" [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Transfer, account?.id] } }]"
+          title="Transfer">
+          <span class="fa fa-arrows-h"></span>
+        </button>
       </div>
     </div>
   </div>
-</p>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title text-center">Total</h5>
+      <h4 class="card-text text-right">
+        {{totalBalance | currency:'INR':'symbol'}}
+      </h4>
+    </div>
+  </div>
+</div>

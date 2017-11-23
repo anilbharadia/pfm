@@ -9,7 +9,13 @@ import { TxTypes } from '../entities/transaction-type/tx-type.enum';
 @Component({
   selector: 'jhi-accounts-widget',
   templateUrl: './accounts-widget.component.html',
-  styles: []
+  styles: [`
+.btn-mini {
+  padding: 1px 6px;
+  font-size: 11px;
+  line-height: 14px;
+}
+`]
 })
 export class AccountsWidgetComponent implements OnInit, OnDestroy {
 
@@ -51,7 +57,11 @@ export class AccountsWidgetComponent implements OnInit, OnDestroy {
     this.totalBalance = this.accounts.length < 1 ? 0 : this.accounts.map((a) => a.balance).reduce((x, y) => x + y);
   }
   private onError(error) {
-      this.jhiAlertService.error(error.message, null, null);
+    this.jhiAlertService.error(error.message, null, null);
+  }
+
+  get TxTypes() {
+    return TxTypes;
   }
 
 }

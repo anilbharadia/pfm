@@ -17,24 +17,26 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bankId"><span jhiTranslate="pfmApp.bankAccount.bank">Bank</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="acNumber"><span jhiTranslate="pfmApp.bankAccount.acNumber">Ac Number</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="ifsc"><span jhiTranslate="pfmApp.bankAccount.ifsc">Ifsc</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="micr"><span jhiTranslate="pfmApp.bankAccount.micr">Micr</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="bankId"><span jhiTranslate="pfmApp.bankAccount.bank">Bank</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let bankAccount of bankAccounts ;trackBy: trackId">
                 <td><a [routerLink]="['../bank-account', bankAccount.id ]">{{bankAccount.id}}</a></td>
+                <td>
+                    <div *ngIf="bankAccount.bankId">
+                        <a [routerLink]="['../bank', bankAccount.bankId  ]" >
+                            {{bankAccount.bank?.name || bankAccount.bankId}}
+                        </a>
+                    </div>
+                </td>
                 <td>{{bankAccount.acNumber}}</td>
                 <td>{{bankAccount.ifsc}}</td>
                 <td>{{bankAccount.micr}}</td>
-                <td>
-                    <div *ngIf="bankAccount.bankId">
-                        <a [routerLink]="['../bank', bankAccount.bankId  ]" >{{bankAccount.bankId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -31,12 +31,16 @@
                 <td>{{myAccount.balance}}</td>
                 <td>
                     <div *ngIf="myAccount.bankAccountId">
-                        <a [routerLink]="['../bank-account', myAccount.bankAccountId  ]" >{{myAccount.bankAccountId}}</a>
+                        <a [routerLink]="['../bank-account', myAccount.bankAccountId  ]" >
+                            {{ myAccount.bankAccount?.ifsc ? (myAccount.bankAccount?.ifsc + ' ' + myAccount.bankAccount?.acNumber) : myAccount.bankAccountId}}
+                        </a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="myAccount.ownerId">
-                        <a [routerLink]="['../person', myAccount.ownerId  ]" >{{myAccount.ownerId}}</a>
+                        <a [routerLink]="['../person', myAccount.ownerId  ]" >
+                            {{myAccount.owner?.name || myAccount.ownerId}}
+                        </a>
                     </div>
                 </td>
                 <td class="text-right">

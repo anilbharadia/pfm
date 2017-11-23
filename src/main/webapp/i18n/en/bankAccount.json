@@ -15,9 +15,9 @@
             "detail": {
                 "title": "Bank Account"
             },
-            "acNumber": "Ac Number",
-            "ifsc": "Ifsc",
-            "micr": "Micr",
+            "acNumber": "Account Number",
+            "ifsc": "IFS Code",
+            "micr": "MICR Code",
             "bank": "Bank",
             "account": "Account"
         }
