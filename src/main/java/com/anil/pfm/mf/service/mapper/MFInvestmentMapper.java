@@ -2,10 +2,12 @@ package com.anil.pfm.mf.service.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import com.anil.pfm.mf.domain.MFInvestment;
 import com.anil.pfm.mf.service.dto.CreateMFInvestmentVM;
 import com.anil.pfm.mf.service.dto.MFInvestmentDTO;
+import com.anil.pfm.mf.service.dto.UpdateMFInvestmentVM;
 import com.anil.pfm.service.mapper.EntityMapper;
 import com.anil.pfm.service.mapper.GoalMapper;
 import com.anil.pfm.service.mapper.MyAccountMapper;
@@ -55,5 +57,7 @@ public interface MFInvestmentMapper extends EntityMapper<MFInvestmentDTO, MFInve
 		mFInvestment.setId(id);
 		return mFInvestment;
 	}
+
+	MFInvestment update(@MappingTarget MFInvestment mfInvestment, UpdateMFInvestmentVM vm);
 
 }

@@ -225,7 +225,7 @@ public class TransactionResourceIntTest {
         assertEquals(expectedBalance, toAccount.getBalance());
     }
     
-    // TODO createInvestmentTransaction()
+    // TODO createInvestmentTransaction() -- restrict, as it shoud not be created directly
     
     @Test
     @Transactional

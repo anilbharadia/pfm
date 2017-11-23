@@ -9,6 +9,7 @@ import com.anil.pfm.mf.service.dto.MFInvestmentDTO;
 import com.anil.pfm.mf.service.dto.UpdateMFInvestmentVM;
 import com.anil.pfm.mf.service.mapper.MFInvestmentMapper;
 import com.anil.pfm.repository.TransactionRepository;
+import com.anil.pfm.tx.domain.Transaction;
 import com.anil.pfm.tx.service.TransactionService;
 import com.anil.pfm.tx.service.dto.TransactionDTO;
 
@@ -61,6 +62,19 @@ public class MFInvestmentServiceImpl implements MFInvestmentService {
 		mfInvestment = mfInvestmentRepository.save(mfInvestment);
 		return mfInvestmentMapper.toDto(mfInvestment);
 	}
+	
+	@Override
+	public MFInvestmentDTO update(UpdateMFInvestmentVM vm) {
+		log.debug("Request to update MFInvestment : {}", vm);
+		
+		MFInvestment mfInvestment = mfInvestmentRepository.findOne(vm.getId());
+		
+		mfInvestmentMapper.update(mfInvestment, vm);
+		
+		mfInvestment = mfInvestmentRepository.save(mfInvestment);
+		
+		return mfInvestmentMapper.toDto(mfInvestment);
+	}
 
 	private void updateBalance(MFInvestment mfInvestment) {
 		updateGoalBalance(mfInvestment);
@@ -76,6 +90,12 @@ public class MFInvestmentServiceImpl implements MFInvestmentService {
 
 	private void updateGoalBalance(MFInvestment mfInvestment) {
 		Goal goal = mfInvestment.getGoal();
+		
+		if (goal == null) {
+			log.warn("Update Goal Balance : There is no goal attached to MF Investment[id={}]", mfInvestment.getId());
+			return;
+		}
+		
 		goal.setBalance(goal.getBalance().add(mfInvestment.getAmount()));
 	}
 
@@ -117,12 +137,18 @@ public class MFInvestmentServiceImpl implements MFInvestmentService {
 	@Override
 	public void delete(Long id) {
 		log.debug("Request to delete MFInvestment : {}", id);
+		
+		MFInvestment mfInvestment = mfInvestmentRepository.findOne(id);
+		mfInvestment.setAmount(mfInvestment.getAmount().negate());
+		updateGoalBalance(mfInvestment);
+
+		Transaction transaction = mfInvestment.getTransaction();
+		
 		mfInvestmentRepository.delete(id);
+
+		if (transaction != null) {
+			transactionService.delete(transaction.getId());
+		}
 	}
 
-	@Override
-	public MFInvestmentDTO update(UpdateMFInvestmentVM vm) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
