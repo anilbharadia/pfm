@@ -1,10 +1,10 @@
-package com.anil.pfm.web.rest;
+package com.anil.pfm.mf.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.anil.pfm.service.AMCService;
 import com.anil.pfm.web.rest.errors.BadRequestAlertException;
 import com.anil.pfm.web.rest.util.HeaderUtil;
 import com.anil.pfm.web.rest.util.PaginationUtil;
+import com.anil.pfm.mf.service.AMCService;
 import com.anil.pfm.service.dto.AMCDTO;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;

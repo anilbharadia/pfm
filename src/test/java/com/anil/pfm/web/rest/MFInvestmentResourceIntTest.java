@@ -1,12 +1,14 @@
 package com.anil.pfm.web.rest;
 
 import com.anil.pfm.PfmApp;
-
-import com.anil.pfm.domain.MFInvestment;
-import com.anil.pfm.repository.MFInvestmentRepository;
-import com.anil.pfm.service.MFInvestmentService;
+import com.anil.pfm.mf.domain.MFInvestment;
+import com.anil.pfm.mf.domain.MutualFund;
+import com.anil.pfm.mf.repository.MFInvestmentRepository;
+import com.anil.pfm.mf.repository.MutualFundRepository;
+import com.anil.pfm.mf.service.MFInvestmentService;
+import com.anil.pfm.mf.service.mapper.MFInvestmentMapper;
+import com.anil.pfm.mf.web.rest.MFInvestmentResource;
 import com.anil.pfm.service.dto.MFInvestmentDTO;
-import com.anil.pfm.service.mapper.MFInvestmentMapper;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -59,7 +61,10 @@ public class MFInvestmentResourceIntTest {
     private static final BigDecimal UPDATED_UNIT = new BigDecimal(2);
 
     @Autowired
-    private MFInvestmentRepository mFInvestmentRepository;
+    private MutualFundRepository mutualFundRepository;
+    
+    @Autowired
+    private MFInvestmentRepository mfInvestmentRepository;
 
     @Autowired
     private MFInvestmentMapper mFInvestmentMapper;
@@ -81,7 +86,7 @@ public class MFInvestmentResourceIntTest {
 
     private MockMvc restMFInvestmentMockMvc;
 
-    private MFInvestment mFInvestment;
+    private MFInvestment mfInvestment;
 
     @Before
     public void setup() {
@@ -100,34 +105,38 @@ public class MFInvestmentResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static MFInvestment createEntity(EntityManager em) {
-        MFInvestment mFInvestment = new MFInvestment()
+        MFInvestment mfInvestment = new MFInvestment()
             .purchaseDate(DEFAULT_PURCHASE_DATE)
             .navDate(DEFAULT_NAV_DATE)
             .amount(DEFAULT_AMOUNT)
             .nav(DEFAULT_NAV)
             .unit(DEFAULT_UNIT);
-        return mFInvestment;
+        
+        return mfInvestment;
     }
 
     @Before
     public void initTest() {
-        mFInvestment = createEntity(em);
+        mfInvestment = createEntity(em);
     }
 
     @Test
     @Transactional
     public void createMFInvestment() throws Exception {
-        int databaseSizeBeforeCreate = mFInvestmentRepository.findAll().size();
+        int databaseSizeBeforeCreate = mfInvestmentRepository.findAll().size();
 
+        MutualFund fund = mutualFundRepository.saveAndFlush(MutualFundResourceIntTest.createEntity(em));
+        mfInvestment.setFund(fund);
+        
         // Create the MFInvestment
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mFInvestment);
+        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mfInvestment);
         restMFInvestmentMockMvc.perform(post("/api/m-f-investments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(mFInvestmentDTO)))
             .andExpect(status().isCreated());
 
         // Validate the MFInvestment in the database
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeCreate + 1);
         MFInvestment testMFInvestment = mFInvestmentList.get(mFInvestmentList.size() - 1);
         assertThat(testMFInvestment.getPurchaseDate()).isEqualTo(DEFAULT_PURCHASE_DATE);
@@ -140,11 +149,11 @@ public class MFInvestmentResourceIntTest {
     @Test
     @Transactional
     public void createMFInvestmentWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = mFInvestmentRepository.findAll().size();
+        int databaseSizeBeforeCreate = mfInvestmentRepository.findAll().size();
 
         // Create the MFInvestment with an existing ID
-        mFInvestment.setId(1L);
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mFInvestment);
+        mfInvestment.setId(1L);
+        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mfInvestment);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMFInvestmentMockMvc.perform(post("/api/m-f-investments")
@@ -153,64 +162,64 @@ public class MFInvestmentResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the MFInvestment in the database
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeCreate);
     }
 
     @Test
     @Transactional
     public void checkPurchaseDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = mFInvestmentRepository.findAll().size();
+        int databaseSizeBeforeTest = mfInvestmentRepository.findAll().size();
         // set the field null
-        mFInvestment.setPurchaseDate(null);
+        mfInvestment.setPurchaseDate(null);
 
         // Create the MFInvestment, which fails.
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mFInvestment);
+        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mfInvestment);
 
         restMFInvestmentMockMvc.perform(post("/api/m-f-investments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(mFInvestmentDTO)))
             .andExpect(status().isBadRequest());
 
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkNavDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = mFInvestmentRepository.findAll().size();
+        int databaseSizeBeforeTest = mfInvestmentRepository.findAll().size();
         // set the field null
-        mFInvestment.setNavDate(null);
+        mfInvestment.setNavDate(null);
 
         // Create the MFInvestment, which fails.
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mFInvestment);
+        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mfInvestment);
 
         restMFInvestmentMockMvc.perform(post("/api/m-f-investments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(mFInvestmentDTO)))
             .andExpect(status().isBadRequest());
 
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkAmountIsRequired() throws Exception {
-        int databaseSizeBeforeTest = mFInvestmentRepository.findAll().size();
+        int databaseSizeBeforeTest = mfInvestmentRepository.findAll().size();
         // set the field null
-        mFInvestment.setAmount(null);
+        mfInvestment.setAmount(null);
 
         // Create the MFInvestment, which fails.
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mFInvestment);
+        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mfInvestment);
 
         restMFInvestmentMockMvc.perform(post("/api/m-f-investments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(mFInvestmentDTO)))
             .andExpect(status().isBadRequest());
 
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeTest);
     }
 
@@ -218,13 +227,17 @@ public class MFInvestmentResourceIntTest {
     @Transactional
     public void getAllMFInvestments() throws Exception {
         // Initialize the database
-        mFInvestmentRepository.saveAndFlush(mFInvestment);
+    	
+    	MutualFund fund = mutualFundRepository.saveAndFlush(MutualFundResourceIntTest.createEntity(em));
+        mfInvestment.setFund(fund);
+    	
+        mfInvestmentRepository.saveAndFlush(mfInvestment);
 
         // Get all the mFInvestmentList
         restMFInvestmentMockMvc.perform(get("/api/m-f-investments?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(mFInvestment.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(mfInvestment.getId().intValue())))
             .andExpect(jsonPath("$.[*].purchaseDate").value(hasItem(DEFAULT_PURCHASE_DATE.toString())))
             .andExpect(jsonPath("$.[*].navDate").value(hasItem(DEFAULT_NAV_DATE.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
@@ -236,13 +249,17 @@ public class MFInvestmentResourceIntTest {
     @Transactional
     public void getMFInvestment() throws Exception {
         // Initialize the database
-        mFInvestmentRepository.saveAndFlush(mFInvestment);
+    	
+    	MutualFund fund = mutualFundRepository.saveAndFlush(MutualFundResourceIntTest.createEntity(em));
+        mfInvestment.setFund(fund);
+    	
+        mfInvestmentRepository.saveAndFlush(mfInvestment);
 
         // Get the mFInvestment
-        restMFInvestmentMockMvc.perform(get("/api/m-f-investments/{id}", mFInvestment.getId()))
+        restMFInvestmentMockMvc.perform(get("/api/m-f-investments/{id}", mfInvestment.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(mFInvestment.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(mfInvestment.getId().intValue()))
             .andExpect(jsonPath("$.purchaseDate").value(DEFAULT_PURCHASE_DATE.toString()))
             .andExpect(jsonPath("$.navDate").value(DEFAULT_NAV_DATE.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
@@ -262,11 +279,15 @@ public class MFInvestmentResourceIntTest {
     @Transactional
     public void updateMFInvestment() throws Exception {
         // Initialize the database
-        mFInvestmentRepository.saveAndFlush(mFInvestment);
-        int databaseSizeBeforeUpdate = mFInvestmentRepository.findAll().size();
+    	
+    	MutualFund fund = mutualFundRepository.saveAndFlush(MutualFundResourceIntTest.createEntity(em));
+        mfInvestment.setFund(fund);
+    	
+        mfInvestmentRepository.saveAndFlush(mfInvestment);
+        int databaseSizeBeforeUpdate = mfInvestmentRepository.findAll().size();
 
         // Update the mFInvestment
-        MFInvestment updatedMFInvestment = mFInvestmentRepository.findOne(mFInvestment.getId());
+        MFInvestment updatedMFInvestment = mfInvestmentRepository.findOne(mfInvestment.getId());
         updatedMFInvestment
             .purchaseDate(UPDATED_PURCHASE_DATE)
             .navDate(UPDATED_NAV_DATE)
@@ -281,7 +302,7 @@ public class MFInvestmentResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the MFInvestment in the database
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeUpdate);
         MFInvestment testMFInvestment = mFInvestmentList.get(mFInvestmentList.size() - 1);
         assertThat(testMFInvestment.getPurchaseDate()).isEqualTo(UPDATED_PURCHASE_DATE);
@@ -293,37 +314,22 @@ public class MFInvestmentResourceIntTest {
 
     @Test
     @Transactional
-    public void updateNonExistingMFInvestment() throws Exception {
-        int databaseSizeBeforeUpdate = mFInvestmentRepository.findAll().size();
-
-        // Create the MFInvestment
-        MFInvestmentDTO mFInvestmentDTO = mFInvestmentMapper.toDto(mFInvestment);
-
-        // If the entity doesn't have an ID, it will be created instead of just being updated
-        restMFInvestmentMockMvc.perform(put("/api/m-f-investments")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mFInvestmentDTO)))
-            .andExpect(status().isCreated());
-
-        // Validate the MFInvestment in the database
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
-        assertThat(mFInvestmentList).hasSize(databaseSizeBeforeUpdate + 1);
-    }
-
-    @Test
-    @Transactional
     public void deleteMFInvestment() throws Exception {
         // Initialize the database
-        mFInvestmentRepository.saveAndFlush(mFInvestment);
-        int databaseSizeBeforeDelete = mFInvestmentRepository.findAll().size();
+    	
+    	MutualFund fund = mutualFundRepository.saveAndFlush(MutualFundResourceIntTest.createEntity(em));
+        mfInvestment.setFund(fund);
+    	
+        mfInvestmentRepository.saveAndFlush(mfInvestment);
+        int databaseSizeBeforeDelete = mfInvestmentRepository.findAll().size();
 
         // Get the mFInvestment
-        restMFInvestmentMockMvc.perform(delete("/api/m-f-investments/{id}", mFInvestment.getId())
+        restMFInvestmentMockMvc.perform(delete("/api/m-f-investments/{id}", mfInvestment.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<MFInvestment> mFInvestmentList = mFInvestmentRepository.findAll();
+        List<MFInvestment> mFInvestmentList = mfInvestmentRepository.findAll();
         assertThat(mFInvestmentList).hasSize(databaseSizeBeforeDelete - 1);
     }
 

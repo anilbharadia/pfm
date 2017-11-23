@@ -1,7 +1,9 @@
-package com.anil.pfm.domain;
+package com.anil.pfm.mf.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.anil.pfm.domain.Person;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

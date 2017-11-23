@@ -1,7 +1,8 @@
-package com.anil.pfm.repository;
+package com.anil.pfm.mf.repository;
 
-import com.anil.pfm.domain.MutualFund;
 import org.springframework.stereotype.Repository;
+
+import com.anil.pfm.mf.domain.MutualFund;
 
 import org.springframework.data.jpa.repository.*;
 

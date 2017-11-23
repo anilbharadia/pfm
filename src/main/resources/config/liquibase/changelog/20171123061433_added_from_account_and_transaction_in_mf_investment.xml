@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="anil-b (generated)" id="1511417686885-1">
+        <addColumn tableName="mf_investment">
+            <column name="from_account_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="anil-b (generated)" id="1511417686885-2">
+        <addColumn tableName="mf_investment">
+            <column name="transaction_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="anil-b (generated)" id="1511417686885-3">
+        <addForeignKeyConstraint baseColumnNames="transaction_id" baseTableName="mf_investment" constraintName="FK26piouow1f4214n2untoo7mg5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transaction"/>
+    </changeSet>
+    <changeSet author="anil-b (generated)" id="1511417686885-4">
+        <addForeignKeyConstraint baseColumnNames="from_account_id" baseTableName="mf_investment" constraintName="FKpqqip5tyyde9rkp419rtqf53o" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="my_account"/>
+    </changeSet>
+</databaseChangeLog>

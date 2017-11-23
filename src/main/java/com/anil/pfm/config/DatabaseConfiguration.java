@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories("com.anil.pfm.repository")
+@EnableJpaRepositories({"com.anil.pfm.repository", "com.anil.pfm.tx.repository", "com.anil.pfm.mf.repository"})
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DatabaseConfiguration {

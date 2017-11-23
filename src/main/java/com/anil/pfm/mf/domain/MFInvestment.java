@@ -1,7 +1,11 @@
-package com.anil.pfm.domain;
+package com.anil.pfm.mf.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.anil.pfm.domain.Goal;
+import com.anil.pfm.tx.domain.MyAccount;
+import com.anil.pfm.tx.domain.Transaction;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -29,8 +33,7 @@ public class MFInvestment implements Serializable {
     @Column(name = "purchase_date", nullable = false)
     private Instant purchaseDate;
 
-    @NotNull
-    @Column(name = "nav_date", nullable = false)
+    @Column(name = "nav_date")
     private Instant navDate;
 
     @NotNull
@@ -43,7 +46,7 @@ public class MFInvestment implements Serializable {
     @Column(name = "unit", precision=10, scale=2)
     private BigDecimal unit;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private MutualFund fund;
 
     @ManyToOne
@@ -51,6 +54,12 @@ public class MFInvestment implements Serializable {
 
     @ManyToOne
     private Goal goal;
+    
+    @ManyToOne
+    private MyAccount fromAccount;
+    
+    @OneToOne
+    private Transaction transaction;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -164,9 +173,27 @@ public class MFInvestment implements Serializable {
     public void setGoal(Goal goal) {
         this.goal = goal;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public MyAccount getFromAccount() {
+		return fromAccount;
+	}
+
+	public void setFromAccount(MyAccount fromAccount) {
+		this.fromAccount = fromAccount;
+	}
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

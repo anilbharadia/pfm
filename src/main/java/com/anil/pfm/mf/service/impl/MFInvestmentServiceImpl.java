@@ -1,10 +1,11 @@
-package com.anil.pfm.service.impl;
+package com.anil.pfm.mf.service.impl;
 
-import com.anil.pfm.service.MFInvestmentService;
-import com.anil.pfm.domain.MFInvestment;
-import com.anil.pfm.repository.MFInvestmentRepository;
+import com.anil.pfm.mf.domain.MFInvestment;
+import com.anil.pfm.mf.repository.MFInvestmentRepository;
+import com.anil.pfm.mf.service.MFInvestmentService;
+import com.anil.pfm.mf.service.mapper.MFInvestmentMapper;
 import com.anil.pfm.service.dto.MFInvestmentDTO;
-import com.anil.pfm.service.mapper.MFInvestmentMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

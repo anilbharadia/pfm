@@ -1,10 +1,11 @@
-package com.anil.pfm.service.impl;
+package com.anil.pfm.mf.service.impl;
 
-import com.anil.pfm.service.MFRTAgentService;
-import com.anil.pfm.domain.MFRTAgent;
-import com.anil.pfm.repository.MFRTAgentRepository;
+import com.anil.pfm.mf.domain.MFRTAgent;
+import com.anil.pfm.mf.repository.MFRTAgentRepository;
+import com.anil.pfm.mf.service.MFRTAgentService;
+import com.anil.pfm.mf.service.mapper.MFRTAgentMapper;
 import com.anil.pfm.service.dto.MFRTAgentDTO;
-import com.anil.pfm.service.mapper.MFRTAgentMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

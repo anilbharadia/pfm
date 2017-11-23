@@ -1,10 +1,11 @@
-package com.anil.pfm.service.impl;
+package com.anil.pfm.mf.service.impl;
 
-import com.anil.pfm.service.AMCService;
-import com.anil.pfm.domain.AMC;
-import com.anil.pfm.repository.AMCRepository;
+import com.anil.pfm.mf.domain.AMC;
+import com.anil.pfm.mf.repository.AMCRepository;
+import com.anil.pfm.mf.service.AMCService;
+import com.anil.pfm.mf.service.mapper.AMCMapper;
 import com.anil.pfm.service.dto.AMCDTO;
-import com.anil.pfm.service.mapper.AMCMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

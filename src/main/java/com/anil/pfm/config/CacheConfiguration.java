@@ -53,12 +53,12 @@ public class CacheConfiguration {
             cm.createCache(com.anil.pfm.domain.IncomeCategory.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.IncomeCategory.class.getName() + ".subCategories", jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.Goal.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.MFRTAgent.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.MFCategory.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.AMC.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.MutualFund.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.MFPortfolio.class.getName(), jcacheConfiguration);
-            cm.createCache(com.anil.pfm.domain.MFInvestment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.mf.domain.MFRTAgent.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.mf.domain.MFCategory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.mf.domain.AMC.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.mf.domain.MutualFund.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.mf.domain.MFPortfolio.class.getName(), jcacheConfiguration);
+            cm.createCache(com.anil.pfm.mf.domain.MFInvestment.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.FixedDeposit.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.RecurringDeposit.class.getName(), jcacheConfiguration);
             cm.createCache(com.anil.pfm.domain.RDTransaction.class.getName(), jcacheConfiguration);

@@ -1,10 +1,11 @@
-package com.anil.pfm.service.impl;
+package com.anil.pfm.mf.service.impl;
 
-import com.anil.pfm.service.MutualFundService;
-import com.anil.pfm.domain.MutualFund;
-import com.anil.pfm.repository.MutualFundRepository;
+import com.anil.pfm.mf.domain.MutualFund;
+import com.anil.pfm.mf.repository.MutualFundRepository;
+import com.anil.pfm.mf.service.MutualFundService;
+import com.anil.pfm.mf.service.mapper.MutualFundMapper;
 import com.anil.pfm.service.dto.MutualFundDTO;
-import com.anil.pfm.service.mapper.MutualFundMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

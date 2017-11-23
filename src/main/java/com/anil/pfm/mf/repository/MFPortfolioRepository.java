@@ -1,7 +1,8 @@
-package com.anil.pfm.repository;
+package com.anil.pfm.mf.repository;
 
-import com.anil.pfm.domain.MFPortfolio;
 import org.springframework.stereotype.Repository;
+
+import com.anil.pfm.mf.domain.MFPortfolio;
 
 import org.springframework.data.jpa.repository.*;
 

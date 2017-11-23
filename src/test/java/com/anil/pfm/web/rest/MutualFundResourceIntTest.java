@@ -1,12 +1,12 @@
 package com.anil.pfm.web.rest;
 
 import com.anil.pfm.PfmApp;
-
-import com.anil.pfm.domain.MutualFund;
-import com.anil.pfm.repository.MutualFundRepository;
-import com.anil.pfm.service.MutualFundService;
+import com.anil.pfm.mf.domain.MutualFund;
+import com.anil.pfm.mf.repository.MutualFundRepository;
+import com.anil.pfm.mf.service.MutualFundService;
+import com.anil.pfm.mf.service.mapper.MutualFundMapper;
+import com.anil.pfm.mf.web.rest.MutualFundResource;
 import com.anil.pfm.service.dto.MutualFundDTO;
-import com.anil.pfm.service.mapper.MutualFundMapper;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -145,25 +145,6 @@ public class MutualFundResourceIntTest {
         int databaseSizeBeforeTest = mutualFundRepository.findAll().size();
         // set the field null
         mutualFund.setName(null);
-
-        // Create the MutualFund, which fails.
-        MutualFundDTO mutualFundDTO = mutualFundMapper.toDto(mutualFund);
-
-        restMutualFundMockMvc.perform(post("/api/mutual-funds")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mutualFundDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<MutualFund> mutualFundList = mutualFundRepository.findAll();
-        assertThat(mutualFundList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkManagerIsRequired() throws Exception {
-        int databaseSizeBeforeTest = mutualFundRepository.findAll().size();
-        // set the field null
-        mutualFund.setManager(null);
 
         // Create the MutualFund, which fails.
         MutualFundDTO mutualFundDTO = mutualFundMapper.toDto(mutualFund);

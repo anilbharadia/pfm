@@ -1,142 +1,186 @@
 package com.anil.pfm.service.dto;
 
-
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+
+import com.anil.pfm.tx.service.dto.TransactionDTO;
 
 /**
  * A DTO for the MFInvestment entity.
  */
 public class MFInvestmentDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
 
-    @NotNull
-    private Instant purchaseDate;
+	private Long id;
 
-    @NotNull
-    private Instant navDate;
+	@NotNull
+	private Instant purchaseDate;
 
-    @NotNull
-    private BigDecimal amount;
+	@NotNull
+	private Instant navDate;
 
-    private BigDecimal nav;
+	@NotNull
+	private BigDecimal amount;
 
-    private BigDecimal unit;
+	private BigDecimal nav;
 
-    private Long fundId;
+	private BigDecimal unit;
 
-    private Long folioId;
+	private Long fundId;
+	private MutualFundDTO fund;
 
-    private Long goalId;
+	private Long folioId;
+	private MFPortfolioDTO folio;
 
-    public Long getId() {
-        return id;
-    }
+	private Long goalId;
+	private GoalDTO goal;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private MyAccountDTO fromAccount;
 
-    public Instant getPurchaseDate() {
-        return purchaseDate;
-    }
+	private TransactionDTO transaction;
 
-    public void setPurchaseDate(Instant purchaseDate) {
-        this.purchaseDate = purchaseDate;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Instant getNavDate() {
-        return navDate;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setNavDate(Instant navDate) {
-        this.navDate = navDate;
-    }
+	public Instant getPurchaseDate() {
+		return purchaseDate;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public void setPurchaseDate(Instant purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public Instant getNavDate() {
+		return navDate;
+	}
 
-    public BigDecimal getNav() {
-        return nav;
-    }
+	public void setNavDate(Instant navDate) {
+		this.navDate = navDate;
+	}
 
-    public void setNav(BigDecimal nav) {
-        this.nav = nav;
-    }
+	public BigDecimal getAmount() {
+		return amount;
+	}
 
-    public BigDecimal getUnit() {
-        return unit;
-    }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-    public void setUnit(BigDecimal unit) {
-        this.unit = unit;
-    }
+	public BigDecimal getNav() {
+		return nav;
+	}
 
-    public Long getFundId() {
-        return fundId;
-    }
+	public void setNav(BigDecimal nav) {
+		this.nav = nav;
+	}
 
-    public void setFundId(Long mutualFundId) {
-        this.fundId = mutualFundId;
-    }
+	public BigDecimal getUnit() {
+		return unit;
+	}
 
-    public Long getFolioId() {
-        return folioId;
-    }
+	public void setUnit(BigDecimal unit) {
+		this.unit = unit;
+	}
 
-    public void setFolioId(Long mFPortfolioId) {
-        this.folioId = mFPortfolioId;
-    }
+	public Long getFundId() {
+		return fundId;
+	}
 
-    public Long getGoalId() {
-        return goalId;
-    }
+	public void setFundId(Long mutualFundId) {
+		this.fundId = mutualFundId;
+	}
 
-    public void setGoalId(Long goalId) {
-        this.goalId = goalId;
-    }
+	public Long getFolioId() {
+		return folioId;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public void setFolioId(Long mFPortfolioId) {
+		this.folioId = mFPortfolioId;
+	}
 
-        MFInvestmentDTO mFInvestmentDTO = (MFInvestmentDTO) o;
-        if(mFInvestmentDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), mFInvestmentDTO.getId());
-    }
+	public Long getGoalId() {
+		return goalId;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
+	public void setGoalId(Long goalId) {
+		this.goalId = goalId;
+	}
 
-    @Override
-    public String toString() {
-        return "MFInvestmentDTO{" +
-            "id=" + getId() +
-            ", purchaseDate='" + getPurchaseDate() + "'" +
-            ", navDate='" + getNavDate() + "'" +
-            ", amount='" + getAmount() + "'" +
-            ", nav='" + getNav() + "'" +
-            ", unit='" + getUnit() + "'" +
-            "}";
-    }
+	public MutualFundDTO getFund() {
+		return fund;
+	}
+
+	public void setFund(MutualFundDTO fund) {
+		this.fund = fund;
+	}
+
+	public MFPortfolioDTO getFolio() {
+		return folio;
+	}
+
+	public void setFolio(MFPortfolioDTO folio) {
+		this.folio = folio;
+	}
+
+	public GoalDTO getGoal() {
+		return goal;
+	}
+
+	public void setGoal(GoalDTO goal) {
+		this.goal = goal;
+	}
+
+	public MyAccountDTO getFromAccount() {
+		return fromAccount;
+	}
+
+	public void setFromAccount(MyAccountDTO fromAccount) {
+		this.fromAccount = fromAccount;
+	}
+
+	public TransactionDTO getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(TransactionDTO transaction) {
+		this.transaction = transaction;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		MFInvestmentDTO mFInvestmentDTO = (MFInvestmentDTO) o;
+		if (mFInvestmentDTO.getId() == null || getId() == null) {
+			return false;
+		}
+		return Objects.equals(getId(), mFInvestmentDTO.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getId());
+	}
+
+	@Override
+	public String toString() {
+		return "MFInvestmentDTO{" + "id=" + getId() + ", purchaseDate='" + getPurchaseDate() + "'" + ", navDate='"
+				+ getNavDate() + "'" + ", amount='" + getAmount() + "'" + ", nav='" + getNav() + "'" + ", unit='"
+				+ getUnit() + "'" + "}";
+	}
 }

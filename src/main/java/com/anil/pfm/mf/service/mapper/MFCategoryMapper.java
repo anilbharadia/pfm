@@ -1,7 +1,9 @@
-package com.anil.pfm.service.mapper;
+package com.anil.pfm.mf.service.mapper;
 
 import com.anil.pfm.domain.*;
+import com.anil.pfm.mf.domain.MFCategory;
 import com.anil.pfm.service.dto.MFCategoryDTO;
+import com.anil.pfm.service.mapper.EntityMapper;
 
 import org.mapstruct.*;
 

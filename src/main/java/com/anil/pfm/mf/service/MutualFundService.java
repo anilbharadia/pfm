@@ -1,4 +1,4 @@
-package com.anil.pfm.service;
+package com.anil.pfm.mf.service;
 
 import com.anil.pfm.service.dto.MutualFundDTO;
 import org.springframework.data.domain.Page;

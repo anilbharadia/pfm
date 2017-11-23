@@ -1,4 +1,4 @@
-package com.anil.pfm.domain;
+package com.anil.pfm.mf.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

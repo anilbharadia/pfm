@@ -1,12 +1,12 @@
 package com.anil.pfm.web.rest;
 
 import com.anil.pfm.PfmApp;
-
-import com.anil.pfm.domain.MFPortfolio;
-import com.anil.pfm.repository.MFPortfolioRepository;
-import com.anil.pfm.service.MFPortfolioService;
+import com.anil.pfm.mf.domain.MFPortfolio;
+import com.anil.pfm.mf.repository.MFPortfolioRepository;
+import com.anil.pfm.mf.service.MFPortfolioService;
+import com.anil.pfm.mf.service.mapper.MFPortfolioMapper;
+import com.anil.pfm.mf.web.rest.MFPortfolioResource;
 import com.anil.pfm.service.dto.MFPortfolioDTO;
-import com.anil.pfm.service.mapper.MFPortfolioMapper;
 import com.anil.pfm.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
