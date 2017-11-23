@@ -5,13 +5,15 @@ id;name
 4;Transport
 5;Groceries
 6;Clothes
-7;Rechare
+7;Recharge
 8;Misc
 9;CreditCardBills
 10;Electricity
-11;Maintenance
+11;Maintenance(House)
 12;Fuel
 13;Gas
 14;Mobile
 15;Internet
 16;Entertainment
+17;Education
+18;Maintenance(Vehicle)
