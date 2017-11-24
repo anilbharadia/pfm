@@ -39,6 +39,8 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
     this.loadTxs();
 
     this.registerChangeInTransactions();
+
+    this.registerChangeInMFInvestment();
   }
 
   ngOnDestroy() {
@@ -47,6 +49,10 @@ export class TxWidgetComponent implements OnInit, OnDestroy {
 
   get TxTypes() {
     return TxTypes;
+  }
+
+  registerChangeInMFInvestment() {
+    this.eventSubscriber = this.eventManager.subscribe('mFInvestmentListModification', (response) => this.loadTxs());
   }
 
   registerChangeInTransactions() {

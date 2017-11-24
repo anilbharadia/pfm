@@ -31,6 +31,7 @@ export class GoalsWidgetComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadAll();
     this.registerChangeInGoals();
+    this.registerChangeInMFInvestment();
   }
 
   ngOnDestroy() {
@@ -39,6 +40,10 @@ export class GoalsWidgetComponent implements OnInit, OnDestroy {
 
   registerChangeInGoals() {
     this.eventSubscriber = this.eventManager.subscribe('goalListModification', (response) => this.loadAll());
+  }
+
+  registerChangeInMFInvestment() {
+    this.eventSubscriber = this.eventManager.subscribe('mFInvestmentListModification', (response) => this.loadAll());
   }
 
 }

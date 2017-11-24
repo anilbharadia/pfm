@@ -36,7 +36,7 @@ public class Goal implements Serializable {
     @Column(name = "due_date")
     private Instant dueDate;
 
-    @Column(name = "balance", precision=10, scale=2)
+    @Column(name = "balance", precision=10, scale=2, nullable=false)
     private BigDecimal balance;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

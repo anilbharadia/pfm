@@ -142,6 +142,8 @@ public class MFInvestmentResourceIntTest {
 		mfInvestment = createEntity(em);
 	}
 
+	// TODO create MF Investment without from Account
+	
 	@Test
 	@Transactional
 	public void createMFInvestment() throws Exception {
@@ -199,7 +201,7 @@ public class MFInvestmentResourceIntTest {
 		assertEquals("MF - " + mfInvestment.getFund().getAmc().getName() + " " + mfInvestment.getFund().getName(),
 				createdTransaction.getDesc());
 	}
-
+	
 	@Test
 	@Transactional
 	public void createAndDeleteMFInvestment() throws Exception {

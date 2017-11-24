@@ -60,6 +60,16 @@ export const mFInvestmentPopupRoute: Routes = [
         outlet: 'popup'
     },
     {
+        path: 'mf-investment-new/:goalId',
+        component: MFInvestmentPopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'pfmApp.mFInvestment.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
         path: 'mf-investment/:id/edit',
         component: MFInvestmentPopupComponent,
         data: {

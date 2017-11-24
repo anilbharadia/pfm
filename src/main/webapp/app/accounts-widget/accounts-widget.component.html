@@ -3,13 +3,16 @@
 
   <div *ngFor="let account of accounts" class="card">
     <div class="card-header text-center">
-      <strong>{{account?.name}}</strong>
+      <a [routerLink]="['my-account', account.id]">
+        {{account?.name}}
+      </a>
+      <!-- <strong>{{account?.name}}</strong> -->
       <span class="float-right fa fa-ellipsis-v"></span>
     </div>
     <div class="card-body">
-      <h5 class="card-text text-right">
+      <h6 class="card-text text-right">
         {{account?.balance | currency:'INR':'symbol'}}
-      </h5>
+      </h6>
       <div class="card-footer text-right">
         <a class="btn btn-outline-success btn-mini rounded-circle" [routerLink]="['/', { outlets: { popup: ['transaction-new', TxTypes.Income, account?.id] } }]"
           title="Income">

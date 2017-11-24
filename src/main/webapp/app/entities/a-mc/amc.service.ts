@@ -1,3 +1,4 @@
+import { MAX_PAGE_SIZE } from './../../shared/constants/pagination.constants';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
@@ -34,6 +35,16 @@ export class AMCService {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });
+    }
+
+    findAll(req?: any): Observable<ResponseWrapper> {
+        
+        req = req || {};
+        req.size = MAX_PAGE_SIZE;
+        
+        const options = createRequestOption(req);
+        return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res));
     }
 
     query(req?: any): Observable<ResponseWrapper> {

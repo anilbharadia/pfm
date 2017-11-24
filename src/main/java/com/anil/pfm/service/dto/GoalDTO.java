@@ -1,18 +1,21 @@
 package com.anil.pfm.service.dto;
 
 
-import java.time.Instant;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the Goal entity.
  */
 public class GoalDTO implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private String name;
@@ -22,6 +25,7 @@ public class GoalDTO implements Serializable {
 
     private Instant dueDate;
 
+    @NotNull
     private BigDecimal balance;
 
     public Long getId() {

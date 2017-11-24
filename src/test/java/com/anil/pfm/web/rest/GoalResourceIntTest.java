@@ -152,6 +152,28 @@ public class GoalResourceIntTest {
         assertThat(goalList).hasSize(databaseSizeBeforeCreate);
     }
 
+    
+    @Test
+    @Transactional
+    public void checkBalanceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = goalRepository.findAll().size();
+        // set the field null
+        goal.setName("Bike");
+        goal.setBalance(null);
+
+        // Create the Goal, which fails.
+        GoalDTO goalDTO = goalMapper.toDto(goal);
+
+        restGoalMockMvc.perform(post("/api/goals")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(goalDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Goal> goalList = goalRepository.findAll();
+        assertThat(goalList).hasSize(databaseSizeBeforeTest);
+    }
+    
+    
     @Test
     @Transactional
     public void checkNameIsRequired() throws Exception {

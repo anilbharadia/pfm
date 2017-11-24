@@ -38,7 +38,7 @@ export class MFPortfolioDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.aMCService.query()
+        this.aMCService.findAll()
             .subscribe((res: ResponseWrapper) => { this.amcs = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.personService.query()
             .subscribe((res: ResponseWrapper) => { this.people = res.json; }, (res: ResponseWrapper) => this.onError(res.json));

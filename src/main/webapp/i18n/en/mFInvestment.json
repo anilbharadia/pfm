@@ -23,6 +23,7 @@
             "unit": "Unit",
             "fund": "Fund / Scheme",
             "folio": "Folio",
+            "fromAccount": "From Account",
             "goal": "Goal"
         }
     }

@@ -1,3 +1,6 @@
+import { MyAccountService } from './../my-account/my-account.service';
+import { MyAccount } from './../my-account/my-account.model';
+import { DatePipe } from '@angular/common';
 import { AMCService } from './../a-mc/amc.service';
 import { AMC } from './../a-mc/amc.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -5,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { MFInvestment } from './mf-investment.model';
@@ -31,6 +34,8 @@ export class MFInvestmentDialogComponent implements OnInit {
 
     mfportfolios: MFPortfolio[];
 
+    myaccounts: MyAccount[];
+
     goals: Goal[];
 
     constructor(
@@ -40,6 +45,7 @@ export class MFInvestmentDialogComponent implements OnInit {
         private mutualFundService: MutualFundService,
         private mFPortfolioService: MFPortfolioService,
         private aMCService: AMCService,
+        private myAccountService: MyAccountService,
         private goalService: GoalService,
         private eventManager: JhiEventManager
     ) {
@@ -53,6 +59,8 @@ export class MFInvestmentDialogComponent implements OnInit {
             .subscribe((res: ResponseWrapper) => { this.mutualfunds = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.mFPortfolioService.query()
             .subscribe((res: ResponseWrapper) => { this.mfportfolios = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.myAccountService.query()
+            .subscribe((res: ResponseWrapper) => { this.myaccounts = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.goalService.query()
             .subscribe((res: ResponseWrapper) => { this.goals = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
@@ -119,14 +127,38 @@ export class MFInvestmentPopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
-                this.mFInvestmentPopupService
-                    .open(MFInvestmentDialogComponent as Component, params['id']);
-            } else {
-                this.mFInvestmentPopupService
-                    .open(MFInvestmentDialogComponent as Component);
-            }
+
+            let modal: Promise<NgbModalRef> = this.createDialogModal(params);
+
+            modal.then((m) => {
+                const mFInvestment = m.componentInstance.mFInvestment;
+
+                this.setDataFromRouteParams(mFInvestment, params);
+
+                this.setPurchaseDateToday(mFInvestment);
+            });
         });
+    }
+
+    private setPurchaseDateToday(mFInvestment: any) {
+        if (!mFInvestment.purchaseDate) {
+            mFInvestment.purchaseDate = new DatePipe(navigator.language).transform(new Date(), 'yyyy-MM-ddThh:mm');
+        }
+    }
+
+    private setDataFromRouteParams(mFInvestment: MFInvestment, params: { [key: string]: any; }) {
+        if (params['goalId']) {
+            mFInvestment.goalId = +params['goalId'];
+        }
+    }
+
+    private createDialogModal(params: { [key: string]: any; }) {
+        if (params['id']) {
+            return this.mFInvestmentPopupService
+                .open(MFInvestmentDialogComponent as Component, params['id']);
+        }
+        return this.mFInvestmentPopupService
+            .open(MFInvestmentDialogComponent as Component);
     }
 
     ngOnDestroy() {

@@ -63,6 +63,7 @@
     <include file="config/liquibase/changelog/20171120092922_ppf_transaction_add_transaction_id.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171122140421_MF_Investment_Constrains_upfadate.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171123061433_added_from_account_and_transaction_in_mf_investment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171124082559_goal_balance_required.xml" relativeToChangelogFile="false"/>
     
     <!-- For future rounds -->
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->  
